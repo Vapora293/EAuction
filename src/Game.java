@@ -1,3 +1,4 @@
+import java.util.Random;
 
 public class Game {
 	static void clash(Ogre ogre, Knight knight) {
@@ -32,11 +33,13 @@ public class Game {
 			o[i] = new Ogre();
 			o[i].energy = 50;
 		}
-		for (int i = 100; i < 120; i++) {
-			k[i] = new Knight();
-			k[i].energy = 60;
+		for (int i = 100; i < 120; i++) { // for cyklus s novymi instanciami tried VerBadOgre a WhiteKnight
+			k[i] = new WhiteKnight();
+			k[i].energy = 80;
 			o[i] = new VeryBadOgre();
-			o[i].energy = 60;
+			Random r = new Random();
+			int randomInt = r.nextInt(100) + 1;
+			o[i].energy = randomInt;
 		}
 
 		// the clash loop with an output statement
