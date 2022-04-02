@@ -1,6 +1,5 @@
 package com.worwafi.singleton;
 
-import com.worwafi.users.UserTxt;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 

@@ -2,6 +2,8 @@ package com.worwafi.controllers;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
+import com.worwafi.others.ObjectStatus;
+import com.worwafi.singleton.SingActualObject;
 import com.worwafi.singleton.SingStage;
 import com.worwafi.singleton.SingUserInfo;
 import javafx.fxml.FXML;
@@ -26,6 +28,8 @@ public class MainController extends PatternController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         setupAreas();
         setupNavBarButtons();
+        if(SingActualObject.getInstance()!= null && SingActualObject.getInstance().getObject().getStatus() == ObjectStatus.FORSALE) {
 
+        }
     }
 }

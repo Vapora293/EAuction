@@ -2,29 +2,20 @@ package com.worwafi.controllers;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
-import com.worwafi.others.AuctionedObject;
 import com.worwafi.others.Wallet;
 import com.worwafi.singleton.SingStage;
 import com.worwafi.singleton.SingUserInfo;
-import com.worwafi.users.BasicUser;
-import com.worwafi.users.UserTxt;
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import javafx.util.Duration;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalTime;
-import java.util.LinkedList;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
@@ -77,17 +68,6 @@ public class IntroController extends PatternController implements Initializable 
             return true;
         return false;
     }
-//    private void setupAreas() {
-//        welcomeTextArea.setText("Welcome " + SingUserInfo.getInstance().getLoggedUser().getUsername() + "!");
-//        Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
-//            LocalTime currentTime = LocalTime.now();
-//            timeTextArea.setText(currentTime.getHour() + ":" + currentTime.getMinute());
-//        }),
-//                new KeyFrame(Duration.minutes(1))
-//        );
-//        clock.setCycleCount(Animation.INDEFINITE);
-//        clock.play();
-//    }
 
     /**
      * Called to initialize a controller after its root element has been

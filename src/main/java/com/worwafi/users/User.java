@@ -6,35 +6,21 @@ import com.worwafi.others.Wallet;
 import java.io.File;
 import java.util.LinkedList;
 
-public abstract class User extends UserTxt {
+public abstract class User {
+    protected String username;
     protected Wallet cashAccount;
-    protected String bio;
-    protected LinkedList<AuctionedObject> possesion;
-    protected File objectFile;
-    protected File moneyFile;
 
-    public User(String username, String password, String bio) {
-        super(username, password);
+    public User(String username) {
         cashAccount = new Wallet();
-        this.bio = bio;
-        objectFile = new File("D:\\skola\\txt\\" + username + "Objects.txt");
-        moneyFile = new File("D:\\skola\\txt\\" + username + "Wallet.txt");
+        this.username = username;
     }
 
-    public String getBio() {
-        return bio;
+    public String getUsername() {
+        return username;
     }
 
     public Wallet getCashAccount() {
         return cashAccount;
-    }
-
-    public File getObjectFile() {
-        return objectFile;
-    }
-
-    public File getMoneyFile() {
-        return moneyFile;
     }
     public void setCashAccount(Wallet actual) {
         cashAccount = actual;

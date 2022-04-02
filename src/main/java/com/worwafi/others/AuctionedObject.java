@@ -62,4 +62,8 @@ public class AuctionedObject {
     public ObjectStatus getStatus() {
         return status;
     }
+
+    public void setStatus(ObjectStatus status) {
+        this.status = status;
+    }
 }

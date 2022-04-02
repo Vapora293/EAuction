@@ -2,10 +2,13 @@ package com.worwafi.singleton;
 
 import com.worwafi.auctions.Auction;
 
+import java.io.File;
+
 public class SingAuction {
     private static SingAuction single_instance = null;
 
     private Auction actual;
+    private File auctionData;
 
     private SingAuction() {
 
@@ -18,6 +21,7 @@ public class SingAuction {
     }
     public void setAuction(Auction actual) {
         this.actual = actual;
+        auctionData = new File("D:\\skola\\txt\\auctions.txt");
     }
     public Auction getAuction() {
         return actual;

@@ -1,8 +1,8 @@
 package com.worwafi.users;
 
 public class BotUser extends User {
-    public BotUser(String username, String password, String bio) {
-        super(username, password, bio);
+    public BotUser(String username) {
+        super(username);
     }
 
     @Override

@@ -3,11 +3,15 @@ package com.worwafi.controllers;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
 import com.worwafi.others.AuctionedObject;
+import com.worwafi.others.ObjectStatus;
 import com.worwafi.singleton.SingActualObject;
+import com.worwafi.singleton.SingStage;
 import com.worwafi.singleton.SingUserInfo;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -66,10 +70,45 @@ public class ActualAuctionedObjectController implements Initializable {
             setupObject();
         else
             newObjectSetup();
+        buttonSetup();
+    }
+
+    private void buttonSetup() {
+        addButton.setOnAction(event -> {
+            if(SingActualObject.getInstance().getNeww()) {
+                try {
+                    File userTxt = new File("D:\\skola\\txt\\" + SingUserInfo.getInstance().getLoggedUser().getUsername() + "Objects.txt");
+                    FileWriter fw = new FileWriter(userTxt, true);
+                    fw.append("\n" + nameTextArea.getText() + " . " + bioTextArea.getText() + " . " + startingPriceTextArea.getText() + " . " + expctPriceTextArea.getText() + " . " + filePathTextArea.getText() + " . " + categoryTextArea.getText() + " . " + statusTextArea.getText());
+                    fw.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                Stage stage = (Stage) ownerTxtArea.getScene().getWindow();
+                closed = true;
+                stage.getOnCloseRequest().handle(new WindowEvent(ownerTxtArea.getScene().getWindow(), WindowEvent.WINDOW_CLOSE_REQUEST));
+                stage.close();
+            }
+            else {
+                Stage stage = (Stage) ownerTxtArea.getScene().getWindow();
+                closed = true;
+                stage.getOnCloseRequest().handle(new WindowEvent(ownerTxtArea.getScene().getWindow(), WindowEvent.WINDOW_CLOSE_REQUEST));
+                stage.close();
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/main_screen.fxml"));
+                try {
+                    Scene actual = new Scene(loader.load());
+                    SingStage.getInstance().setScene(actual);
+                    SingActualObject.getInstance().getObject().setStatus(ObjectStatus.FORSALE);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            });
+
     }
 
     private void newObjectSetup() {
-        addButton.setVisible(true);
+        addButton.setText("Pridaj objekt do skladu");
         filePathTextArea.setVisible(true);
         filePathTextArea.setEditable(true);
 //        for(Node actual : GridPaneAuctionedObject.getChildren()) {
@@ -83,24 +122,6 @@ public class ActualAuctionedObjectController implements Initializable {
         bioTextArea.setEditable(true);
         categoryTextArea.setEditable(true);
         statusTextArea.setEditable(true);
-        addButton.setOnAction(event -> {
-
-            try {
-                File userTxt = new File("D:\\skola\\txt\\" + SingUserInfo.getInstance().getLoggedUser().getUsername() + "Objects.txt");
-                FileWriter fw = new FileWriter(userTxt, true);
-                fw.append("\n" + nameTextArea.getText() + " . " + bioTextArea.getText() + " . " + startingPriceTextArea.getText() + " . " + expctPriceTextArea.getText() + " . " + filePathTextArea.getText() + " . " + categoryTextArea.getText() + " . " + statusTextArea.getText());
-                fw.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            Stage stage = (Stage) ownerTxtArea.getScene().getWindow();
-            closed = true;
-            stage.getOnCloseRequest().handle(new WindowEvent(ownerTxtArea.getScene().getWindow(), WindowEvent.WINDOW_CLOSE_REQUEST));
-            stage.close();
-//            AuctionedObject newObject = new AuctionedObject(SingUserInfo.getInstance().getLoggedUser(), nameTextArea.getText(), bioTextArea.getText(), Double.parseDouble(startingPriceTextArea.getText()), Double.parseDouble(expctPriceTextArea.getText()), filePathTextArea.getText(), categoryTextArea.getText(), statusTextArea.getText());
-//            SingActualObject.getInstance().setObject(newObject, false);
-
-        });
     }
 
     private void setupObject() {

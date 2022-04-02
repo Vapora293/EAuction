@@ -16,6 +16,8 @@ import javafx.stage.Stage;
 //TODO closeObserver
 //TODO user array - aj boti aj logged user
 //TODO raiseCreditController
+//TODO samotna aukcia este uistenie, ziskanie udajov do textfieldov
+
 public class Main extends Application {
     public static void main(String[] args) {
         launch(args);

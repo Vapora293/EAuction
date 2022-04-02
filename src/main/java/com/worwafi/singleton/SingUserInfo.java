@@ -1,7 +1,6 @@
 package com.worwafi.singleton;
 
 import com.worwafi.users.BasicUser;
-import com.worwafi.users.UserTxt;
 
 public class SingUserInfo {
     private static SingUserInfo single_instance = null;
