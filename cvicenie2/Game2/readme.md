@@ -1,2 +1,0 @@
-**Druhe cvicenie**
-  

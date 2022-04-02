@@ -1,1 +1,0 @@
-# Prve cvicenie
