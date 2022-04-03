@@ -44,6 +44,11 @@ public class AuctionController extends PatternController implements Initializabl
     public void initialize(URL location, ResourceBundle resources) {
         setupAreas();
         setupNavBarButtons();
+        setupBidders();
+    }
+
+    private void setupBidders() {
 
     }
+
 }
