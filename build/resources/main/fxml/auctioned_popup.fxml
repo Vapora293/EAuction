@@ -38,7 +38,7 @@
       <JFXTextArea fx:id="bioTextArea" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="4" />
       <JFXTextArea fx:id="categoryTextArea" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="5" />
       <JFXTextArea fx:id="statusTextArea" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-      <JFXButton fx:id="addButton" text="Pridaj predmet" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+      <JFXButton fx:id="addButton" text="Pridaj do aukcie" GridPane.columnIndex="2" GridPane.rowIndex="6" />
       <JFXTextArea fx:id="filePathTextArea" editable="false" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="5" />
       <ImageView fx:id="imageViewer" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowSpan="5" />
    </children>

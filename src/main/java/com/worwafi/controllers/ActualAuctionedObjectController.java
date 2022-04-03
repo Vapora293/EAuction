@@ -22,9 +22,8 @@ import java.io.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ActualAuctionedObjectController implements Initializable {
+public class ActualAuctionedObjectController extends ObjectPatternController implements Initializable {
     private static ActualAuctionedObjectController single_instance = null;
-    private boolean closed = false;
     public ActualAuctionedObjectController() {
         single_instance = this;
     }
@@ -85,20 +84,18 @@ public class ActualAuctionedObjectController implements Initializable {
                     e.printStackTrace();
                 }
                 Stage stage = (Stage) ownerTxtArea.getScene().getWindow();
-                closed = true;
                 stage.getOnCloseRequest().handle(new WindowEvent(ownerTxtArea.getScene().getWindow(), WindowEvent.WINDOW_CLOSE_REQUEST));
                 stage.close();
             }
             else {
                 Stage stage = (Stage) ownerTxtArea.getScene().getWindow();
-                closed = true;
                 stage.getOnCloseRequest().handle(new WindowEvent(ownerTxtArea.getScene().getWindow(), WindowEvent.WINDOW_CLOSE_REQUEST));
                 stage.close();
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/main_screen.fxml"));
                 try {
+                    SingActualObject.getInstance().getObject().setStatus(ObjectStatus.FORSALE);
                     Scene actual = new Scene(loader.load());
                     SingStage.getInstance().setScene(actual);
-                    SingActualObject.getInstance().getObject().setStatus(ObjectStatus.FORSALE);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -122,20 +119,5 @@ public class ActualAuctionedObjectController implements Initializable {
         bioTextArea.setEditable(true);
         categoryTextArea.setEditable(true);
         statusTextArea.setEditable(true);
-    }
-
-    private void setupObject() {
-        ownerTxtArea.setText(SingUserInfo.getInstance().getLoggedUser().getUsername());
-        nameTextArea.setText(SingActualObject.getInstance().getObject().getName());
-        startingPriceTextArea.setText(String.valueOf(SingActualObject.getInstance().getObject().getStartingPrice()) + " €");
-        expctPriceTextArea.setText(String.valueOf(SingActualObject.getInstance().getObject().getExpSelPrice()) + " €");
-        bioTextArea.setText(SingActualObject.getInstance().getObject().getBio());
-        categoryTextArea.setText(SingActualObject.getInstance().getObject().getCategory().toString());
-        statusTextArea.setText(SingActualObject.getInstance().getObject().getStatus().toString());
-        try {
-            imageViewer.setImage(new Image(new FileInputStream(SingActualObject.getInstance().getObject().getPicture())));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
     }
 }

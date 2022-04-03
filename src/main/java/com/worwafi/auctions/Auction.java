@@ -25,19 +25,19 @@ public abstract class Auction {
 
     public Auction(AuctionedObject win) {
         id = getLocalId();
-        bidders = getBidders();
         this.win = win;
+        bidders = getBidders();
     }
 
     private ArrayList<User> getBidders() {
         Random rand = new Random();
-        ArrayList<User> localBidders = new ArrayList<>(rand.nextInt(50));
-        localBidders.set(0, SingUserInfo.getInstance().getLoggedUser());
+        ArrayList<User> localBidders = new ArrayList<User>();
+        localBidders.add(SingUserInfo.getInstance().getLoggedUser());
         BotNames names = new BotNames();
-        for(int i = 1; i < localBidders.size(); i++) {
+        for(int i = 1; i < rand.nextInt(50); i++) {
             BotUser actual = new BotUser(names.getName());
             actual.getCashAccount().setCredit(win.getExpSelPrice() * (1 + rand.nextDouble()));
-            localBidders.set(i, actual);
+            localBidders.add(actual);
         }
         return localBidders;
     }
@@ -46,24 +46,33 @@ public abstract class Auction {
         File auctionFile = new File("D:\\skola\\txt\\auctions.txt");
         String[] help;
         String lastID = new String();
+        char letter = 0;
+        char number = 0;
         try {
             Scanner myReader = new Scanner(auctionFile);
-            while(myReader.hasNext("!")) {
-                String auctionInfo = myReader.next("!");
-                help = auctionInfo.split("-");
-                lastID = help[0];
-                char letter = lastID.charAt(0);
-                char number = lastID.charAt(1);
-                if(number == '0') {
-                    number = '1';
+            boolean start = true;
+            while(myReader.hasNextLine()) {
+                String line = myReader.nextLine();
+                if(start) {
+                    help = line.split("-");
+                    lastID = help[0];
+                    letter = lastID.charAt(0);
+                    number = lastID.charAt(1);
+                    start = false;
                 }
-                if(number == '9') {
-                    number = '0';
-                    letter++;
+                if (line.contains("!")) {
+                    start = true;
                 }
-                number++;
-                return String.valueOf(letter + number);
             }
+            if(number == '0') {
+                number = '1';
+            }
+            if(number == '9') {
+                number = '0';
+                letter++;
+            }
+            number++;
+            return Character.toString(letter) + Character.toString(number);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }

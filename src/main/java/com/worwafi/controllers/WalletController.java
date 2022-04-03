@@ -68,17 +68,6 @@ public class WalletController extends PatternController implements Initializable
             return true;
         return false;
     }
-    private void setupBackButton() {
-        backButton.setOnAction(event -> {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/intro_screen.fxml"));
-                Scene actual = new Scene(loader.load());
-                SingStage.getInstance().setScene(actual);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-    }
 
     /**
      * Called to initialize a controller after its root element has been
@@ -93,6 +82,5 @@ public class WalletController extends PatternController implements Initializable
         setupAreas();
         setupNavBarButtons();
         setupWallet();
-        setupBackButton();
     }
 }

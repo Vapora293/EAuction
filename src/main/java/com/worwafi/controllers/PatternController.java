@@ -22,6 +22,8 @@ public class PatternController {
     private JFXTextArea timeTextArea;
     @FXML
     private JFXButton logOutBtn;
+    @FXML
+    private JFXButton backButton;
 
     protected void setupAreas() {
         welcomeTextArea.setText(SingUserInfo.getInstance().getLoggedUser().getUsername());
@@ -41,6 +43,15 @@ public class PatternController {
                 Scene actual = new Scene(loader.load());
                 SingStage.getInstance().setScene(actual);
                 SingUserInfo.getInstance().setLoggedUser(null);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        backButton.setOnAction(event -> {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/intro_screen.fxml"));
+                Scene actual = new Scene(loader.load());
+                SingStage.getInstance().setScene(actual);
             } catch (IOException e) {
                 e.printStackTrace();
             }

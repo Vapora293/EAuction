@@ -8,15 +8,14 @@ import javafx.stage.Stage;
 
 
 //TODO thread - paralelizacia prace, setrenie vykonu, pomocou casovaca odsun
-//TODO podedime si parent classu
 //TODO body - custom exception, nielen vypis
-//TODO reflexia - praca nad statickym kodom
 //TODO pridat peniaze
 //TODO hra s obrazkami
-//TODO closeObserver
 //TODO user array - aj boti aj logged user
 //TODO raiseCreditController
 //TODO samotna aukcia este uistenie, ziskanie udajov do textfieldov
+//TODO checkCorrect v MainController
+//TODO newObjectSetup v ActualObjectController upravit
 
 public class Main extends Application {
     public static void main(String[] args) {

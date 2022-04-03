@@ -37,6 +37,8 @@ public class IntroController extends PatternController implements Initializable 
     private JFXButton auctionButton;
     @FXML
     private JFXButton walletButton;
+    @FXML
+    private JFXButton backButton;
 
     private void setupWallet() {
         try {
@@ -82,6 +84,7 @@ public class IntroController extends PatternController implements Initializable 
         setupAreas();
         setupNavBarButtons();
         setupWallet();
+        backButton.setDisable(true);
         warehouseButton.setOnAction(event -> {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/warehouseScreen.fxml"));

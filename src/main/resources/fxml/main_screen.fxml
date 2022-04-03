@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane prefHeight="450.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.worwafi.controllers.WalletController">
+<GridPane prefHeight="450.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.worwafi.controllers.MainController">
    <rowConstraints>
       <RowConstraints minHeight="10.0" prefHeight="30.0" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -24,8 +24,8 @@
       <RowConstraints minHeight="10.0" prefHeight="30.0" />
    </rowConstraints>
    <columnConstraints>
-      <ColumnConstraints minWidth="10.0" prefWidth="100.0" />
-      <ColumnConstraints minWidth="10.0" prefWidth="100.0" />
+      <ColumnConstraints maxWidth="-Infinity" minWidth="20.0" prefWidth="200.0" />
+      <ColumnConstraints minWidth="10.0" prefWidth="200.0" />
       <ColumnConstraints minWidth="10.0" prefWidth="100.0" />
    </columnConstraints>
    <children>
@@ -50,16 +50,15 @@
       <TextArea prefHeight="200.0" prefWidth="200.0" text="opis:" GridPane.rowIndex="5" />
       <TextArea prefHeight="200.0" prefWidth="200.0" text="kategória:" GridPane.rowIndex="6" />
       <TextArea prefHeight="200.0" prefWidth="200.0" text="status:" GridPane.rowIndex="7" />
-      <JFXTextArea fx:id="ownerTxtArea" editable="false" />
-      <JFXTextArea fx:id="nameTextArea" editable="false" />
-      <JFXTextArea fx:id="startingPriceTextArea" editable="false" />
-      <JFXTextArea fx:id="expctPriceTextArea" editable="false" />
-      <JFXTextArea fx:id="bioTextArea" editable="false" />
-      <JFXTextArea fx:id="categoryTextArea" editable="false" />
-      <JFXTextArea fx:id="statusTextArea" editable="false" />
-      <JFXButton fx:id="addButton" text="Pridaj do aukcie" />
+      <JFXTextArea fx:id="ownerTxtArea" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <JFXTextArea fx:id="nameTextArea" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <JFXTextArea fx:id="startingPriceTextArea" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <JFXTextArea fx:id="expctPriceTextArea" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+      <JFXTextArea fx:id="bioTextArea" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+      <JFXTextArea fx:id="categoryTextArea" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+      <JFXTextArea fx:id="statusTextArea" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="7" />
       <JFXTextArea fx:id="filePathTextArea" editable="false" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.rowSpan="7" />
-      <ImageView fx:id="imageViewer" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="imageViewer" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.rowSpan="6" />
       <TextArea prefHeight="200.0" prefWidth="200.0" text="Auction type:" GridPane.rowIndex="8" />
       <JFXTextField promptText="English" GridPane.columnIndex="1" GridPane.rowIndex="8" />
    </children>

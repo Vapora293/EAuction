@@ -61,7 +61,6 @@ public class WarehouseController extends PatternController implements Initializa
     public void initialize(URL location, ResourceBundle resources) {
         setupAreas();
         setupNavBarButtons();
-        setupBackButton();
         setupListView();
         auctionedStage.setOnCloseRequest(event -> {
             setupListView();
@@ -86,18 +85,6 @@ public class WarehouseController extends PatternController implements Initializa
                 Scene actual = new Scene(loader.load());
                 auctionedStage.setScene(actual);
                 auctionedStage.show();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-    }
-
-    private void setupBackButton() {
-        backButton.setOnAction(event -> {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/intro_screen.fxml"));
-                Scene actual = new Scene(loader.load());
-                SingStage.getInstance().setScene(actual);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -132,15 +119,4 @@ public class WarehouseController extends PatternController implements Initializa
         }
         return null;
     }
-//    private void setupAreas() {
-//        welcomeTextArea.setText(SingUserInfo.getInstance().getLoggedUser().getUsername());
-//        Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
-//            LocalTime currentTime = LocalTime.now();
-//            timeTextArea.setText(currentTime.getHour() + ":" + currentTime.getMinute());
-//        }),
-//                new KeyFrame(Duration.minutes(1))
-//        );
-//        clock.setCycleCount(Animation.INDEFINITE);
-//        clock.play();
-//    }
 }
