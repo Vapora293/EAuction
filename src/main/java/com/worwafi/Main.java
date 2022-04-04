@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 //TODO samotna aukcia este uistenie, ziskanie udajov do textfieldov
 //TODO checkCorrect v MainController
 //TODO newObjectSetup v ActualObjectController upravit
+//TODO dropdownButton na enums
 
 public class Main extends Application {
     public static void main(String[] args) {

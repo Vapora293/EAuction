@@ -4,6 +4,7 @@ import com.worwafi.others.AuctionException;
 import com.worwafi.others.AuctionTimer;
 import com.worwafi.others.AuctionedObject;
 import com.worwafi.others.BotNames;
+import com.worwafi.singleton.SingActualObject;
 import com.worwafi.singleton.SingUserInfo;
 import com.worwafi.users.BotUser;
 import com.worwafi.users.User;
@@ -15,21 +16,25 @@ import java.util.Random;
 import java.util.Scanner;
 
 public abstract class Auction {
-    String id;
-    AuctionedObject win;
-    AuctionTimer timeInfo;
-    ArrayList<User> bidders;
-    double actualPrice;
-    User actualWinner;
-    double currentRaise;
+    protected String id;
+    protected AuctionedObject win;
+    protected AuctionTimer timeInfo;
+    protected ArrayList<User> bidders;
+    protected double actualPrice;
+    protected User actualWinner;
+    protected double currentRaise;
+    protected boolean end;
 
     public Auction(AuctionedObject win) {
         id = getLocalId();
         this.win = win;
-        bidders = getBidders();
+        bidders = makeBidders();
+        actualPrice = SingActualObject.getInstance().getObject().getStartingPrice();
+        actualWinner = SingUserInfo.getInstance().getLoggedUser();
+        end = false;
     }
 
-    private ArrayList<User> getBidders() {
+    private ArrayList<User> makeBidders() {
         Random rand = new Random();
         ArrayList<User> localBidders = new ArrayList<User>();
         localBidders.add(SingUserInfo.getInstance().getLoggedUser());
@@ -88,5 +93,22 @@ public abstract class Auction {
         return null;
     }
 
+    public boolean isEnd() {
+        return end;
+    }
+    public void setEnd() {
+        end = true;
+    }
 
+    public ArrayList<User> getBidders() {
+        return bidders;
+    }
+
+    public User getActualWinner() {
+        return actualWinner;
+    }
+
+    public double getActualPrice() {
+        return actualPrice;
+    }
 }

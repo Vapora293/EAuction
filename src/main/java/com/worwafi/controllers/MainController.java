@@ -72,30 +72,33 @@ public class MainController extends ObjectPatternController implements Initializ
     private JFXTextArea welcomeTextArea;
 
 
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setupAreas();
         setupNavBarButtons();
         setupObject();
         setEditable(true);
-        if(SingActualObject.getInstance()!= null && SingActualObject.getInstance().getObject().getStatus() == ObjectStatus.FORSALE) {
-            checkCorrect();
-            EnglishAuction auction = new EnglishAuction(SingActualObject.getInstance().getObject());
-            SingAuction.getInstance().setAuction(auction);
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/auction_screen.fxml"));
-            try {
-                Scene actual = new Scene(loader.load());
-                SingStage.getInstance().setScene(actual);
-            } catch (IOException e) {
-                e.printStackTrace();
+        getAucObject.setOnAction(event -> {
+            if (SingActualObject.getInstance() != null && SingActualObject.getInstance().getObject().getStatus() == ObjectStatus.FORSALE) {
+                checkCorrect();
+                EnglishAuction auction = new EnglishAuction(SingActualObject.getInstance().getObject());
+                SingAuction.getInstance().setAuction(auction);
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/auction_screen.fxml"));
+                try {
+                    Scene actual = new Scene(loader.load());
+                    SingStage.getInstance().setScene(actual);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
-        }
+        });
     }
 
     private void checkCorrect() {
         //for (Object actual: SingActualObject.getInstance().getObject().getClass().getDeclaredFields()) {
         //}
-        if(!SingActualObject.getInstance().getObject().getName().equals(nameTextArea.getText()) ||
+        if (!SingActualObject.getInstance().getObject().getName().equals(nameTextArea.getText()) ||
                 !SingActualObject.getInstance().getObject().getBio().equals(bioTextArea.getText()) ||
                 SingActualObject.getInstance().getObject().getStartingPrice() != Double.parseDouble(startingPriceTextArea.getText().replaceAll("\\D+", "")) ||
                 SingActualObject.getInstance().getObject().getExpSelPrice() != Double.parseDouble(expctPriceTextArea.getText().replaceAll("\\D+", "")) ||

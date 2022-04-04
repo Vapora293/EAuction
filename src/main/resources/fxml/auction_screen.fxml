@@ -2,7 +2,9 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
@@ -11,14 +13,16 @@
 <GridPane prefHeight="450.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.worwafi.controllers.AuctionController">
    <rowConstraints>
       <RowConstraints minHeight="10.0" prefHeight="30.0" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" />
    </rowConstraints>
    <columnConstraints>
+      <ColumnConstraints minWidth="10.0" prefWidth="150.0" />
       <ColumnConstraints minWidth="10.0" prefWidth="100.0" />
-      <ColumnConstraints minWidth="10.0" prefWidth="100.0" />
-      <ColumnConstraints minWidth="10.0" prefWidth="100.0" />
+      <ColumnConstraints minWidth="10.0" prefWidth="150.0" />
    </columnConstraints>
    <children>
       <ButtonBar prefHeight="40.0" prefWidth="847.0" GridPane.columnSpan="2">
@@ -29,9 +33,25 @@
             <JFXButton fx:id="backButton" text="Späť" />
          </buttons>
       </ButtonBar>
-      <JFXTextArea fx:id="walletConsole" GridPane.columnSpan="2" GridPane.rowIndex="1" />
-      <ButtonBar buttonMinWidth="100.0" prefHeight="40.0" prefWidth="200.0" GridPane.rowIndex="3" />
-      <JFXTextArea fx:id="actualBalance" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-      <VBox fx:id="biddersBox" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+      <JFXTextArea fx:id="calling" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <JFXTextArea fx:id="informBid" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <ButtonBar buttonMinWidth="100.0" prefHeight="40.0" prefWidth="200.0" GridPane.rowIndex="5" />
+      <JFXTextArea fx:id="actualBalance" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+      <VBox fx:id="biddersBox" prefHeight="360.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+      <ImageView fx:id="auctionedImage" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2" />
+      <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnSpan="3" GridPane.rowIndex="1">
+         <buttons>
+            <JFXTextArea fx:id="actualBid" />
+            <JFXTextArea fx:id="actualBidder" />
+         </buttons>
+      </ButtonBar>
+      <ButtonBar fx:id="lowNavBar" disable="true" prefHeight="40.0" prefWidth="200.0" GridPane.columnSpan="3" GridPane.rowIndex="4">
+         <buttons>
+            <JFXButton fx:id="recom1" />
+            <JFXButton fx:id="recom2" />
+            <JFXTextField fx:id="getBid" promptText="+500" />
+            <JFXButton fx:id="setBid" text="Bid desired money" />
+         </buttons>
+      </ButtonBar>
    </children>
 </GridPane>
