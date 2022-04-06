@@ -23,6 +23,7 @@ import javafx.stage.WindowEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.net.URL;
 import java.util.LinkedList;
 import java.util.ResourceBundle;
@@ -109,7 +110,7 @@ public class WarehouseController extends PatternController implements Initializa
                 String line = myReader.nextLine();
                 String lineSplit[] = line.split(" . ");
                 AuctionedObject actual = new AuctionedObject(SingUserInfo.getInstance().getLoggedUser(), lineSplit[0],
-                        lineSplit[1], Double.valueOf(lineSplit[2]), Double.valueOf(lineSplit[3]), lineSplit[4],
+                        lineSplit[1], Double.parseDouble(lineSplit[2]), Double.parseDouble(lineSplit[3]), lineSplit[4],
                         lineSplit[5], lineSplit[6]);
                 possesion.add(actual);
             }

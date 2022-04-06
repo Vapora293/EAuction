@@ -1,5 +1,7 @@
 package com.worwafi.others;
 
+import java.math.BigDecimal;
+
 public class Wallet {
     private double credit;
 

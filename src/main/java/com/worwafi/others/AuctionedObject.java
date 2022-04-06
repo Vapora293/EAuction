@@ -3,6 +3,7 @@ package com.worwafi.others;
 import com.worwafi.users.User;
 
 import java.io.File;
+import java.math.BigDecimal;
 import java.util.Locale;
 
 public class AuctionedObject {

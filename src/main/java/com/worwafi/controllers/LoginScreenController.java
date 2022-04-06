@@ -44,25 +44,48 @@ public class LoginScreenController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        LinkedList<BasicUser> users = txtFileConfig();
+        LinkedList<BasicUser> users = null;
+        try {
+            users = txtFileConfig();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         buttonConfig(users);
     }
 
-    private LinkedList<BasicUser> txtFileConfig() {
-        try {
-            File userTxt = new File("D:\\skola\\txt\\users.txt");
-            Scanner myReader = new Scanner(userTxt);
-            LinkedList<BasicUser> users = new LinkedList<BasicUser>();
-            while (myReader.hasNextLine()) {
-                String line = myReader.nextLine();
-                String lineSplit[] = line.split(" . ");
-                BasicUser actual = new BasicUser(lineSplit[0], lineSplit[1], lineSplit[2]);
-                users.add(actual);
+    private LinkedList<BasicUser> txtFileConfig() throws IOException, ClassNotFoundException {
+        File userTxt = new File("D:\\skola\\txt\\users.txt");
+        if(userTxt.exists()) {
+            ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(userTxt));
+            LinkedList<BasicUser> userList = (LinkedList<BasicUser>) inputStream.readObject();
+            inputStream.close();
+            return userList;
             }
-            return users;
-        } catch (FileNotFoundException e) {
-            return null;
-        }
+        return new LinkedList<>();
+//            public void serialization(LinkedList<User> userList) throws IOException {
+//                FileOutputStream fileOut = new FileOutputStream("registeredUsers.out");
+//                ObjectOutputStream outputStream = new ObjectOutputStream(fileOut);
+//
+//                outputStream.writeObject(userList);
+//                outputStream.close();
+//            }
+//        }
+//        try {
+//
+//            Scanner myReader = new Scanner(userTxt);
+//            LinkedList<BasicUser> users = new LinkedList<>();
+//            while (myReader.hasNextLine()) {
+//                String line = myReader.nextLine();
+//                String lineSplit[] = line.split(" . ");
+//                BasicUser actual = new BasicUser(lineSplit[0], lineSplit[1], lineSplit[2]);
+//                users.add(actual);
+//            }
+//            return users;
+//        } catch (FileNotFoundException e) {
+//            return null;
+//        }
     }
 
     private void buttonConfig(LinkedList<BasicUser> users) {
@@ -122,11 +145,6 @@ public class LoginScreenController implements Initializable {
                 SingUserInfo.getInstance().setLoggedUser(users.get(i));
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/intro_screen.fxml"));
                 SingStage.getInstance().setScene(new Scene(loader.load()));
-//                Stage primaryStage = new Stage();
-//                primaryStage.setScene(
-//                        new Scene(loader.load())
-//                );
-//                primaryStage.show();
                 return true;
             }
         }

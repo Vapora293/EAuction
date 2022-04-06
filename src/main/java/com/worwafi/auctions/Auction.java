@@ -11,6 +11,7 @@ import com.worwafi.users.User;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
@@ -36,12 +37,12 @@ public abstract class Auction {
 
     private ArrayList<User> makeBidders() {
         Random rand = new Random();
-        ArrayList<User> localBidders = new ArrayList<User>();
+        ArrayList<User> localBidders = new ArrayList<>();
         localBidders.add(SingUserInfo.getInstance().getLoggedUser());
         BotNames names = new BotNames();
         for(int i = 1; i < rand.nextInt(50); i++) {
             BotUser actual = new BotUser(names.getName());
-            actual.getCashAccount().setCredit(win.getExpSelPrice() * (1 + rand.nextDouble()));
+            actual.getCashAccount().setCredit(Math.round(win.getExpSelPrice() * (1 + rand.nextDouble())));
             localBidders.add(actual);
         }
         return localBidders;
@@ -50,7 +51,7 @@ public abstract class Auction {
     private String getLocalId() {
         File auctionFile = new File("D:\\skola\\txt\\auctions.txt");
         String[] help;
-        String lastID = new String();
+        String lastID;
         char letter = 0;
         char number = 0;
         try {

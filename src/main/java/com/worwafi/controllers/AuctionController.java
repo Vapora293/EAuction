@@ -3,10 +3,12 @@ package com.worwafi.controllers;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
+import com.worwafi.others.ObjectStatus;
 import com.worwafi.singleton.SingActualObject;
 import com.worwafi.singleton.SingAuction;
 import com.worwafi.singleton.SingUserInfo;
 import com.worwafi.users.User;
+import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ButtonBar;
@@ -14,9 +16,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.math.BigDecimal;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.Random;
@@ -28,6 +32,7 @@ import java.util.TimerTask;
 //TODO fixnut ten timer na buttony
 public class AuctionController extends PatternController implements Initializable {
     private static final DecimalFormat df = new DecimalFormat("0.00");
+    PauseTransition pauseTransition;
     @FXML
     private JFXTextArea actualBalance;
 
@@ -95,19 +100,34 @@ public class AuctionController extends PatternController implements Initializabl
     }
 
     private void buttonListeners() {
-        recom1.setOnAction(event -> {
-            double actual = Double.parseDouble(recom1.getText().replaceAll("\\D+", "")) / 10;
+        buttonsetting(recom1);
+        buttonsetting(recom2);
+        setBid.setOnAction(event -> {
+            pauseTransition.pause();
+            calling.setText("Calling for the 1. time");
+            double actual = Double.parseDouble(getBid.getText());
             SingAuction.getInstance().getAuction().bid(SingUserInfo.getInstance().getLoggedUser(),
-                    Double.parseDouble(df.format(SingAuction.getInstance().getAuction().getActualPrice() + actual)));
+                    Double.parseDouble(String.valueOf(Math.round(SingAuction.getInstance().getAuction().getActualPrice() + actual))));
             informChange();
             updateWinner();
             updateBidButtons();
-            stopTimer();
+            calling();
         });
     }
 
-    private void stopTimer() {
-
+    private void buttonsetting(JFXButton actualButton) {
+        actualButton.setOnAction(event -> {
+            pauseTransition.pause();
+            calling.setText("Calling for the 1. time");
+            String[] text = actualButton.getText().split(" ");
+            double actual = Double.parseDouble(text[1]);
+            SingAuction.getInstance().getAuction().bid(SingUserInfo.getInstance().getLoggedUser(),
+                    Double.parseDouble(String.valueOf(Math.round(SingAuction.getInstance().getAuction().getActualPrice() + actual))));
+            informChange();
+            updateWinner();
+            updateBidButtons();
+            calling();
+        });
     }
 
     private void updateBidButtons() {
@@ -138,25 +158,46 @@ public class AuctionController extends PatternController implements Initializabl
     }
 
     private void calling() {
-        Timer timer = new Timer();
-        timer.scheduleAtFixedRate(new TimerTask() {
-            int local = 3;
-            @Override
-            public void run() {
-                calling.setText("Calling for the " + (4-local) + ". time");
-                local--;
-                if (callBidders()) {
-                    timer.cancel();
-                    calling();
-                }
-                if (local < 0) {
-                    timer.cancel();
-                    SingAuction.getInstance().getAuction().setEnd();
-                    calling.setText("Winner of " + SingActualObject.getInstance().getObject().getName() + " is " + SingAuction.getInstance().getAuction().getActualWinner().getUsername() + "!");
-                    SingAuction.getInstance().getAuction().setEnd();
-                }
+        pauseTransition = new PauseTransition(Duration.seconds(2));
+        pauseTransition.play();
+        pauseTransition.setOnFinished(event -> {
+            calling.setText("Calling for the " + (pauseTransition.getCycleCount()) + ". time");
+            if (pauseTransition.getCycleCount() > 3) {
+                SingAuction.getInstance().getAuction().setEnd();
+                calling.setText("Winner of " + SingActualObject.getInstance().getObject().getName() + " is " + SingAuction.getInstance().getAuction().getActualWinner().getUsername() + "!");
+                SingAuction.getInstance().getAuction().setEnd();
+                SingActualObject.getInstance().getObject().setStatus(ObjectStatus.SOLD);
+                pauseTransition.pause();
             }
-        }, 0, 3000);
+            else if (callBidders()) {
+                pauseTransition.setCycleCount(1);
+                pauseTransition.playFromStart();
+            }
+            else {
+                pauseTransition.setCycleCount(pauseTransition.getCycleCount()+1);
+                pauseTransition.playFromStart();
+            }
+        });
+//        Timer timer = new Timer();
+//        timer.scheduleAtFixedRate(new TimerTask() {
+//            int local = 3;
+//            @Override
+//            public void run() {
+//                calling.setText("Calling for the " + (4-local) + ". time");
+//                local--;
+//                if (callBidders()) {
+//                    timer.cancel();
+//                    calling();
+//                }
+//                if (local < 0) {
+//                    timer.cancel();
+//                    SingAuction.getInstance().getAuction().setEnd();
+//                    calling.setText("Winner of " + SingActualObject.getInstance().getObject().getName() + " is " + SingAuction.getInstance().getAuction().getActualWinner().getUsername() + "!");
+//                    SingAuction.getInstance().getAuction().setEnd();
+//                    SingActualObject.getInstance().getObject().setStatus(ObjectStatus.SOLD);
+//                }
+//            }
+//        }, 0, 3000);
     }
 
     private boolean callBidders() {
