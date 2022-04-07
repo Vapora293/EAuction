@@ -1,15 +1,18 @@
 package com.worwafi.users;
 
 import com.worwafi.others.AuctionedObject;
+import javafx.collections.ObservableList;
 
 import java.io.File;
-import java.util.LinkedList;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Serializable;
 
-public class BasicUser extends User {
+public class BasicUser extends User implements Serializable {
     protected boolean limit;
     protected String password;
     protected String bio;
-    protected LinkedList<AuctionedObject> possesion;
+    protected transient ObservableList<AuctionedObject> possession;
     protected File objectFile;
     protected File moneyFile;
 
@@ -37,11 +40,20 @@ public class BasicUser extends User {
     void upgradeSubscription() {
 
     }
-    void setPossesion(LinkedList<AuctionedObject> possesion) {
-        this.possesion = possesion;
+    public void writeIntoCashAccount(double sum) {
+        try {
+            FileWriter writer = new FileWriter(moneyFile, true);
+            writer.append("\n+" + sum);
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
-    LinkedList<AuctionedObject> getPossesion() {
-        return possesion;
+    public void setPossession(ObservableList<AuctionedObject> possession) {
+        this.possession = possession;
+    }
+    public ObservableList<AuctionedObject> getPossession() {
+        return possession;
     }
     boolean getLimit() {
         return limit;

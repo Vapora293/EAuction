@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
+import com.worwafi.others.Serialize;
 import com.worwafi.singleton.SingStage;
 import com.worwafi.singleton.SingUserInfo;
 import com.worwafi.users.BasicUser;
@@ -21,6 +22,7 @@ import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class LoginScreenController implements Initializable {
+    Serialize serialize = new Serialize();
 
     @FXML
     private JFXButton buttonLogin;
@@ -46,7 +48,8 @@ public class LoginScreenController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         LinkedList<BasicUser> users = null;
         try {
-            users = txtFileConfig();
+            users = (LinkedList<BasicUser>) serialize.readObject("users");
+            System.out.println("yes");
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
@@ -56,14 +59,13 @@ public class LoginScreenController implements Initializable {
     }
 
     private LinkedList<BasicUser> txtFileConfig() throws IOException, ClassNotFoundException {
-        File userTxt = new File("D:\\skola\\txt\\users.txt");
-        if(userTxt.exists()) {
-            ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(userTxt));
-            LinkedList<BasicUser> userList = (LinkedList<BasicUser>) inputStream.readObject();
-            inputStream.close();
-            return userList;
-            }
-        return new LinkedList<>();
+//        if(userTxt.exists()) {
+//            ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(userTxt));
+//            LinkedList<BasicUser> userList = (LinkedList<BasicUser>) inputStream.readObject();
+//            inputStream.close();
+//            return userList;
+//            }
+//        return new LinkedList<>();
 //            public void serialization(LinkedList<User> userList) throws IOException {
 //                FileOutputStream fileOut = new FileOutputStream("registeredUsers.out");
 //                ObjectOutputStream outputStream = new ObjectOutputStream(fileOut);
@@ -72,20 +74,19 @@ public class LoginScreenController implements Initializable {
 //                outputStream.close();
 //            }
 //        }
-//        try {
-//
-//            Scanner myReader = new Scanner(userTxt);
-//            LinkedList<BasicUser> users = new LinkedList<>();
-//            while (myReader.hasNextLine()) {
-//                String line = myReader.nextLine();
-//                String lineSplit[] = line.split(" . ");
-//                BasicUser actual = new BasicUser(lineSplit[0], lineSplit[1], lineSplit[2]);
-//                users.add(actual);
-//            }
-//            return users;
-//        } catch (FileNotFoundException e) {
-//            return null;
-//        }
+        try {
+            Scanner myReader = new Scanner(new File("D:\\skola\\txt\\users.txt"));
+            LinkedList<BasicUser> users = new LinkedList<>();
+            while (myReader.hasNextLine()) {
+                String line = myReader.nextLine();
+                String lineSplit[] = line.split(" . ");
+                BasicUser actual = new BasicUser(lineSplit[0], lineSplit[1], lineSplit[2]);
+                users.add(actual);
+            }
+            return users;
+        } catch (FileNotFoundException e) {
+            return null;
+        }
     }
 
     private void buttonConfig(LinkedList<BasicUser> users) {
@@ -114,16 +115,23 @@ public class LoginScreenController implements Initializable {
                 BasicUser newBasicUser;
                 if (passwordInput.equals(fldPassword1.getText())) {
                     newBasicUser = new BasicUser(usernameInput, passwordInput, bioInput);
+                    users.add(newBasicUser);
                     try {
-                        File userTxt = new File("D:\\skola\\txt\\users.txt");
-                        FileWriter fw = new FileWriter(userTxt, true);
-                        fw.append("\n" + newBasicUser.getUsername() + " . " + newBasicUser.getPassword() + " . " + newBasicUser.getBio() + " . " + "no");
-                        fw.close();
+                        serialize.writeObject(users);
                     } catch (IOException e) {
                         e.printStackTrace();
+                    } catch (ClassNotFoundException e) {
+                        e.printStackTrace();
                     }
+//                    try {
+//                        File userTxt = new File("D:\\skola\\txt\\users.txt");
+//                        FileWriter fw = new FileWriter(userTxt, true);
+//                        fw.append("\n" + newBasicUser.getUsername() + " . " + newBasicUser.getPassword() + " . " + newBasicUser.getBio() + " . " + "no");
+//                        fw.close();
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
                     movesDialog.setText("Pouzivatel " + newBasicUser.getUsername() + " bol uspesne zaregistrovany");
-                    users.add(newBasicUser);
                     fldPassword1.setVisible(false);
                     fldBio.setVisible(false);
                     fldUsername.setText(null);

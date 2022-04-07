@@ -2,6 +2,7 @@ package com.worwafi.controllers;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
 import com.worwafi.others.Wallet;
+import com.worwafi.singleton.SingActualObject;
 import com.worwafi.singleton.SingStage;
 import com.worwafi.singleton.SingUserInfo;
 import javafx.fxml.FXML;
@@ -9,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -18,22 +20,28 @@ import java.util.ResourceBundle;
 import java.util.Scanner;
 
 public class WalletController extends PatternController implements Initializable {
-    @FXML
-    private JFXTextArea walletConsole;
-    @FXML
-    private Button addAucObject;
+    Stage auctionedStage = new Stage();
+
     @FXML
     private JFXButton backButton;
+
     @FXML
     private Button getAucObject;
+
     @FXML
     private JFXButton logOutBtn;
+
+    @FXML
+    private Button raiseMoney;
+
     @FXML
     private JFXTextArea timeTextArea;
+
+    @FXML
+    private JFXTextArea walletConsole;
+
     @FXML
     private JFXTextArea welcomeTextArea;
-    @FXML
-    private JFXTextArea actualBalance;
 
     private void setupWallet() {
         try {
@@ -49,7 +57,7 @@ public class WalletController extends PatternController implements Initializable
                 }
                 if(isMinus(line)) {
                     walletConsole.appendText("Na účet bolo odpísaných " + line + "\n");
-                    check += Double.parseDouble(line);;
+                    check += Double.parseDouble(line);
                 }
             }
             actual.setCredit(check);
@@ -82,5 +90,22 @@ public class WalletController extends PatternController implements Initializable
         setupAreas();
         setupNavBarButtons();
         setupWallet();
+        raiseMoney.setOnAction(event -> {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/wallet_popup.fxml"));
+            try {
+                Scene actual = new Scene(loader.load());
+                auctionedStage.setScene(actual);
+                auctionedStage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        auctionedStage.setOnCloseRequest(event -> {
+            setupWallet();
+            System.out.println(SingUserInfo.getInstance().getLoggedUser().getCashAccount().getCredit());
+        });
+    }
+
+    private void updateBalance() {
     }
 }

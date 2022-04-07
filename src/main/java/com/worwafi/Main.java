@@ -17,6 +17,8 @@ import javafx.stage.Stage;
 //TODO checkCorrect v MainController
 //TODO newObjectSetup v ActualObjectController upravit
 //TODO dropdownButton na enums
+//TODO serializacia spravit na jednu triedu, co najviac rozvite aby to vedelo serializovat
+//TODO checknut polymorfizmus pre rozne spravania, hlavne prejav (napr rozne usery)
 
 public class Main extends Application {
     public static void main(String[] args) {

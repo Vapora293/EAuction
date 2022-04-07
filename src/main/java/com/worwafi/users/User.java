@@ -4,9 +4,11 @@ import com.worwafi.others.AuctionedObject;
 import com.worwafi.others.Wallet;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.Serializable;
 import java.util.LinkedList;
 
-public abstract class User {
+public abstract class User implements Serializable {
     protected String username;
     protected Wallet cashAccount;
 
@@ -25,6 +27,7 @@ public abstract class User {
     public void setCashAccount(Wallet actual) {
         cashAccount = actual;
     }
+
 
     abstract void bid();
     abstract void raise();

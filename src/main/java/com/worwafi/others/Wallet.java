@@ -1,8 +1,9 @@
 package com.worwafi.others;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class Wallet {
+public class Wallet implements Serializable {
     private double credit;
 
     public Wallet() {

@@ -147,14 +147,10 @@ public class AuctionController extends PatternController implements Initializabl
                     timer.cancel();
                     calling.setText("Go!");
                     lowNavBar.setDisable(false);
-                    callHelp();
+                    calling();
                 }
             }
         }, 0, 1000);
-    }
-
-    private void callHelp() {
-        calling();
     }
 
     private void calling() {
@@ -168,13 +164,11 @@ public class AuctionController extends PatternController implements Initializabl
                 SingAuction.getInstance().getAuction().setEnd();
                 SingActualObject.getInstance().getObject().setStatus(ObjectStatus.SOLD);
                 pauseTransition.pause();
-            }
-            else if (callBidders()) {
+            } else if (callBidders()) {
                 pauseTransition.setCycleCount(1);
                 pauseTransition.playFromStart();
-            }
-            else {
-                pauseTransition.setCycleCount(pauseTransition.getCycleCount()+1);
+            } else {
+                pauseTransition.setCycleCount(pauseTransition.getCycleCount() + 1);
                 pauseTransition.playFromStart();
             }
         });
@@ -215,6 +209,7 @@ public class AuctionController extends PatternController implements Initializabl
         }
         return false;
     }
+
     private void setupObject() {
         try {
             auctionedImage.setImage(new Image(new FileInputStream(SingActualObject.getInstance().getObject().getPicture())));

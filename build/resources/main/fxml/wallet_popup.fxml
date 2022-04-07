@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.worwafi.controllers.WalletPopupController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -21,7 +21,7 @@
       <JFXTextArea editable="false" text="Zadajte príslušnú sumu" />
       <JFXButton fx:id="localButton" text="Nahoď sumu do terminálu" GridPane.rowIndex="2" />
       <JFXTextField fx:id="firstTF" promptText="1000€" GridPane.columnIndex="1" />
-      <JFXTextField fx:id="secondTF" disable="true" promptText="Jozef Mak" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-      <JFXTextArea disable="true" editable="false" text="Meno a priezvisko" GridPane.rowIndex="1" />
+      <JFXTextField fx:id="secondTF" promptText="Jozef Mak" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <JFXTextArea editable="false" text="Meno a priezvisko" GridPane.rowIndex="1" />
    </children>
 </GridPane>

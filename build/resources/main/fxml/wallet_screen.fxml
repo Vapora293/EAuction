@@ -35,6 +35,5 @@
             <Button fx:id="raiseMoney" mnemonicParsing="false" prefHeight="25.0" text="Zvýšiť zostatok" />
          </buttons>
       </ButtonBar>
-      <JFXTextArea fx:id="actualBalance" GridPane.columnIndex="1" GridPane.rowIndex="3" />
    </children>
 </GridPane>

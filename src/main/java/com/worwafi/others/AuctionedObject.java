@@ -3,10 +3,11 @@ package com.worwafi.others;
 import com.worwafi.users.User;
 
 import java.io.File;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Locale;
 
-public class AuctionedObject {
+public class AuctionedObject implements Serializable {
     private User owner;
     private String name;
     private String bio;
