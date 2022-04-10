@@ -12,13 +12,13 @@ import javafx.stage.Stage;
 //TODO pridat peniaze
 //TODO hra s obrazkami
 //TODO user array - aj boti aj logged user
-//TODO raiseCreditController
 //TODO samotna aukcia este uistenie, ziskanie udajov do textfieldov
 //TODO checkCorrect v MainController
 //TODO newObjectSetup v ActualObjectController upravit
 //TODO dropdownButton na enums
 //TODO serializacia spravit na jednu triedu, co najviac rozvite aby to vedelo serializovat
 //TODO checknut polymorfizmus pre rozne spravania, hlavne prejav (napr rozne usery)
+//TODO path from content root
 
 public class Main extends Application {
     public static void main(String[] args) {

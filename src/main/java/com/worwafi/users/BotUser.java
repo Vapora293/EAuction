@@ -9,11 +9,7 @@ public class BotUser extends User {
 
     @Override
     void bid() {
-        Random rand = new Random();
-        int check = rand.nextInt(100);
-        if(check < 20) {
-
-        }
+        
     }
 
     @Override

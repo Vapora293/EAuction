@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTextArea?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -41,5 +42,6 @@
       <JFXButton fx:id="addButton" text="Pridaj do aukcie" GridPane.columnIndex="2" GridPane.rowIndex="6" />
       <JFXTextArea fx:id="filePathTextArea" editable="false" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="5" />
       <ImageView fx:id="imageViewer" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowSpan="5" />
+      <ComboBox fx:id="categoryComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
    </children>
 </GridPane>

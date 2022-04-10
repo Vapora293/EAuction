@@ -1,0 +1,67 @@
+.regularButton {
+    align-items: center;
+    -fx-background-color: #ffffff;
+    border: 0;
+    border-radius: 8px;
+    box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
+    box-sizing: border-box;
+    -fx-text-fill: linear-gradient(#AF40FF, #5B42F3 100%,#00DDEB);
+    display: flex;
+    font-family: Phantomsans, sans-serif;
+    font-size: 20px;
+    justify-content: center;
+    line-height: 1em;
+    max-width: 100%;
+    min-width: 140px;
+    padding: 19px 24px;
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    white-space: nowrap;
+    cursor: pointer;
+}
+.regularTextArea {
+    -fx-start-margin: 5px;
+    -fx-background-color: #ffffff;
+    -fx-border-radius: 100px;
+    -fx-text-fill: linear-gradient(#AF40FF, #5B42F3 100%,#00DDEB);
+    border: 0;
+    display: flex;
+    font-family: Phantomsans, sans-serif;
+    font-size: 20px;
+    justify-content: center;
+    line-height: 1em;
+    max-width: 100%;
+    min-width: 140px;
+    padding: 19px 24px;
+}
+.mainTextArea {
+    -fx-text-fill: #ffffff;
+    font-family: Phantomsans, sans-serif;
+    font-size: 40px;
+    justify-content: center;
+}
+.regularTextField {
+    -fx-background-color: #ffffff;
+    -fx-border-radius: 8px;
+    -fx-text-fill: linear-gradient(#AF40FF, #5B42F3 100%,#00DDEB);
+    border: 0;
+    display: flex;
+    font-family: Phantomsans, sans-serif;
+    font-size: 20px;
+    justify-content: center;
+    line-height: 1em;
+    max-width: 100%;
+    min-width: 140px;
+    padding: 19px 24px;
+}
+.regularListView {
+
+}
+.regularImageView {
+    -fx-border-radius: 50px;
+}
+.regularGridPane {
+    -fx-background-color: linear-gradient(#AF40FF, #5B42F3 100%,#00DDEB);
+}

@@ -11,7 +11,7 @@ import javafx.stage.WindowEvent;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class CustomPopup implements Initializable {
+public class CustomPopup {
     private Button button;
     private TextArea textArea;
     private String name;
@@ -23,27 +23,30 @@ public class CustomPopup implements Initializable {
         this.text = text;
         this.buttonText = buttonText;
     }
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
 
+    public void initialize() {
         Stage stage = new Stage();
         stage.setTitle(name);
-        stage.show();
         AnchorPane pane = new AnchorPane();
-        Scene scene = new Scene(pane, 100, 60);
+        pane.setLayoutX(0);
+        pane.setLayoutY(0);
+        pane.setPrefWidth(100);
+        Scene scene = new Scene(pane);
         stage.setScene(scene);
-        button.setText(buttonText);
-        button.setLayoutX(80);
-        button.setLayoutY(40);
-        pane.getChildren().add(button);
 
+        textArea = new TextArea();
         textArea.setLayoutX(0);
         textArea.setLayoutY(0);
         textArea.setText(text);
         pane.getChildren().add(textArea);
+
+        button = new Button();
+        button.setText(buttonText);
+        button.setLayoutX(80);
+        button.setLayoutY(40);
+        pane.getChildren().add(button);
         stage.show();
         button.setOnAction(event -> {
-            stage.getOnCloseRequest().handle(new WindowEvent(textArea.getScene().getWindow(), WindowEvent.WINDOW_CLOSE_REQUEST));
             stage.close();
         });
     }

@@ -4,13 +4,14 @@
 <?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<GridPane fx:id="loginGridPane" prefHeight="400.0" prefWidth="600.0" stylesheets="@loginStyle.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.worwafi.controllers.LoginScreenController">
+<GridPane fx:id="loginGridPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.worwafi.controllers.LoginScreenController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -35,8 +36,8 @@
             <Insets top="10.0" />
          </padding>
       </JFXTextArea>
-      <JFXButton fx:id="buttonLogin" text="Prihlásiť sa" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
-      <JFXButton fx:id="buttonRegister" text="Registrácia" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+      <JFXButton fx:id="buttonLogin" styleClass="regularButton" text="Prihlásiť sa" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+      <JFXButton fx:id="buttonRegister" styleClass="regularButton" text="Registrácia" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="4">
          <font>
             <Font name="Arial" size="12.0" />
          </font>
@@ -52,4 +53,8 @@
       <JFXPasswordField fx:id="fldPassword1" promptText="Heslo druhýkrát" unFocusColor="#4d4d4d00" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="3" />
       <JFXTextField fx:id="fldBio" promptText="Opíšte sa v skratke" unFocusColor="#4d4d4d00" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="2" />
    </children>
+   <stylesheets>
+      <URL value="@loginStyle.css" />
+      <URL value="@basic.css" />
+   </stylesheets>
 </GridPane>

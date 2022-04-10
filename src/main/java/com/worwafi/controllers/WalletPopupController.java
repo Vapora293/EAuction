@@ -41,17 +41,18 @@ public class WalletPopupController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         localButton.setOnAction(event -> {
+            Stage stage = (Stage) localButton.getScene().getWindow();
+            stage.getOnCloseRequest().handle(new WindowEvent(localButton.getScene().getWindow(), WindowEvent.WINDOW_CLOSE_REQUEST));
+            stage.close();
             if(!SingUserInfo.getInstance().getLoggedUser().getUsername().equals(secondTF.getText())) {
                 CustomPopup alert = new CustomPopup("Warning", "Are you sure it is you you want to raise account?", "yes");
+                alert.initialize();
 //
 //                Alert alert = new Alert(Alert.AlertType.WARNING);
 //                alert.setTitle("Warning");
 //                alert.setContentText("Are you sure it is you you want to raise account?");
 //                alert.show();
             }
-            Stage stage = (Stage) localButton.getScene().getWindow();
-            stage.getOnCloseRequest().handle(new WindowEvent(localButton.getScene().getWindow(), WindowEvent.WINDOW_CLOSE_REQUEST));
-            stage.close();
             SingUserInfo.getInstance().getLoggedUser().writeIntoCashAccount(Double.parseDouble(firstTF.getText()));
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/wallet_screen.fxml"));
             try {

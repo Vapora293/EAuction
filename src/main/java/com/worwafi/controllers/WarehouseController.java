@@ -72,6 +72,7 @@ public class WarehouseController extends PatternController implements Initializa
                 e.printStackTrace();
             }
         });
+
         getAucObject.setOnAction(event -> {
             int index = listObjects.getSelectionModel().getSelectedIndex();
             SingActualObject.getInstance().setObject(listObjects.getItems().get(index), false);

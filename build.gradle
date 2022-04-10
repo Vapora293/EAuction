@@ -24,4 +24,5 @@ dependencies {
     // https://mvnrepository.com/artifact/com.jfoenix/jfoenix
     implementation 'com.jfoenix:jfoenix:9.0.4'
     implementation 'de.jensd:fontawesomefx:8.9'
+
 }

@@ -9,8 +9,9 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<GridPane prefHeight="450.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.worwafi.controllers.AuctionController">
+<GridPane prefHeight="450.0" prefWidth="850.0" styleClass="regularGridPane" stylesheets="@basic.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.worwafi.controllers.AuctionController">
    <rowConstraints>
       <RowConstraints minHeight="10.0" prefHeight="30.0" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" />
@@ -27,30 +28,36 @@
    <children>
       <ButtonBar prefHeight="40.0" prefWidth="847.0" GridPane.columnSpan="2">
          <buttons>
-            <JFXTextArea fx:id="welcomeTextArea" editable="false" />
-            <JFXTextArea fx:id="timeTextArea" editable="false" />
-            <JFXButton fx:id="logOutBtn" text="Odhlásiť sa" />
-            <JFXButton fx:id="backButton" text="Späť" />
+            <JFXTextArea fx:id="welcomeTextArea" editable="false" focusColor="#405aa800" styleClass="regularTextArea" unFocusColor="#4d4d4d00" />
+            <JFXTextArea fx:id="timeTextArea" editable="false" focusColor="#405aa800" styleClass="regularTextArea" unFocusColor="#4d4d4d00" />
+            <JFXButton fx:id="logOutBtn" styleClass="regularButton" text="Odhlásiť sa" />
+            <JFXButton fx:id="backButton" styleClass="regularButton" text="Späť" />
          </buttons>
       </ButtonBar>
-      <JFXTextArea fx:id="calling" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-      <JFXTextArea fx:id="informBid" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <JFXTextArea fx:id="callingTextArea" editable="false" focusColor="#405aa800" styleClass="mainTextArea" unFocusColor="#4d4d4d00" GridPane.columnIndex="1" GridPane.rowIndex="2">
+         <font>
+            <Font name="Papyrus" size="30.0" />
+         </font></JFXTextArea>
+      <JFXTextArea fx:id="informBid" editable="false" focusColor="#405aa800" styleClass="mainTextArea" unFocusColor="#4d4d4d00" GridPane.columnIndex="1" GridPane.rowIndex="3">
+         <font>
+            <Font name="Papyrus" size="30.0" />
+         </font></JFXTextArea>
       <ButtonBar buttonMinWidth="100.0" prefHeight="40.0" prefWidth="200.0" GridPane.rowIndex="5" />
-      <JFXTextArea fx:id="actualBalance" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-      <VBox fx:id="biddersBox" prefHeight="360.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-      <ImageView fx:id="auctionedImage" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2" />
+      <VBox fx:id="biddersBox" prefHeight="360.0" prefWidth="100.0" styleClass="regularTextArea" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+      <ImageView fx:id="auctionedImage" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" styleClass="regularImageView" GridPane.rowIndex="2" />
       <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnSpan="3" GridPane.rowIndex="1">
          <buttons>
-            <JFXTextArea fx:id="actualBid" />
-            <JFXTextArea fx:id="actualBidder" />
+            <JFXTextArea fx:id="actualBid" focusColor="#405aa800" unFocusColor="#4d4d4d00" />
+            <JFXTextArea fx:id="actualBidder" focusColor="#405aa800" unFocusColor="#4d4d4d00" />
          </buttons>
       </ButtonBar>
-      <ButtonBar fx:id="lowNavBar" disable="true" prefHeight="40.0" prefWidth="200.0" GridPane.columnSpan="3" GridPane.rowIndex="4">
+      <ButtonBar fx:id="lowNavBar" disable="true" prefHeight="40.0" prefWidth="200.0" GridPane.columnSpan="3" GridPane.rowIndex="5">
          <buttons>
-            <JFXButton fx:id="recom1" />
-            <JFXButton fx:id="recom2" />
-            <JFXTextField fx:id="getBid" promptText="+500" />
-            <JFXButton fx:id="setBid" text="Bid desired money" />
+            <JFXTextArea fx:id="actualBalance" styleClass="regularTextField" />
+            <JFXButton fx:id="recom1" styleClass="regularButton" />
+            <JFXButton fx:id="recom2" styleClass="regularButton" />
+            <JFXTextField fx:id="getBid" promptText="+500" styleClass="regularTextArea" />
+            <JFXButton fx:id="setBid" styleClass="regularButton" text="Bid desired money" />
          </buttons>
       </ButtonBar>
    </children>

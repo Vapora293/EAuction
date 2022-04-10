@@ -3,15 +3,19 @@ package com.worwafi.controllers;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
 import com.worwafi.others.AuctionedObject;
+import com.worwafi.others.ObjectCategory;
 import com.worwafi.others.ObjectStatus;
 import com.worwafi.singleton.SingActualObject;
 import com.worwafi.singleton.SingStage;
 import com.worwafi.singleton.SingUserInfo;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -21,6 +25,8 @@ import javafx.stage.WindowEvent;
 import java.io.*;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+//TODO dorobit nech berie z comboBoxu namiesto pola
 
 public class ActualAuctionedObjectController extends ObjectPatternController implements Initializable {
     private static ActualAuctionedObjectController single_instance = null;
@@ -54,6 +60,8 @@ public class ActualAuctionedObjectController extends ObjectPatternController imp
     private JFXTextArea filePathTextArea;
     @FXML
     private ImageView imageViewer;
+    @FXML
+    private ComboBox<ObjectCategory> categoryComboBox;
 
     /**
      * Called to initialize a controller after its root element has been
@@ -78,9 +86,10 @@ public class ActualAuctionedObjectController extends ObjectPatternController imp
                 try {
                     File userTxt = new File("D:\\skola\\txt\\" + SingUserInfo.getInstance().getLoggedUser().getUsername() + "Objects.txt");
                     FileWriter fw = new FileWriter(userTxt, true);
-                    fw.append("\n" + nameTextArea.getText() + " . " + bioTextArea.getText() + " . " + startingPriceTextArea.getText() + " . " + expctPriceTextArea.getText() + " . " + filePathTextArea.getText() + " . " + categoryTextArea.getText() + " . " + statusTextArea.getText());
+                    fw.append("\n" + nameTextArea.getText() + " . " + bioTextArea.getText() + " . " + startingPriceTextArea.getText() + " . " + expctPriceTextArea.getText() + " . " + filePathTextArea.getText() + " . " + categoryComboBox.getValue().toString() + " . " + statusTextArea.getText());
                     fw.close();
                 } catch (IOException e) {
+
                     e.printStackTrace();
                 }
                 Stage stage = (Stage) ownerTxtArea.getScene().getWindow();
@@ -117,7 +126,11 @@ public class ActualAuctionedObjectController extends ObjectPatternController imp
         startingPriceTextArea.setEditable(true);
         expctPriceTextArea.setEditable(true);
         bioTextArea.setEditable(true);
-        categoryTextArea.setEditable(true);
+        categoryTextArea.setVisible(false);
         statusTextArea.setEditable(true);
+        categoryComboBox.setItems( FXCollections.observableArrayList( ObjectCategory.values()));
+        categoryComboBox.setPromptText(categoryComboBox.getItems().get(0).toString());
+        statusTextArea.setText(ObjectStatus.STORED.toString());
+        statusTextArea.setEditable(false);
     }
 }

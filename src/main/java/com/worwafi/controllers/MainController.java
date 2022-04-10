@@ -2,20 +2,24 @@ package com.worwafi.controllers;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
+import com.worwafi.auctions.Auction;
 import com.worwafi.auctions.EnglishAuction;
-import com.worwafi.others.AuctionedObject;
+import com.worwafi.auctions.ReverseAuction;
 import com.worwafi.others.ObjectCategory;
 import com.worwafi.others.ObjectStatus;
 import com.worwafi.singleton.SingActualObject;
 import com.worwafi.singleton.SingAuction;
 import com.worwafi.singleton.SingStage;
-import com.worwafi.singleton.SingUserInfo;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.net.URL;
@@ -71,7 +75,8 @@ public class MainController extends ObjectPatternController implements Initializ
     @FXML
     private JFXTextArea welcomeTextArea;
 
-
+    @FXML
+    private ComboBox<Text> auctionComboBox;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -82,7 +87,13 @@ public class MainController extends ObjectPatternController implements Initializ
         getAucObject.setOnAction(event -> {
             if (SingActualObject.getInstance() != null && SingActualObject.getInstance().getObject().getStatus() == ObjectStatus.FORSALE) {
                 checkCorrect();
-                EnglishAuction auction = new EnglishAuction(SingActualObject.getInstance().getObject());
+                Auction auction = null;
+                if(auctionComboBox.getSelectionModel().getSelectedItem().getText().toString().equals("English Auction")) {
+                    auction = new EnglishAuction(SingActualObject.getInstance().getObject());
+                }
+                if(auctionComboBox.getSelectionModel().getSelectedItem().getText().toString().equals("Reverse Auction")) {
+                    auction = new ReverseAuction(SingActualObject.getInstance().getObject());
+                }
                 SingAuction.getInstance().setAuction(auction);
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/auction_screen.fxml"));
                 try {
@@ -95,6 +106,14 @@ public class MainController extends ObjectPatternController implements Initializ
         });
     }
 
+    @Override
+    protected void setupObject() {
+        super.setupObject();
+        ObservableList<Text> auctions = FXCollections.observableArrayList();
+        auctions.add(new Text("English Auction"));
+        auctions.add(new Text("Reverse Auction"));
+        auctionComboBox.setItems(auctions);
+    }
     private void checkCorrect() {
         //for (Object actual: SingActualObject.getInstance().getObject().getClass().getDeclaredFields()) {
         //}
