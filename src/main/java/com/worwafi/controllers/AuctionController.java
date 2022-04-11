@@ -31,7 +31,7 @@ public class AuctionController extends PatternController implements Initializabl
     private final DecimalFormat df = new DecimalFormat("0.00");
     PauseTransition pauseTransition;
     @FXML
-    private JFXTextArea actualBalance;
+    private JFXTextField actualBalance;
 
     @FXML
     private JFXTextArea actualBid;
@@ -67,10 +67,10 @@ public class AuctionController extends PatternController implements Initializabl
     private JFXButton setBid;
 
     @FXML
-    private JFXTextArea timeTextArea;
+    private JFXTextField timeTextArea;
 
     @FXML
-    private JFXTextArea welcomeTextArea;
+    private JFXTextField welcomeTextArea;
     @FXML
     private ButtonBar lowNavBar;
     @FXML
@@ -214,13 +214,6 @@ public class AuctionController extends PatternController implements Initializabl
 //        return false;
 //    }
 
-    private void setupObject() {
-        try {
-            auctionedImage.setImage(new Image(new FileInputStream(SingActualObject.getInstance().getObject().getPicture())));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
     @Override
     public void setupAreas() {
         super.setupAreas();
@@ -236,6 +229,7 @@ public class AuctionController extends PatternController implements Initializabl
         for (User actual : SingAuction.getInstance().getAuction().getBidders()) {
             biddersBox.getChildren().add(new Text(actual.getUsername()));
         }
+        biddersBox.getStyleClass().add("regularBox");
     }
 
 

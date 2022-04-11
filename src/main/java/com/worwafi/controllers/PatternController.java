@@ -2,6 +2,7 @@ package com.worwafi.controllers;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
+import com.jfoenix.controls.JFXTextField;
 import com.worwafi.singleton.SingStage;
 import com.worwafi.singleton.SingUserInfo;
 import javafx.animation.Animation;
@@ -17,9 +18,9 @@ import java.time.LocalTime;
 
 public class PatternController {
     @FXML
-    private JFXTextArea welcomeTextArea;
+    private JFXTextField welcomeTextArea;
     @FXML
-    private JFXTextArea timeTextArea;
+    private JFXTextField timeTextArea;
     @FXML
     private JFXButton logOutBtn;
     @FXML

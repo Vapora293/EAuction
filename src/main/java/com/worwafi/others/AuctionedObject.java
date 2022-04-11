@@ -1,5 +1,6 @@
 package com.worwafi.others;
 
+import com.worwafi.singleton.SingActualObject;
 import com.worwafi.users.User;
 
 import java.io.File;

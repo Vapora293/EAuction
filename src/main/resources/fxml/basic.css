@@ -56,11 +56,31 @@
     min-width: 140px;
     padding: 19px 24px;
 }
-.regularListView {
-
+.list-cell:filled:selected:focused, .list-cell:filled:selected {
+    /* 3:, 4: */
+    -fx-background-color: #00f; /* 2 */
+    -fx-text-fill: white; /* 5 */
+}
+.list-cell { /* 5 */
+    -fx-background-color: transparent;
+}
+.list-cell:odd { -fx-background-color: white; /* 1 */ }
+.list-cell:even { -fx-background-color: linear-gradient(#AF40FF, #5B42F3 100%,#00DDEB);
+    -fx-text-fill: white;/* for information */ }
+.list-cell:filled:hover {
+    -fx-background-color: #00f; /* 2 */
+    -fx-text-fill: white; /* 5 */
 }
 .regularImageView {
     -fx-border-radius: 50px;
+}
+.regularBox {
+    -fx-background-color: #ffffff;
+    -fx-padding: 15;
+    -fx-spacing: 10;
+    font-family: Phantomsans, sans-serif;
+    -fx-text-fill: linear-gradient(#AF40FF, #5B42F3 100%,#00DDEB);
+    font-size: 10px;
 }
 .regularGridPane {
     -fx-background-color: linear-gradient(#AF40FF, #5B42F3 100%,#00DDEB);

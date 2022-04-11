@@ -1,6 +1,7 @@
 package com.worwafi.controllers;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
+import com.jfoenix.controls.JFXTextField;
 import com.worwafi.others.Wallet;
 import com.worwafi.singleton.SingActualObject;
 import com.worwafi.singleton.SingStage;
@@ -35,13 +36,13 @@ public class WalletController extends PatternController implements Initializable
     private Button raiseMoney;
 
     @FXML
-    private JFXTextArea timeTextArea;
+    private JFXTextField timeTextArea;
 
     @FXML
     private JFXTextArea walletConsole;
 
     @FXML
-    private JFXTextArea welcomeTextArea;
+    private JFXTextField welcomeTextArea;
 
     private void setupWallet() {
         try {

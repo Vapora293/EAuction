@@ -43,6 +43,7 @@ public class EnglishAuction extends Auction {
     }
 
     private void writeIntoLog(User bidder, double price) {
+
     }
     @Override
     public String toString() {

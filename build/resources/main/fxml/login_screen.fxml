@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<GridPane fx:id="loginGridPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.worwafi.controllers.LoginScreenController">
+<GridPane fx:id="loginGridPane" prefHeight="400.0" prefWidth="600.0" styleClass="regularGridPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.worwafi.controllers.LoginScreenController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -26,32 +26,47 @@
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <JFXPasswordField fx:id="fldPassword" promptText="Heslo" unFocusColor="#4d4d4d00" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-      <JFXTextField fx:id="fldUsername" promptText="Prihlasovacie meno" unFocusColor="#4d4d4d00" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-      <JFXTextArea fx:id="welcomeDialog" editable="false" focusColor="#405aa800" prefHeight="130.0" prefWidth="200.0" style="margin: auto; width: 50%;" text="Vitajte v e-aukčnom systéme 3xbet" unFocusColor="#ffffff00" GridPane.columnIndex="1" GridPane.columnSpan="2">
+      <JFXPasswordField fx:id="fldPassword" maxWidth="140.0" promptText="Password" styleClass="regularTextArea" unFocusColor="#4d4d4d00" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <JFXTextField fx:id="fldUsername" maxWidth="140.0" prefHeight="25.0" prefWidth="117.0" promptText="Username" styleClass="regularTextArea" unFocusColor="#4d4d4d00" GridPane.columnIndex="1" GridPane.rowIndex="2">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets></JFXTextField>
+      <JFXTextArea fx:id="welcomeDialog" editable="false" focusColor="#405aa800" maxWidth="300.0" prefHeight="130.0" prefWidth="220.0" style="margin: auto; width: 50%;" styleClass="mainTextArea" text="Welcome to e-auction 3xbet system" unFocusColor="#ffffff00" GridPane.columnIndex="1" GridPane.columnSpan="2">
          <font>
             <Font name="Arial" size="30.0" />
          </font>
          <padding>
             <Insets top="10.0" />
          </padding>
+         <GridPane.margin>
+            <Insets left="15.0" right="15.0" />
+         </GridPane.margin>
       </JFXTextArea>
-      <JFXButton fx:id="buttonLogin" styleClass="regularButton" text="Prihlásiť sa" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
-      <JFXButton fx:id="buttonRegister" styleClass="regularButton" text="Registrácia" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+      <JFXButton fx:id="buttonLogin" styleClass="regularButton" text="Login" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+      <JFXButton fx:id="buttonRegister" styleClass="regularButton" text="Register" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="4">
          <font>
             <Font name="Arial" size="12.0" />
          </font>
       </JFXButton>
-      <JFXTextArea fx:id="movesDialog" editable="false" focusColor="#405aa800" prefHeight="130.0" prefWidth="200.0" style="margin: auto; width: 50%;" text="Zadajte prihlasovacie údaje" unFocusColor="#ffffff00" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1">
+      <JFXTextArea fx:id="movesDialog" editable="false" focusColor="#405aa800" maxHeight="40.0" maxWidth="300.0" prefHeight="130.0" prefWidth="150.0" style="margin: auto; width: 50%;" styleClass="mainTextArea" text="Enter username and password" unFocusColor="#ffffff00" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1">
          <font>
             <Font name="Arial" size="20.0" />
          </font>
+         <GridPane.margin>
+            <Insets left="15.0" right="15.0" />
+         </GridPane.margin>
          <padding>
             <Insets top="10.0" />
          </padding>
       </JFXTextArea>
-      <JFXPasswordField fx:id="fldPassword1" promptText="Heslo druhýkrát" unFocusColor="#4d4d4d00" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-      <JFXTextField fx:id="fldBio" promptText="Opíšte sa v skratke" unFocusColor="#4d4d4d00" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+      <JFXPasswordField fx:id="fldPassword1" alignment="CENTER_RIGHT" maxWidth="140.0" promptText="Password again" styleClass="regularTextArea" unFocusColor="#4d4d4d00" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="3">
+         <GridPane.margin>
+            <Insets left="10.0" />
+         </GridPane.margin></JFXPasswordField>
+      <JFXTextField fx:id="fldBio" alignment="CENTER_RIGHT" maxWidth="140.0" promptText="Describe yourself" styleClass="regularTextField" unFocusColor="#4d4d4d00" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="2">
+         <GridPane.margin>
+            <Insets left="10.0" />
+         </GridPane.margin></JFXTextField>
    </children>
    <stylesheets>
       <URL value="@loginStyle.css" />

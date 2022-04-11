@@ -2,6 +2,7 @@ package com.worwafi.controllers;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
+import com.jfoenix.controls.JFXTextField;
 import com.worwafi.others.Wallet;
 import com.worwafi.singleton.SingStage;
 import com.worwafi.singleton.SingUserInfo;
@@ -27,11 +28,11 @@ public class IntroController extends PatternController implements Initializable 
     @FXML
     private JFXButton logOutBtn;
     @FXML
-    private JFXTextArea timeTextArea;
+    private JFXTextField timeTextArea;
     @FXML
-    private JFXTextArea welcomeTextArea;
+    private JFXTextField welcomeTextArea;
     @FXML
-    private VBox list;
+    private JFXTextArea mainLog;
     @FXML
     private JFXButton warehouseButton;
     @FXML
@@ -113,5 +114,10 @@ public class IntroController extends PatternController implements Initializable 
                 e.printStackTrace();
             }
         });
+    }
+    @Override
+    public void setupAreas() {
+        super.setupAreas();
+        mainLog.setText("Welcome, " + SingUserInfo.getInstance().getLoggedUser().getUsername());
     }
 }

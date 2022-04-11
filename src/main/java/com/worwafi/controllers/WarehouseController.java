@@ -2,6 +2,7 @@ package com.worwafi.controllers;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
+import com.jfoenix.controls.JFXTextField;
 import com.worwafi.others.AuctionedObject;
 import com.worwafi.others.Serialize;
 import com.worwafi.singleton.SingActualObject;
@@ -33,9 +34,9 @@ public class WarehouseController extends PatternController implements Initializa
     @FXML
     private JFXButton logOutBtn;
     @FXML
-    private JFXTextArea timeTextArea;
+    private JFXTextField timeTextArea;
     @FXML
-    private JFXTextArea welcomeTextArea;
+    private JFXTextField welcomeTextArea;
     @FXML
     private ListView<AuctionedObject> listObjects;
     @FXML

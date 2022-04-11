@@ -2,6 +2,7 @@ package com.worwafi.controllers;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
+import com.jfoenix.controls.JFXTextField;
 import com.worwafi.auctions.Auction;
 import com.worwafi.auctions.EnglishAuction;
 import com.worwafi.auctions.ReverseAuction;
@@ -70,10 +71,10 @@ public class MainController extends ObjectPatternController implements Initializ
     private JFXTextArea statusTextArea;
 
     @FXML
-    private JFXTextArea timeTextArea;
+    private JFXTextField timeTextArea;
 
     @FXML
-    private JFXTextArea welcomeTextArea;
+    private JFXTextField welcomeTextArea;
 
     @FXML
     private ComboBox<Text> auctionComboBox;
