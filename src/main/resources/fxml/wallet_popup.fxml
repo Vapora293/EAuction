@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.worwafi.controllers.WalletPopupController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="regularGridPane" stylesheets="@basic.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.worwafi.controllers.WalletPopupController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -18,10 +18,27 @@
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <JFXTextArea editable="false" text="Zadajte príslušnú sumu" />
-      <JFXButton fx:id="localButton" text="Nahoď sumu do terminálu" GridPane.rowIndex="2" />
-      <JFXTextField fx:id="firstTF" promptText="1000€" GridPane.columnIndex="1" />
-      <JFXTextField fx:id="secondTF" promptText="Jozef Mak" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-      <JFXTextArea editable="false" text="Meno a priezvisko" GridPane.rowIndex="1" />
+      <JFXButton fx:id="localButton" styleClass="regularButton" text="Approve transaction" GridPane.rowIndex="2">
+         <GridPane.margin>
+            <Insets left="20.0" />
+         </GridPane.margin></JFXButton>
+      <JFXTextField fx:id="firstTF" focusColor="#405aa800" promptText="1000€" styleClass="regularTextArea" unFocusColor="#4d4d4d00" GridPane.columnIndex="1">
+         <GridPane.margin>
+            <Insets right="20.0" />
+         </GridPane.margin></JFXTextField>
+      <JFXTextField fx:id="secondTF" focusColor="#405aa800" promptText="Arnold Schwarzenegger" styleClass="regularTextArea" unFocusColor="#4d4d4d00" GridPane.columnIndex="1" GridPane.rowIndex="1">
+         <GridPane.margin>
+            <Insets right="20.0" />
+         </GridPane.margin></JFXTextField>
+      <JFXTextField editable="false" focusColor="#405aa800" styleClass="mainTextArea" text="Desirable amount to transfer:" unFocusColor="#4d4d4d00">
+         <GridPane.margin>
+            <Insets left="20.0" />
+         </GridPane.margin>
+      </JFXTextField>
+      <JFXTextField focusColor="#405aa800" styleClass="mainTextArea" text="Full name:" unFocusColor="#4d4d4d00" GridPane.rowIndex="1">
+         <GridPane.margin>
+            <Insets left="20.0" />
+         </GridPane.margin>
+      </JFXTextField>
    </children>
 </GridPane>

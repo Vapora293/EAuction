@@ -9,10 +9,7 @@ import javafx.stage.Stage;
 
 //TODO thread - paralelizacia prace, setrenie vykonu, pomocou casovaca odsun
 //TODO body - custom exception, nielen vypis
-//TODO pridat peniaze
 //TODO hra s obrazkami
-//TODO user array - aj boti aj logged user
-//TODO samotna aukcia este uistenie, ziskanie udajov do textfieldov
 //TODO checkCorrect v MainController
 //TODO newObjectSetup v ActualObjectController upravit
 //TODO dropdownButton na enums

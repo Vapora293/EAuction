@@ -3,7 +3,6 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -24,10 +23,10 @@
    <children>
       <ButtonBar prefHeight="40.0" prefWidth="847.0" GridPane.columnSpan="2">
          <buttons>
-            <JFXTextField fx:id="welcomeTextArea" focusColor="#405aa800" prefWidth="200.0" styleClass="regularTextArea" unFocusColor="#4d4d4d00" />
-            <JFXTextField fx:id="timeTextArea" focusColor="#405aa800" styleClass="regularTextArea" unFocusColor="#4d4d4d00" />
-            <JFXButton fx:id="logOutBtn" styleClass="regularButton" text="Odhlásiť sa" />
-            <JFXButton fx:id="backButton" styleClass="regularButton" text="Späť" />
+            <JFXTextField fx:id="timeTextArea" editable="false" focusColor="#405aa800" styleClass="regularTextArea" unFocusColor="#4d4d4d00" />
+            <JFXTextField fx:id="welcomeTextArea" editable="false" focusColor="#405aa800" prefWidth="200.0" styleClass="regularTextArea" unFocusColor="#4d4d4d00" />
+            <JFXButton fx:id="logOutBtn" styleClass="regularButton" text="Log out" />
+            <JFXButton fx:id="backButton" styleClass="regularButton" text="Back" />
          </buttons>
          <opaqueInsets>
             <Insets />
@@ -39,8 +38,8 @@
       <ListView fx:id="listObjects" prefHeight="200.0" prefWidth="200.0" styleClass="list-cell" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="2" />
       <ButtonBar buttonMinWidth="100.0" prefHeight="40.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3">
         <buttons>
-          <Button fx:id="getAucObject" mnemonicParsing="false" prefHeight="25.0" styleClass="regularButton" text="Načítaj predmet" />
-            <Button fx:id="addAucObject" mnemonicParsing="false" prefHeight="25.0" styleClass="regularButton" text="Pridaj predmet" />
+            <JFXButton fx:id="getAucObject" styleClass="regularButton" text="Load object" />
+            <JFXButton fx:id="addAucObject" styleClass="regularButton" text="Add object" />
         </buttons>
          <GridPane.margin>
             <Insets right="20.0" />

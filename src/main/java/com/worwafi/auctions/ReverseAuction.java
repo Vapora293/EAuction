@@ -9,6 +9,7 @@ public class ReverseAuction extends Auction{
         super(win);
     }
 
+    //TODO priklad na polymorfizmus
     @Override
     public int handleCycle(int cycle) {
         if(callBidders()) {
@@ -27,6 +28,7 @@ public class ReverseAuction extends Auction{
         setEnd();
         return null;
     }
+    //TODO priklad na polymorfizmus
     @Override
     public void callAuction() {
         auctionStatusListener.updateEnglishLayout();

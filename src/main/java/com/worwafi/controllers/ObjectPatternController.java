@@ -1,6 +1,7 @@
 package com.worwafi.controllers;
 
 import com.jfoenix.controls.JFXTextArea;
+import com.jfoenix.controls.JFXTextField;
 import com.worwafi.singleton.SingActualObject;
 import com.worwafi.singleton.SingUserInfo;
 import javafx.fxml.FXML;
@@ -12,21 +13,21 @@ import java.io.FileNotFoundException;
 
 public class ObjectPatternController extends PatternController {
     @FXML
-    JFXTextArea bioTextArea;
+    JFXTextField bioTextArea;
     @FXML
-    JFXTextArea categoryTextArea;
+    JFXTextField categoryTextArea;
     @FXML
-    JFXTextArea expctPriceTextArea;
+    JFXTextField expctPriceTextArea;
     @FXML
-    JFXTextArea nameTextArea;
+    JFXTextField nameTextArea;
     @FXML
-    JFXTextArea ownerTxtArea;
+    JFXTextField ownerTxtArea;
     @FXML
-    JFXTextArea startingPriceTextArea;
+    JFXTextField startingPriceTextArea;
     @FXML
-    JFXTextArea statusTextArea;
+    JFXTextField statusTextArea;
     @FXML
-    JFXTextArea filePathTextArea;
+    JFXTextField filePathTextArea;
     @FXML
     ImageView imageViewer;
 

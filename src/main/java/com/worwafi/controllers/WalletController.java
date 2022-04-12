@@ -27,13 +27,13 @@ public class WalletController extends PatternController implements Initializable
     private JFXButton backButton;
 
     @FXML
-    private Button getAucObject;
+    private JFXButton getAucObject;
 
     @FXML
     private JFXButton logOutBtn;
 
     @FXML
-    private Button raiseMoney;
+    private JFXButton raiseMoney;
 
     @FXML
     private JFXTextField timeTextArea;
@@ -43,6 +43,8 @@ public class WalletController extends PatternController implements Initializable
 
     @FXML
     private JFXTextField welcomeTextArea;
+    @FXML
+    private JFXTextField actualBalance;
 
     private void setupWallet() {
         try {
@@ -53,16 +55,17 @@ public class WalletController extends PatternController implements Initializable
             while (myReader.hasNextLine()) {
                 String line = myReader.nextLine();
                 if(isPlus(line)) {
-                    walletConsole.appendText("Na účet bolo pripísaných " + line + "\n");
+                    walletConsole.appendText("Balance has been raised by " + line + "\n");
                     check += Double.parseDouble(line);
                 }
                 if(isMinus(line)) {
-                    walletConsole.appendText("Na účet bolo odpísaných " + line + "\n");
+                    walletConsole.appendText("Balance has been decreased by " + line + "\n");
                     check += Double.parseDouble(line);
                 }
             }
             actual.setCredit(check);
             SingUserInfo.getInstance().getLoggedUser().setCashAccount(actual);
+            actualBalance.setText("Current balance is " + SingUserInfo.getInstance().getLoggedUser().getCashAccount().getCredit() + "celery");
         } catch (FileNotFoundException e) {
 
         }

@@ -2,6 +2,7 @@ package com.worwafi.controllers;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
+import com.jfoenix.controls.JFXTextField;
 import com.worwafi.others.AuctionedObject;
 import com.worwafi.others.ObjectCategory;
 import com.worwafi.others.ObjectStatus;
@@ -39,25 +40,25 @@ public class ActualAuctionedObjectController extends ObjectPatternController imp
     }
 
     @FXML
-    private JFXTextArea bioTextArea;
+    private JFXTextField bioTextArea;
     @FXML
-    private JFXTextArea categoryTextArea;
+    private JFXTextField categoryTextArea;
     @FXML
-    private JFXTextArea expctPriceTextArea;
+    private JFXTextField expctPriceTextArea;
     @FXML
-    private JFXTextArea nameTextArea;
+    private JFXTextField nameTextArea;
     @FXML
-    private JFXTextArea ownerTxtArea;
+    private JFXTextField ownerTxtArea;
     @FXML
-    private JFXTextArea startingPriceTextArea;
+    private JFXTextField startingPriceTextArea;
     @FXML
-    private JFXTextArea statusTextArea;
+    private JFXTextField statusTextArea;
     @FXML
     private JFXButton addButton;
     @FXML
     private GridPane GridPaneAuctionedObject;
     @FXML
-    private JFXTextArea filePathTextArea;
+    private JFXTextField filePathTextArea;
     @FXML
     private ImageView imageViewer;
     @FXML

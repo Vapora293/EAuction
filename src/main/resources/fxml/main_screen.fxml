@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
-<?import javafx.scene.control.Button?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane prefHeight="450.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.worwafi.controllers.MainController">
+<GridPane prefHeight="450.0" prefWidth="850.0" styleClass="regularGridPane" stylesheets="@basic.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.worwafi.controllers.MainController">
    <rowConstraints>
       <RowConstraints minHeight="10.0" prefHeight="30.0" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -21,45 +19,58 @@
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
    </rowConstraints>
    <columnConstraints>
-      <ColumnConstraints maxWidth="-Infinity" minWidth="20.0" prefWidth="200.0" />
+      <ColumnConstraints maxWidth="-Infinity" minWidth="20.0" prefWidth="228.0" />
       <ColumnConstraints minWidth="10.0" prefWidth="200.0" />
       <ColumnConstraints minWidth="10.0" prefWidth="100.0" />
    </columnConstraints>
    <children>
       <ButtonBar prefHeight="40.0" prefWidth="847.0" GridPane.columnSpan="3">
          <buttons>
-            <JFXTextField fx:id="welcomeTextArea" focusColor="#405aa800" prefWidth="200.0" unFocusColor="#80606000" />
-            <JFXTextField fx:id="timeTextArea" focusColor="#1c41b000" unFocusColor="#4d4d4d00" />
-            <JFXButton fx:id="logOutBtn" text="Odhlásiť sa" />
-            <JFXButton fx:id="backButton" text="Späť" />
+            <JFXTextField fx:id="welcomeTextArea" focusColor="#405aa800" prefWidth="200.0" styleClass="regularTextArea" unFocusColor="#80606000" />
+            <JFXTextField fx:id="timeTextArea" focusColor="#1c41b000" styleClass="regularTextArea" unFocusColor="#4d4d4d00" />
+            <JFXButton fx:id="logOutBtn" text="Log out" />
+            <JFXButton fx:id="backButton" text="Back" />
          </buttons>
       </ButtonBar>
-      <ButtonBar buttonMinWidth="100.0" prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="8">
+      <ButtonBar buttonMinWidth="100.0" prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="9">
          <buttons>
-            <Button fx:id="getAucObject" mnemonicParsing="false" prefHeight="25.0" text="Begin auction" />
+            <JFXButton fx:id="getAucObject" styleClass="regularButton" text="Begin auction">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </JFXButton>
          </buttons>
       </ButtonBar>
-      <TextArea prefHeight="200.0" prefWidth="200.0" text="Majiteľ:" GridPane.rowIndex="1" />
-      <TextArea prefHeight="200.0" prefWidth="200.0" text="Meno produktu:" GridPane.rowIndex="2" />
-      <TextArea prefHeight="200.0" prefWidth="200.0" text="štartovacia cena:" GridPane.rowIndex="3" />
-      <TextArea prefHeight="200.0" prefWidth="200.0" text="očakávaná cena:" GridPane.rowIndex="4" />
-      <TextArea prefHeight="200.0" prefWidth="200.0" text="opis:" GridPane.rowIndex="5" />
-      <TextArea prefHeight="200.0" prefWidth="200.0" text="kategória:" GridPane.rowIndex="6" />
-      <TextArea prefHeight="200.0" prefWidth="200.0" text="status:" GridPane.rowIndex="7" />
-      <JFXTextArea fx:id="ownerTxtArea" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-      <JFXTextArea fx:id="nameTextArea" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-      <JFXTextArea fx:id="startingPriceTextArea" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-      <JFXTextArea fx:id="expctPriceTextArea" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-      <JFXTextArea fx:id="bioTextArea" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-      <JFXTextArea fx:id="categoryTextArea" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-      <JFXTextArea fx:id="statusTextArea" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-      <JFXTextArea fx:id="filePathTextArea" editable="false" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.rowSpan="7" />
-      <ImageView fx:id="imageViewer" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.rowSpan="6" />
-      <TextArea prefHeight="200.0" prefWidth="200.0" text="Auction type:" GridPane.rowIndex="8" />
-      <ComboBox fx:id="auctionComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+      <ImageView fx:id="imageViewer" fitHeight="311.0" fitWidth="380.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.rowSpan="6">
+         <GridPane.margin>
+            <Insets left="20.0" />
+         </GridPane.margin></ImageView>
+      <ComboBox fx:id="auctionComboBox" prefWidth="150.0" styleClass="list-cell" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+      <JFXTextField editable="false" focusColor="#405aa800" styleClass="mainTextArea" text="Owner:" unFocusColor="#4d4d4d00" GridPane.rowIndex="1">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </JFXTextField>
+      <JFXTextField editable="false" focusColor="#405aa800" styleClass="mainTextArea" text="Product name:" unFocusColor="#4d4d4d00" GridPane.rowIndex="2" />
+      <JFXTextField editable="false" focusColor="#405aa800" styleClass="mainTextArea" text="Starting price:" unFocusColor="#4d4d4d00" GridPane.rowIndex="3" />
+      <JFXTextField editable="false" focusColor="#405aa800" styleClass="mainTextArea" text="Expected selling price:" unFocusColor="#4d4d4d00" GridPane.rowIndex="4" />
+      <JFXTextField editable="false" focusColor="#405aa800" styleClass="mainTextArea" text="Description:" unFocusColor="#4d4d4d00" GridPane.rowIndex="5" />
+      <JFXTextField editable="false" focusColor="#405aa800" styleClass="mainTextArea" text="Category:" unFocusColor="#4d4d4d00" GridPane.rowIndex="6" />
+      <JFXTextField editable="false" focusColor="#405aa800" styleClass="mainTextArea" text="Status:" unFocusColor="#4d4d4d00" GridPane.rowIndex="7" />
+      <JFXTextField editable="false" focusColor="#405aa800" styleClass="mainTextArea" text="Picture path:" unFocusColor="#4d4d4d00" GridPane.rowIndex="8" />
+      <JFXTextField editable="false" focusColor="#405aa800" styleClass="mainTextArea" text="Auction type" unFocusColor="#4d4d4d00" GridPane.rowIndex="9" />
+      <JFXTextField fx:id="ownerTxtArea" focusColor="#42424200" styleClass="regularTextField" unFocusColor="#4d4d4d00" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <JFXTextField fx:id="startingPriceTextArea" focusColor="#42424200" styleClass="regularTextField" unFocusColor="#4d4d4d00" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <JFXTextField fx:id="expctPriceTextArea" focusColor="#42424200" prefHeight="30.0" prefWidth="200.0" styleClass="regularTextField" unFocusColor="#4d4d4d00" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+      <JFXTextField fx:id="bioTextArea" focusColor="#42424200" prefHeight="30.0" prefWidth="200.0" styleClass="regularTextField" unFocusColor="#4d4d4d00" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+      <JFXTextField fx:id="nameTextArea" focusColor="#42424200" styleClass="regularTextField" unFocusColor="#4d4d4d00" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <JFXTextField fx:id="categoryTextArea" focusColor="#42424200" styleClass="regularTextField" unFocusColor="#4d4d4d00" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+      <JFXTextField fx:id="statusTextArea" focusColor="#42424200" styleClass="regularTextField" unFocusColor="#4d4d4d00" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+      <JFXTextField fx:id="filePathTextArea" focusColor="#42424200" styleClass="regularTextField" unFocusColor="#4d4d4d00" GridPane.columnIndex="1" GridPane.rowIndex="8" />
    </children>
 </GridPane>

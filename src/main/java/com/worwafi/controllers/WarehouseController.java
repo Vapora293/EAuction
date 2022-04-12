@@ -40,9 +40,9 @@ public class WarehouseController extends PatternController implements Initializa
     @FXML
     private ListView<AuctionedObject> listObjects;
     @FXML
-    private Button getAucObject;
+    private JFXButton getAucObject;
     @FXML
-    private Button addAucObject;
+    private JFXButton addAucObject;
     @FXML
     private JFXButton backButton;
 

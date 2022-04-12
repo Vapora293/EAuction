@@ -38,19 +38,19 @@ public class MainController extends ObjectPatternController implements Initializ
     private JFXButton backButton;
 
     @FXML
-    private JFXTextArea bioTextArea;
+    private JFXTextField bioTextArea;
 
     @FXML
-    private JFXTextArea categoryTextArea;
+    private JFXTextField categoryTextArea;
 
     @FXML
-    private JFXTextArea expctPriceTextArea;
+    private JFXTextField expctPriceTextArea;
 
     @FXML
-    private JFXTextArea filePathTextArea;
+    private JFXTextField filePathTextArea;
 
     @FXML
-    private Button getAucObject;
+    private JFXButton getAucObject;
 
     @FXML
     private ImageView imageViewer;
@@ -59,16 +59,16 @@ public class MainController extends ObjectPatternController implements Initializ
     private JFXButton logOutBtn;
 
     @FXML
-    private JFXTextArea nameTextArea;
+    private JFXTextField nameTextArea;
 
     @FXML
-    private JFXTextArea ownerTxtArea;
+    private JFXTextField ownerTxtArea;
 
     @FXML
-    private JFXTextArea startingPriceTextArea;
+    private JFXTextField startingPriceTextArea;
 
     @FXML
-    private JFXTextArea statusTextArea;
+    private JFXTextField statusTextArea;
 
     @FXML
     private JFXTextField timeTextArea;

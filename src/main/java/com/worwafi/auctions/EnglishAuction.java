@@ -1,19 +1,15 @@
 package com.worwafi.auctions;
 
 import com.worwafi.others.AuctionException;
-import com.worwafi.others.AuctionTimer;
 import com.worwafi.others.AuctionedObject;
-import com.worwafi.others.ObjectStatus;
-import com.worwafi.singleton.SingActualObject;
 import com.worwafi.users.User;
 
-import java.util.ArrayList;
 
 public class EnglishAuction extends Auction {
     public EnglishAuction(AuctionedObject win) {
         super(win);
     }
-
+    //TODO priklad na polymorfizmus
     @Override
     public int handleCycle(int cycle) {
         if(cycle > 3) {
@@ -35,7 +31,7 @@ public class EnglishAuction extends Auction {
         writeIntoLog(bidder, price);
         return null;
     }
-
+    //TODO priklad na polymorfizmus
     @Override
     public void callAuction() {
         auctionStatusListener.updateEnglishLayout();
