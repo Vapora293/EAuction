@@ -1,9 +1,9 @@
 package com.worwafi.others;
 
+import com.sun.javafx.collections.ObservableListWrapper;
 import com.worwafi.auctions.Auction;
 import com.worwafi.singleton.SingUserInfo;
 import com.worwafi.users.BasicUser;
-import com.worwafi.users.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -19,7 +19,8 @@ public class Serialize {
     ObjectOutputStream objectOutputStream;
     ObjectInputStream objectInputStream;
     public final void writeObject(Object o) throws IOException, ClassNotFoundException {
-        if (o.getClass() == LinkedList.class) {
+        if(o instanceof LinkedList) {
+//        if (o.getClass() == LinkedList.class) {
             try {
                 File userTxt = new File("D:\\skola\\txt\\uusers.txt");
                 FileWriter fw = new FileWriter(userTxt);
@@ -39,7 +40,7 @@ public class Serialize {
 //            objectOutputStream = new ObjectOutputStream(fileOutputStream);
 //            writeInto(o);
         }
-        else {
+        if(o instanceof ObservableList) {
             System.out.println("yes");
             try {
                 File userTxt = new File("D:\\skola\\txt\\" + SingUserInfo.getInstance().getLoggedUser().getUsername() + "Objects.txt");

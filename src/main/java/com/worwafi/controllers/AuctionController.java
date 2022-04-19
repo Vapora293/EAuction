@@ -162,7 +162,7 @@ public class AuctionController extends PatternController implements Initializabl
                 local--;
                 if (local < 0) {
                     timer.cancel();
-                    callingTextArea.setText("Go!");
+                    callingTextArea.setText(auctionStartQuote());
                     lowNavBar.setDisable(false);
                     calling();
                 }

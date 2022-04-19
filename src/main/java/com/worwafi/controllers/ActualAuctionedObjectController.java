@@ -88,6 +88,8 @@ public class ActualAuctionedObjectController extends ObjectPatternController imp
                     e.printStackTrace();
                 } catch (ClassNotFoundException e) {
                     e.printStackTrace();
+                } catch (NumberFormatException e) {
+                    throw new IncorrectEntryException("Incorrect price - " + startingPriceTextArea.getText(), filePathTextArea.textProperty());
                 }
                 Stage stage = (Stage) ownerTxtArea.getScene().getWindow();
                 stage.getOnCloseRequest().handle(new WindowEvent(ownerTxtArea.getScene().getWindow(), WindowEvent.WINDOW_CLOSE_REQUEST));
