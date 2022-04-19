@@ -65,9 +65,10 @@ public class WalletController extends PatternController implements Initializable
             }
             actual.setCredit(check);
             SingUserInfo.getInstance().getLoggedUser().setCashAccount(actual);
-            actualBalance.setText("Current balance is " + SingUserInfo.getInstance().getLoggedUser().getCashAccount().getCredit() + "celery");
+            actualBalance.setText("Current balance is " + SingUserInfo.getInstance().getLoggedUser().getCashAccount().getCredit() + " euros");
         } catch (FileNotFoundException e) {
-
+            walletConsole.setText("No transactions yet");
+            actualBalance.setText("Current balance is 0 :(");
         }
     }
     boolean isPlus(String line) {

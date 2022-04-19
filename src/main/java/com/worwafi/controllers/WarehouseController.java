@@ -89,32 +89,35 @@ public class WarehouseController extends PatternController implements Initializa
     }
 
     private void setupListView() {
+        listObjects.getItems().clear();
         try {
-            listObjects.getItems().clear();
-            listObjects.setItems(setupAuctionedObjects());
-        } catch (Exception e) {
-            listObjects.setItems(FXCollections.observableArrayList());
+            listObjects.setItems((ObservableList<AuctionedObject>) serialize.readObject("warehouse"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
     }
 
-    private ObservableList<AuctionedObject> setupAuctionedObjects() {
-        try {
-            File auctionedObjectFile = new File(String.valueOf(SingUserInfo.getInstance().getLoggedUser().getObjectFile()));
-            Scanner myReader = new Scanner(auctionedObjectFile);
-            ObservableList<AuctionedObject> possesion = FXCollections.observableArrayList();
-            while (myReader.hasNextLine()) {
-                String line = myReader.nextLine();
-                String lineSplit[] = line.split(" . ");
-                AuctionedObject actual = new AuctionedObject(SingUserInfo.getInstance().getLoggedUser(), lineSplit[0],
-                        lineSplit[1], Double.parseDouble(lineSplit[2]), Double.parseDouble(lineSplit[3]), lineSplit[4],
-                        lineSplit[5], lineSplit[6]);
-                possesion.add(actual);
-            }
-            SingUserInfo.getInstance().getLoggedUser().setPossession(possesion);
-            return possesion;
-        } catch (FileNotFoundException e) {
-
-        }
-        return null;
-    }
+//    private ObservableList<AuctionedObject> setupAuctionedObjects() {
+//        try {
+//            File auctionedObjectFile = new File(String.valueOf(SingUserInfo.getInstance().getLoggedUser().getObjectFile()));
+//            Scanner myReader = new Scanner(auctionedObjectFile);
+//            ObservableList<AuctionedObject> possesion = FXCollections.observableArrayList();
+//            while (myReader.hasNextLine()) {
+//                String line = myReader.nextLine();
+//                if(line.equals(""))
+//                    continue;
+//                String lineSplit[] = line.split(" . ");
+//                AuctionedObject actual = new AuctionedObject(SingUserInfo.getInstance().getLoggedUser(), lineSplit[0],
+//                        lineSplit[1], Double.parseDouble(lineSplit[2]), Double.parseDouble(lineSplit[3]), lineSplit[4],
+//                        lineSplit[5], lineSplit[6]);
+//                possesion.add(actual);
+//            }
+//            SingUserInfo.getInstance().getLoggedUser().setPossession(possesion);
+//            return possesion;
+//        } catch (FileNotFoundException e) {
+//            return FXCollections.observableArrayList();
+//        }
+//    }
 }

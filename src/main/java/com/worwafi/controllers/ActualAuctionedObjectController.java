@@ -3,12 +3,11 @@ package com.worwafi.controllers;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
-import com.worwafi.others.AuctionedObject;
-import com.worwafi.others.ObjectCategory;
-import com.worwafi.others.ObjectStatus;
+import com.worwafi.others.*;
 import com.worwafi.singleton.SingActualObject;
 import com.worwafi.singleton.SingStage;
 import com.worwafi.singleton.SingUserInfo;
+import com.worwafi.users.BasicUser;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -25,19 +24,13 @@ import javafx.stage.WindowEvent;
 
 import java.io.*;
 import java.net.URL;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 //TODO dorobit nech berie z comboBoxu namiesto pola
 
 public class ActualAuctionedObjectController extends ObjectPatternController implements Initializable {
-    private static ActualAuctionedObjectController single_instance = null;
-    public ActualAuctionedObjectController() {
-        single_instance = this;
-    }
-
-    public static ActualAuctionedObjectController getSingle_instance() {
-        return single_instance;
-    }
+    Serialize serialize = new Serialize();
 
     @FXML
     private JFXTextField bioTextArea;
@@ -85,12 +78,15 @@ public class ActualAuctionedObjectController extends ObjectPatternController imp
         addButton.setOnAction(event -> {
             if(SingActualObject.getInstance().getNeww()) {
                 try {
-                    File userTxt = new File("D:\\skola\\txt\\" + SingUserInfo.getInstance().getLoggedUser().getUsername() + "Objects.txt");
-                    FileWriter fw = new FileWriter(userTxt, true);
-                    fw.append("\n" + nameTextArea.getText() + " . " + bioTextArea.getText() + " . " + startingPriceTextArea.getText() + " . " + expctPriceTextArea.getText() + " . " + filePathTextArea.getText() + " . " + categoryComboBox.getValue().toString() + " . " + statusTextArea.getText());
-                    fw.close();
+                    ObservableList<AuctionedObject> auctionedObjects = (ObservableList<AuctionedObject>) serialize.readObject("warehouse");
+                    auctionedObjects.add(new AuctionedObject(SingUserInfo.getInstance().getLoggedUser(), nameTextArea.getText(),
+                            bioTextArea.getText(), Double.parseDouble(startingPriceTextArea.getText()), Double.parseDouble(expctPriceTextArea.getText()), filePathTextArea.getText(),
+                            categoryComboBox.getValue().toString(),
+                            statusTextArea.getText().toString()));
+                    serialize.writeObject(auctionedObjects);
                 } catch (IOException e) {
-
+                    e.printStackTrace();
+                } catch (ClassNotFoundException e) {
                     e.printStackTrace();
                 }
                 Stage stage = (Stage) ownerTxtArea.getScene().getWindow();

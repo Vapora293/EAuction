@@ -29,6 +29,7 @@ import java.util.TimerTask;
 
 public class AuctionController extends PatternController implements Initializable, AuctionStatusListener {
     private final DecimalFormat df = new DecimalFormat("0.00");
+    private boolean start = false;
     PauseTransition pauseTransition;
     @FXML
     private JFXTextField actualBalance;
@@ -111,8 +112,13 @@ public class AuctionController extends PatternController implements Initializabl
         buttonSetting(recom1);
         buttonSetting(recom2);
         setBid.setOnAction(event -> {
-            callingTextArea.setText("Calling for the " + "1. time");
             double actual = Double.parseDouble(getBid.getText());
+            if(Double.compare(SingAuction.getInstance().getAuction().getActualPrice() + actual,
+                    SingUserInfo.getInstance().getLoggedUser().getCashAccount().getCredit()) > 0) {
+                getBid.setText("Not enough money to bet");
+                return;
+            }
+            callingTextArea.setText("Calling for the " + "1. time");
             SingAuction.getInstance().getAuction().bid(SingUserInfo.getInstance().getLoggedUser(),
                     Double.parseDouble(String.valueOf(Math.round(SingAuction.getInstance().getAuction().getActualPrice() + actual))));
             updateEnglishLayout();
@@ -125,9 +131,14 @@ public class AuctionController extends PatternController implements Initializabl
 
     private void buttonSetting(JFXButton actualButton) {
         actualButton.setOnAction(event -> {
-            callingTextArea.setText("Calling for the " + "1. time");
             String[] text = actualButton.getText().split(" ");
             double actual = Double.parseDouble(text[1]);
+            if(Double.compare(SingAuction.getInstance().getAuction().getActualPrice() + actual,
+                    SingUserInfo.getInstance().getLoggedUser().getCashAccount().getCredit()) > 0) {
+                getBid.setText("Not enough money to bet");
+                return;
+            }
+            callingTextArea.setText("Calling for the " + "1. time");
             SingAuction.getInstance().getAuction().bid(SingUserInfo.getInstance().getLoggedUser(),
                     Double.parseDouble(String.valueOf(Math.round(SingAuction.getInstance().getAuction().getActualPrice() + actual))));
             updateEnglishLayout();
@@ -235,8 +246,10 @@ public class AuctionController extends PatternController implements Initializabl
 
     @Override
     public void updateEnglishLayout() {
-        informBid.setText(SingAuction.getInstance().getAuction().getActualWinner().getUsername() + " has raised to "
-                + SingAuction.getInstance().getAuction().getActualPrice());
+        if(start)
+            informBid.setText(SingAuction.getInstance().getAuction().getActualWinner().getUsername() + " has raised to "
+                    + SingAuction.getInstance().getAuction().getActualPrice());
+        start = true;
         actualBid.setText(df.format(SingAuction.getInstance().getAuction().getActualPrice()));
         actualBidder.setText(SingAuction.getInstance().getAuction().getActualWinner().getUsername());
         recom1.setText("Bid +" + (SingAuction.getInstance().getAuction().getActualPrice() / 10));
@@ -251,8 +264,10 @@ public class AuctionController extends PatternController implements Initializabl
 
     @Override
     public void updateReverseLayout() {
-        informBid.setText(SingAuction.getInstance().getAuction().getActualWinner().getUsername() +
-                " has accepted the price of " + SingAuction.getInstance().getAuction().getActualPrice());
+        if(start)
+            informBid.setText(SingAuction.getInstance().getAuction().getActualWinner().getUsername() +
+                    " has accepted the price of " + SingAuction.getInstance().getAuction().getActualPrice());
+        start = true;
         callingTextArea.setText("Winner of " + SingActualObject.getInstance().getObject().getName() + " is "
                 + SingAuction.getInstance().getAuction().getActualWinner().getUsername() + "!");
         actualBid.setText(df.format(SingAuction.getInstance().getAuction().getActualPrice()));

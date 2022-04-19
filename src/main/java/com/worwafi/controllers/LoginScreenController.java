@@ -49,7 +49,7 @@ public class LoginScreenController implements Initializable {
         LinkedList<BasicUser> users = null;
         try {
             users = (LinkedList<BasicUser>) serialize.readObject("users");
-            System.out.println("yes");
+            serialize.writeObject(users);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
