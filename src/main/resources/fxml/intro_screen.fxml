@@ -10,9 +10,9 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<GridPane fx:id="GridPaneIntro" styleClass="regularGridPane" stylesheets="@basic.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.worwafi.controllers.IntroController">
+<GridPane fx:id="GridPaneIntro" prefHeight="450.0" prefWidth="850.0" styleClass="regularGridPane" stylesheets="@basic.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.worwafi.controllers.IntroController">
    <columnConstraints>
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="400.0" prefWidth="800.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="450.0" prefWidth="850.0" />
    </columnConstraints>
    <rowConstraints>
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -22,8 +22,8 @@
    <children>
       <ButtonBar buttonMinWidth="60.0" prefHeight="40.0" prefWidth="820.0">
          <buttons>
-            <JFXTextField fx:id="timeTextArea" alignment="CENTER" editable="false" focusColor="#405aa800" prefHeight="25.0" prefWidth="225.0" styleClass="regularTextArea" unFocusColor="#4d4d4d00" />
             <JFXTextField fx:id="welcomeTextArea" alignment="CENTER" editable="false" focusColor="#405aa800" styleClass="regularTextArea" stylesheets="@basic.css" unFocusColor="#4d4d4d00" />
+            <JFXTextField fx:id="timeTextArea" alignment="CENTER" editable="false" focusColor="#405aa800" prefHeight="25.0" prefWidth="225.0" styleClass="regularTextArea" unFocusColor="#4d4d4d00" />
             <JFXButton fx:id="logOutBtn" styleClass="regularButton" text="Log out" />
             <JFXButton fx:id="backButton" prefHeight="25.0" styleClass="regularButton" text="Back" />
          </buttons>
@@ -46,6 +46,9 @@
          <font>
             <Font name="Papyrus" size="30.0" />
          </font>
+         <GridPane.margin>
+            <Insets left="20.0" />
+         </GridPane.margin>
       </JFXTextArea>
    </children>
 </GridPane>

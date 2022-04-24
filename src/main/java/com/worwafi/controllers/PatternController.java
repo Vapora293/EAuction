@@ -15,6 +15,7 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 import java.time.LocalTime;
+import java.util.Random;
 
 public class PatternController {
     @FXML
@@ -27,7 +28,7 @@ public class PatternController {
     private JFXButton backButton;
 
     protected void setupAreas() {
-        welcomeTextArea.setText(SingUserInfo.getInstance().getLoggedUser().getUsername());
+        welcomeTextArea.setText("Logged as: " + SingUserInfo.getInstance().getLoggedUser().getUsername());
         Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
             LocalTime currentTime = LocalTime.now();
             timeTextArea.setText(currentTime.getHour() + ":" + currentTime.getMinute());

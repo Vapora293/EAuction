@@ -18,6 +18,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URL;
+import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
@@ -118,6 +119,26 @@ public class IntroController extends PatternController implements Initializable 
     @Override
     public void setupAreas() {
         super.setupAreas();
-        mainLog.setText("Welcome, " + SingUserInfo.getInstance().getLoggedUser().getUsername());
+        Random rand = new Random();
+        switch (rand.nextInt(5)) {
+            case 0:
+                mainLog.setText("Feeling like a winner?");
+                break;
+            case 1:
+                mainLog.setText("Having a good necklace?");
+                break;
+            case 2:
+                mainLog.setText("Hurry up, there is always somebody richer");
+                break;
+            case 3:
+                mainLog.setText("You can always have better");
+                break;
+            case 4:
+                mainLog.setText("How are you?");
+                break;
+            default:
+                mainLog.setText("Welcome, " + SingUserInfo.getInstance().getLoggedUser().getUsername());
+                break;
+        }
     }
 }

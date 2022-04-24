@@ -3,6 +3,7 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -26,6 +27,9 @@
             <JFXButton fx:id="logOutBtn" styleClass="regularButton" text="Log out" />
             <JFXButton fx:id="backButton" styleClass="regularButton" text="Back" />
          </buttons>
+         <padding>
+            <Insets right="20.0" />
+         </padding>
       </ButtonBar>
       <JFXTextArea fx:id="walletConsole" editable="false" focusColor="#405aa800" styleClass="mainTextArea" unFocusColor="#4d4d4d00" GridPane.columnSpan="2" GridPane.rowIndex="1" />
       <ButtonBar buttonMinWidth="200.0" prefHeight="30.0" prefWidth="800.0" GridPane.rowIndex="2">
