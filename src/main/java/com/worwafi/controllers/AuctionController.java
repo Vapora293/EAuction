@@ -152,6 +152,7 @@ public class AuctionController extends PatternController implements Initializabl
 
     private void startAuction() {
         SingAuction.getInstance().getAuction().setAuctionStatusListener(this);
+        //TODO zmenit toto na thread
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             int local = 5;
@@ -237,7 +238,7 @@ public class AuctionController extends PatternController implements Initializabl
     }
 
     private void setupBidders() {
-        for (User actual : SingAuction.getInstance().getAuction().getBidders()) {
+        for (User actual : SingAuction.getInstance().getAuction().getBidders().getList()) {
             biddersBox.getChildren().add(new Text(actual.getUsername()));
         }
         biddersBox.getStyleClass().add("regularBox");

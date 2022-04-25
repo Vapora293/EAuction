@@ -3,6 +3,7 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -13,7 +14,7 @@
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-    <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+    <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="160.0" />
   </columnConstraints>
   <rowConstraints>
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -26,24 +27,44 @@
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <JFXButton fx:id="addButton" alignment="CENTER" styleClass="regularButton" text="Add to auction" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="7">
-         <GridPane.margin>
-            <Insets right="50.0" />
-         </GridPane.margin></JFXButton>
       <ImageView fx:id="imageViewer" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowSpan="8" />
       <ComboBox fx:id="categoryComboBox" prefHeight="32.0" prefWidth="202.0" styleClass="list-cell" GridPane.columnIndex="1" GridPane.rowIndex="5" />
       <JFXTextField editable="false" focusColor="#405aa800" styleClass="mainTextArea" text="Owner:" unFocusColor="#4d4d4d00">
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
+         <GridPane.margin>
+            <Insets left="10.0" />
+         </GridPane.margin>
       </JFXTextField>
-      <JFXTextField editable="false" focusColor="#405aa800" styleClass="mainTextArea" text="Product name:" unFocusColor="#4d4d4d00" GridPane.rowIndex="1" />
-      <JFXTextField focusColor="#405aa800" styleClass="mainTextArea" text="Starting price:" unFocusColor="#4d4d4d00" GridPane.rowIndex="2" />
-      <JFXTextField focusColor="#405aa800" styleClass="mainTextArea" text="Expected selling price:" unFocusColor="#4d4d4d00" GridPane.rowIndex="3" />
-      <JFXTextField focusColor="#405aa800" styleClass="mainTextArea" text="Descrription:" unFocusColor="#4d4d4d00" GridPane.rowIndex="4" />
-      <JFXTextField focusColor="#405aa800" styleClass="mainTextArea" text="Category:" unFocusColor="#4d4d4d00" GridPane.rowIndex="5" />
-      <JFXTextField focusColor="#405aa800" styleClass="mainTextArea" text="Status:" unFocusColor="#4d4d4d00" GridPane.rowIndex="6" />
-      <JFXTextField focusColor="#405aa800" styleClass="mainTextArea" text="Picture path:" unFocusColor="#4d4d4d00" GridPane.rowIndex="7" />
+      <JFXTextField editable="false" focusColor="#405aa800" styleClass="mainTextArea" text="Product name:" unFocusColor="#4d4d4d00" GridPane.rowIndex="1">
+         <GridPane.margin>
+            <Insets left="10.0" />
+         </GridPane.margin></JFXTextField>
+      <JFXTextField focusColor="#405aa800" styleClass="mainTextArea" text="Starting price:" unFocusColor="#4d4d4d00" GridPane.rowIndex="2">
+         <GridPane.margin>
+            <Insets left="10.0" />
+         </GridPane.margin></JFXTextField>
+      <JFXTextField focusColor="#405aa800" styleClass="mainTextArea" text="Expected selling price:" unFocusColor="#4d4d4d00" GridPane.rowIndex="3">
+         <GridPane.margin>
+            <Insets left="10.0" />
+         </GridPane.margin></JFXTextField>
+      <JFXTextField focusColor="#405aa800" styleClass="mainTextArea" text="Descrription:" unFocusColor="#4d4d4d00" GridPane.rowIndex="4">
+         <GridPane.margin>
+            <Insets left="10.0" />
+         </GridPane.margin></JFXTextField>
+      <JFXTextField focusColor="#405aa800" styleClass="mainTextArea" text="Category:" unFocusColor="#4d4d4d00" GridPane.rowIndex="5">
+         <GridPane.margin>
+            <Insets left="10.0" />
+         </GridPane.margin></JFXTextField>
+      <JFXTextField focusColor="#405aa800" styleClass="mainTextArea" text="Status:" unFocusColor="#4d4d4d00" GridPane.rowIndex="6">
+         <GridPane.margin>
+            <Insets left="10.0" />
+         </GridPane.margin></JFXTextField>
+      <JFXTextField focusColor="#405aa800" styleClass="mainTextArea" text="Picture path:" unFocusColor="#4d4d4d00" GridPane.rowIndex="7">
+         <GridPane.margin>
+            <Insets left="10.0" />
+         </GridPane.margin></JFXTextField>
       <JFXTextField fx:id="ownerTxtArea" editable="false" focusColor="#42424200" styleClass="regularTextField" unFocusColor="#4d4d4d00" GridPane.columnIndex="1" />
       <JFXTextField fx:id="nameTextArea" editable="false" focusColor="#42424200" styleClass="regularTextField" unFocusColor="#4d4d4d00" GridPane.columnIndex="1" GridPane.rowIndex="1" />
       <JFXTextField fx:id="startingPriceTextArea" editable="false" focusColor="#42424200" styleClass="regularTextField" unFocusColor="#4d4d4d00" GridPane.columnIndex="1" GridPane.rowIndex="2" />
@@ -52,5 +73,14 @@
       <JFXTextField fx:id="categoryTextArea" editable="false" focusColor="#42424200" styleClass="regularTextField" unFocusColor="#4d4d4d00" GridPane.columnIndex="1" GridPane.rowIndex="5" />
       <JFXTextField fx:id="statusTextArea" editable="false" focusColor="#42424200" styleClass="regularTextField" unFocusColor="#4d4d4d00" GridPane.columnIndex="1" GridPane.rowIndex="6" />
       <JFXTextField fx:id="filePathTextArea" editable="false" focusColor="#42424200" styleClass="regularTextField" unFocusColor="#4d4d4d00" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+      <ButtonBar buttonMinWidth="80.0" prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="7">
+         <buttons>
+            <JFXButton fx:id="searchForFile" styleClass="regularButton" text="Search" />
+            <JFXButton fx:id="addButton" alignment="CENTER" prefHeight="25.0" prefWidth="118.0" styleClass="regularButton" text="Add to auction" textAlignment="CENTER" />
+         </buttons>
+         <GridPane.margin>
+            <Insets right="20.0" />
+         </GridPane.margin>
+      </ButtonBar>
    </children>
 </GridPane>

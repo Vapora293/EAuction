@@ -14,14 +14,14 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
-public abstract class Auction {
+public abstract class Auction implements HelpMethods {
     private static final DecimalFormat df = new DecimalFormat("0.00");
 
     protected AuctionStatusListener auctionStatusListener;
     protected String id;
     protected AuctionedObject win;
     protected AuctionTimer timeInfo;
-    protected ArrayList<User> bidders;
+    protected GenericList<User> bidders;
     protected double actualPrice;
     protected User actualWinner;
     protected double currentRaise;
@@ -38,12 +38,12 @@ public abstract class Auction {
     }
 
     protected boolean callBidders() {
-        for (int i = 1; i < SingAuction.getInstance().getAuction().getBidders().size(); i++) {
+        for (int i = 1; i < SingAuction.getInstance().getAuction().getBidders().getList().size(); i++) {
             Random rand = new Random();
             int check = rand.nextInt(100);
             double price = SingAuction.getInstance().getAuction().getActualPrice() * (1 + Double.parseDouble(df.format(rand.nextDouble())));
-            if (check < 10 && SingAuction.getInstance().getAuction().getBidders().get(i).getCashAccount().getCredit() > price) {
-                SingAuction.getInstance().getAuction().bid(SingAuction.getInstance().getAuction().getBidders().get(i), price);
+            if (check < 10 && SingAuction.getInstance().getAuction().getBidders().getList().get(i).getCashAccount().getCredit() > price) {
+                SingAuction.getInstance().getAuction().bid(SingAuction.getInstance().getAuction().getBidders().getList().get(i), price);
                 auctionStatusListener.updateEnglishLayout();
                 return true;
             }
@@ -51,15 +51,15 @@ public abstract class Auction {
         return false;
     }
 
-    private ArrayList<User> makeBidders() {
+    private GenericList<User> makeBidders() {
         Random rand = new Random();
-        ArrayList<User> localBidders = new ArrayList<>();
-        localBidders.add(SingUserInfo.getInstance().getLoggedUser());
+        GenericList<User> localBidders = new GenericList<>();
+        localBidders.getList().add(SingUserInfo.getInstance().getLoggedUser());
         BotNames names = new BotNames();
         for(int i = 1; i < rand.nextInt(50); i++) {
             BotUser actual = new BotUser(names.getName());
             actual.getCashAccount().setCredit(Math.round(win.getExpSelPrice() * (1 + rand.nextDouble())));
-            localBidders.add(actual);
+            localBidders.getList().add(actual);
         }
         return localBidders;
     }
@@ -113,7 +113,7 @@ public abstract class Auction {
         end = true;
     }
 
-    public ArrayList<User> getBidders() {
+    public GenericList<User> getBidders() {
         return bidders;
     }
 
@@ -127,5 +127,14 @@ public abstract class Auction {
 
     public void setAuctionStatusListener(AuctionStatusListener auctionStatusListener) {
         this.auctionStatusListener = auctionStatusListener;
+    }
+
+    @Override
+    public String getAllData() {
+        return id + " " + win.getAllData() + "\n" + bidders.getAllData() + "\n" + actualWinner + " " + actualPrice;
+    }
+    @Override
+    public String getName() {
+        return id + " " + win.getName();
     }
 }

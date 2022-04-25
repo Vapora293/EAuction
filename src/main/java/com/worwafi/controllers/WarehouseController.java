@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import com.worwafi.others.AuctionedObject;
+import com.worwafi.others.GenericList;
 import com.worwafi.others.Serialize;
 import com.worwafi.singleton.SingActualObject;
 import com.worwafi.singleton.SingUserInfo;
@@ -91,7 +92,8 @@ public class WarehouseController extends PatternController implements Initializa
     private void setupListView() {
         listObjects.getItems().clear();
         try {
-            listObjects.setItems((ObservableList<AuctionedObject>) serialize.readObject("warehouse"));
+            GenericList<AuctionedObject> items = (GenericList<AuctionedObject>) serialize.readObject("warehouse");
+            listObjects.setItems(items.getList());
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {

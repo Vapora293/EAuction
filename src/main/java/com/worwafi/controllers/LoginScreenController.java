@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
+import com.worwafi.others.GenericList;
 import com.worwafi.others.Serialize;
 import com.worwafi.singleton.SingStage;
 import com.worwafi.singleton.SingUserInfo;
@@ -46,9 +47,9 @@ public class LoginScreenController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        LinkedList<BasicUser> users = null;
+        GenericList<BasicUser> users = null;
         try {
-            users = (LinkedList<BasicUser>) serialize.readObject("users");
+            users = (GenericList<BasicUser>) serialize.readObject("users");
             serialize.writeObject(users);
         } catch (IOException e) {
             e.printStackTrace();
@@ -58,38 +59,7 @@ public class LoginScreenController implements Initializable {
         buttonConfig(users);
     }
 
-    private LinkedList<BasicUser> txtFileConfig() throws IOException, ClassNotFoundException {
-//        if(userTxt.exists()) {
-//            ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(userTxt));
-//            LinkedList<BasicUser> userList = (LinkedList<BasicUser>) inputStream.readObject();
-//            inputStream.close();
-//            return userList;
-//            }
-//        return new LinkedList<>();
-//            public void serialization(LinkedList<User> userList) throws IOException {
-//                FileOutputStream fileOut = new FileOutputStream("registeredUsers.out");
-//                ObjectOutputStream outputStream = new ObjectOutputStream(fileOut);
-//
-//                outputStream.writeObject(userList);
-//                outputStream.close();
-//            }
-//        }
-        try {
-            Scanner myReader = new Scanner(new File("D:\\skola\\txt\\users.txt"));
-            LinkedList<BasicUser> users = new LinkedList<>();
-            while (myReader.hasNextLine()) {
-                String line = myReader.nextLine();
-                String lineSplit[] = line.split(" . ");
-                BasicUser actual = new BasicUser(lineSplit[0], lineSplit[1], lineSplit[2]);
-                users.add(actual);
-            }
-            return users;
-        } catch (FileNotFoundException e) {
-            return null;
-        }
-    }
-
-    private void buttonConfig(LinkedList<BasicUser> users) {
+    private void buttonConfig(GenericList<BasicUser> users) {
         AtomicBoolean registrationClicked = new AtomicBoolean(false);
         buttonLogin.setOnAction(event -> {
             String usernameInput = fldUsername.getText();
@@ -97,7 +67,7 @@ public class LoginScreenController implements Initializable {
             try {
                 boolean works = compare(usernameInput, passwordInput, users);
                 if(!works)
-                    movesDialog.setText("Nespravne udaje, skuste znova");
+                    movesDialog.setText("Unknown credentials, try again");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -115,7 +85,7 @@ public class LoginScreenController implements Initializable {
                 BasicUser newBasicUser;
                 if (passwordInput.equals(fldPassword1.getText())) {
                     newBasicUser = new BasicUser(usernameInput, passwordInput, bioInput);
-                    users.add(newBasicUser);
+                    users.getList().add(newBasicUser);
                     try {
                         serialize.writeObject(users);
                     } catch (IOException e) {
@@ -123,34 +93,26 @@ public class LoginScreenController implements Initializable {
                     } catch (ClassNotFoundException e) {
                         e.printStackTrace();
                     }
-//                    try {
-//                        File userTxt = new File("D:\\skola\\txt\\users.txt");
-//                        FileWriter fw = new FileWriter(userTxt, true);
-//                        fw.append("\n" + newBasicUser.getUsername() + " . " + newBasicUser.getPassword() + " . " + newBasicUser.getBio() + " . " + "no");
-//                        fw.close();
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    }
-                    movesDialog.setText("Pouzivatel " + newBasicUser.getUsername() + " bol uspesne zaregistrovany");
+                    movesDialog.setText("User " + newBasicUser.getUsername() + " has been successfully registered");
                     fldPassword1.setVisible(false);
                     fldBio.setVisible(false);
                     fldUsername.setText(null);
-                    fldUsername.setPromptText("Prihlasovacie meno");
+                    fldUsername.setPromptText("Username");
                     fldPassword.setText(null);
-                    fldPassword.setPromptText("Heslo");
+                    fldPassword.setPromptText("Password");
                     registrationClicked.set(false);
                 }
                 else {
-                    movesDialog.setText("Hesla nie su zhodne, zadajte znova");
+                    movesDialog.setText("Password doesn't match, try again");
                 }
             }
         });
     }
 
-    private boolean compare(String usernameInput, String passwordInput, LinkedList<BasicUser> users) throws IOException {
-        for (int i = 0; i < users.size(); i++) {
-            if (users.get(i).getUsername().equals(usernameInput) && users.get(i).getPassword().equals(passwordInput)) {
-                SingUserInfo.getInstance().setLoggedUser(users.get(i));
+    private boolean compare(String usernameInput, String passwordInput, GenericList<BasicUser> users) throws IOException {
+        for (int i = 0; i < users.getList().size(); i++) {
+            if (users.getList().get(i).getUsername().equals(usernameInput) && users.getList().get(i).getPassword().equals(passwordInput)) {
+                SingUserInfo.getInstance().setLoggedUser(users.getList().get(i));
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/intro_screen.fxml"));
                 SingStage.getInstance().setScene(new Scene(loader.load()));
                 return true;

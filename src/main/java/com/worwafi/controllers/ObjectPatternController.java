@@ -34,11 +34,12 @@ public class ObjectPatternController extends PatternController {
     protected void setupObject() {
         ownerTxtArea.setText(SingUserInfo.getInstance().getLoggedUser().getUsername());
         nameTextArea.setText(SingActualObject.getInstance().getObject().getName());
-        startingPriceTextArea.setText(String.valueOf(SingActualObject.getInstance().getObject().getStartingPrice()) + " €");
-        expctPriceTextArea.setText(String.valueOf(SingActualObject.getInstance().getObject().getExpSelPrice()) + " €");
+        startingPriceTextArea.setText(SingActualObject.getInstance().getObject().getStartingPrice() + " €");
+        expctPriceTextArea.setText(SingActualObject.getInstance().getObject().getExpSelPrice() + " €");
         bioTextArea.setText(SingActualObject.getInstance().getObject().getBio());
         categoryTextArea.setText(SingActualObject.getInstance().getObject().getCategory().toString());
         statusTextArea.setText(SingActualObject.getInstance().getObject().getStatus().toString());
+        filePathTextArea.setText(SingActualObject.getInstance().getObject().getPicture().getAbsolutePath());
         try {
             imageViewer.setImage(new Image(new FileInputStream(SingActualObject.getInstance().getObject().getPicture())));
         } catch (FileNotFoundException e) {

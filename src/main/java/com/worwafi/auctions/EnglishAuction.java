@@ -37,13 +37,17 @@ public class EnglishAuction extends Auction {
         auctionStatusListener.updateEnglishLayout();
         auctionStatusListener.englishButtonListeners();
     }
+    @Override
+    public String getAllData() {
+        return super.getAllData() + "\n English Auction";
+    }
+    @Override
+    public String getName() {
+        return super.getName() + " English Auction";
+    }
 
     private void writeIntoLog(User bidder, double price) {
 
-    }
-    @Override
-    public String toString() {
-        return "English auction";
     }
 
 }

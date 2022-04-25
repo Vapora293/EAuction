@@ -31,7 +31,10 @@ public class PatternController {
         welcomeTextArea.setText("Logged as: " + SingUserInfo.getInstance().getLoggedUser().getUsername());
         Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
             LocalTime currentTime = LocalTime.now();
-            timeTextArea.setText(currentTime.getHour() + ":" + currentTime.getMinute());
+            if(currentTime.getMinute() < 10)
+                timeTextArea.setText(currentTime.getHour() + ":0" + currentTime.getMinute());
+            else
+                timeTextArea.setText(currentTime.getHour() + ":" + currentTime.getMinute());
         }),
                 new KeyFrame(Duration.seconds(10))
         );

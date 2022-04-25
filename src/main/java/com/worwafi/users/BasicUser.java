@@ -1,18 +1,19 @@
 package com.worwafi.users;
 
 import com.worwafi.others.AuctionedObject;
+import com.worwafi.others.GenericList;
+import com.worwafi.others.HelpMethods;
 import javafx.collections.ObservableList;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.Serializable;
 
-public class BasicUser extends User implements Serializable {
+public class BasicUser extends User {
     protected boolean limit;
     protected String password;
     protected String bio;
-    protected transient ObservableList<AuctionedObject> possession;
+    protected GenericList<AuctionedObject> possession;
     protected File objectFile;
     protected File moneyFile;
 
@@ -49,10 +50,10 @@ public class BasicUser extends User implements Serializable {
             e.printStackTrace();
         }
     }
-    public void setPossession(ObservableList<AuctionedObject> possession) {
+    public void setPossession(GenericList<AuctionedObject> possession) {
         this.possession = possession;
     }
-    public ObservableList<AuctionedObject> getPossession() {
+    public GenericList<AuctionedObject> getPossession() {
         return possession;
     }
     boolean getLimit() {
@@ -75,4 +76,13 @@ public class BasicUser extends User implements Serializable {
         return password;
     }
 
+    @Override
+    public String getName() {
+        return username;
+    }
+
+    @Override
+    public String getAllData() {
+        return username + " " + bio + "\n" + possession.getAllData() + "\n " + objectFile.toString() + " " + moneyFile.toString();
+    }
 }

@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Locale;
 
-public class AuctionedObject implements Serializable {
+public class AuctionedObject extends Starter {
     private User owner;
     private String name;
     private String bio;
@@ -34,12 +34,15 @@ public class AuctionedObject implements Serializable {
         return name;
     }
 
-    public User getOwner() {
-        return owner;
-    }
-
+    @Override
     public String getName() {
         return name;
+    }
+
+    @Override
+    public String getAllData() {
+        return owner.getName() + " " + name + " " + bio + " " + startingPrice + " " + expSelPrice + " " +
+                picture.toString() + " " + category.toString() + " " + status.toString();
     }
 
     public String getBio() {

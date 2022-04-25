@@ -34,9 +34,12 @@ public class ReverseAuction extends Auction{
         auctionStatusListener.updateEnglishLayout();
         auctionStatusListener.reverseButtonListeners();
     }
-
     @Override
-    public String toString() {
-        return "Reverse Auction";
+    public String getAllData() {
+        return super.getAllData() + "\n Reverse Auction";
+    }
+    @Override
+    public String getName() {
+        return super.getName() + " Reverse Auction";
     }
 }

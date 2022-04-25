@@ -21,4 +21,14 @@ public class BotUser extends User {
     void withdrawFromAuction() {
 
     }
+
+    @Override
+    public String getName() {
+        return username;
+    }
+
+    @Override
+    public String getAllData() {
+        return username;
+    }
 }
