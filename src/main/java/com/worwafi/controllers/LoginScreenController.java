@@ -6,6 +6,7 @@ import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import com.worwafi.others.GenericList;
 import com.worwafi.others.Serialize;
+import com.worwafi.singleton.SingAuction;
 import com.worwafi.singleton.SingStage;
 import com.worwafi.singleton.SingUserInfo;
 import com.worwafi.users.BasicUser;
@@ -17,9 +18,7 @@ import javafx.scene.layout.*;
 
 import java.io.*;
 import java.net.URL;
-import java.util.LinkedList;
 import java.util.ResourceBundle;
-import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class LoginScreenController implements Initializable {
@@ -115,6 +114,7 @@ public class LoginScreenController implements Initializable {
                 SingUserInfo.getInstance().setLoggedUser(users.getList().get(i));
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/intro_screen.fxml"));
                 SingStage.getInstance().setScene(new Scene(loader.load()));
+                SingAuction.getInstance();
                 return true;
             }
         }

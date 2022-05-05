@@ -6,11 +6,16 @@ import com.jfoenix.controls.JFXTextField;
 import com.worwafi.auctions.Auction;
 import com.worwafi.auctions.EnglishAuction;
 import com.worwafi.auctions.ReverseAuction;
+import com.worwafi.others.GenericList;
 import com.worwafi.others.ObjectCategory;
 import com.worwafi.others.ObjectStatus;
+import com.worwafi.others.Serialize;
 import com.worwafi.singleton.SingActualObject;
 import com.worwafi.singleton.SingAuction;
 import com.worwafi.singleton.SingStage;
+import com.worwafi.singleton.SingUserInfo;
+import com.worwafi.users.BasicUser;
+import com.worwafi.users.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -19,15 +24,18 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.Locale;
+import java.util.Random;
 import java.util.ResourceBundle;
 
 public class MainController extends ObjectPatternController implements Initializable {
+    Random rand = new Random();
     @FXML
     private JFXTextArea actualBalance;
 
@@ -78,33 +86,44 @@ public class MainController extends ObjectPatternController implements Initializ
 
     @FXML
     private ComboBox<Text> auctionComboBox;
+    @FXML
+    private ListView<User> listView;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setupAreas();
         setupNavBarButtons();
         setupObject();
-        setEditable(true);
-        getAucObject.setOnAction(event -> {
-            if (SingActualObject.getInstance() != null && SingActualObject.getInstance().getObject().getStatus() == ObjectStatus.FORSALE) {
-                checkCorrect();
-                Auction auction = null;
-                if(auctionComboBox.getSelectionModel().getSelectedItem().getText().toString().equals("English Auction")) {
-                    auction = new EnglishAuction(SingActualObject.getInstance().getObject());
+        if (SingAuction.getInstance().isNewAuction()) {
+            setEditable(false);
+            getAucObject.setText("");
+        }
+        else {
+            setEditable(true);
+            getAucObject.setOnAction(event -> {
+                if (SingActualObject.getInstance() != null && SingActualObject.getInstance().getObject().getStatus() == ObjectStatus.FORSALE) {
+                    checkCorrect();
+                    Auction auction = null;
+                    if(auctionComboBox.getSelectionModel().getSelectedItem().getText().toString().equals("English Auction")) {
+                        auction = new EnglishAuction(getId(), SingActualObject.getInstance().getObject());
+                    }
+                    if(auctionComboBox.getSelectionModel().getSelectedItem().getText().toString().equals("Reverse Auction")) {
+                        auction = new ReverseAuction(getId(), SingActualObject.getInstance().getObject());
+                    }
+                    SingAuction.getInstance().setAuction(auction, true);
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/auction_screen.fxml"));
+                    try {
+                        Scene actual = new Scene(loader.load());
+                        SingStage.getInstance().setScene(actual);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
-                if(auctionComboBox.getSelectionModel().getSelectedItem().getText().toString().equals("Reverse Auction")) {
-                    auction = new ReverseAuction(SingActualObject.getInstance().getObject());
-                }
-                SingAuction.getInstance().setAuction(auction);
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/auction_screen.fxml"));
-                try {
-                    Scene actual = new Scene(loader.load());
-                    SingStage.getInstance().setScene(actual);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+            });
+        }
+    }
+    private String getId() {
+        return String.valueOf((char) (rand.nextInt(25) + 65) + rand.nextInt(10));
     }
 
     @Override
@@ -116,8 +135,6 @@ public class MainController extends ObjectPatternController implements Initializ
         auctionComboBox.setItems(auctions);
     }
     private void checkCorrect() {
-        //for (Object actual: SingActualObject.getInstance().getObject().getClass().getDeclaredFields()) {
-        //}
         if (!SingActualObject.getInstance().getObject().getName().equals(nameTextArea.getText()) ||
                 !SingActualObject.getInstance().getObject().getBio().equals(bioTextArea.getText()) ||
                 SingActualObject.getInstance().getObject().getStartingPrice() != Double.parseDouble(startingPriceTextArea.getText().replaceAll("\\D+", "")) ||

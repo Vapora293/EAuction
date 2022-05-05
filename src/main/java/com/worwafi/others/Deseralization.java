@@ -1,14 +1,14 @@
 package com.worwafi.others;
 
 public enum Deseralization {
-    USERS, WAREHOUSE, WALLET, AUCTION;
+    USERS, WAREHOUSE, WALLET, AUCTIONS;
     @Override
     public String toString() {
         switch (this) {
             case USERS: return "users";
             case WAREHOUSE: return "warehouse";
             case WALLET: return "wallet";
-            case AUCTION: return "auction";
+            case AUCTIONS: return "auctions";
             default: throw new IllegalStateException("deserialization failed");
         }
     }

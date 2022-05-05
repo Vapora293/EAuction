@@ -35,7 +35,7 @@
          <buttons>
             <JFXButton fx:id="walletButton" maxWidth="-Infinity" prefHeight="25.0" prefWidth="262.0" styleClass="regularButton" text="Cash account" />
             <JFXButton fx:id="warehouseButton" prefHeight="25.0" styleClass="regularButton" text="Warehouse" />
-            <JFXButton prefHeight="23.0" styleClass="regularButton" text="Profile" />
+            <JFXButton fx:id="profileButton" prefHeight="23.0" styleClass="regularButton" text="Profile" />
             <JFXButton fx:id="auctionButton" prefHeight="25.0" styleClass="regularButton" text="Auctions" />
          </buttons>
          <GridPane.margin>

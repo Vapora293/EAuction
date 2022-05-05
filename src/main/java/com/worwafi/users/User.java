@@ -1,5 +1,6 @@
 package com.worwafi.users;
 
+import com.worwafi.auctions.Auction;
 import com.worwafi.others.AuctionedObject;
 import com.worwafi.others.HelpMethods;
 import com.worwafi.others.Starter;
@@ -29,8 +30,6 @@ public abstract class User extends Starter {
     public void setCashAccount(Wallet actual) {
         cashAccount = actual;
     }
+    public abstract void join(Auction auction);
 
-    abstract void bid();
-    abstract void raise();
-    abstract void withdrawFromAuction();
 }

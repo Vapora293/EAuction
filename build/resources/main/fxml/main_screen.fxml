@@ -5,6 +5,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -33,8 +34,8 @@
          <buttons>
             <JFXTextField fx:id="welcomeTextArea" focusColor="#405aa800" prefWidth="200.0" styleClass="regularTextArea" unFocusColor="#80606000" />
             <JFXTextField fx:id="timeTextArea" focusColor="#1c41b000" styleClass="regularTextArea" unFocusColor="#4d4d4d00" />
-            <JFXButton fx:id="logOutBtn" text="Log out" />
-            <JFXButton fx:id="backButton" text="Back" />
+            <JFXButton fx:id="logOutBtn" styleClass="regularButton" text="Log out" />
+            <JFXButton fx:id="backButton" styleClass="regularButton" text="Back" />
          </buttons>
       </ButtonBar>
       <ButtonBar buttonMinWidth="100.0" prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="9">
@@ -46,9 +47,9 @@
             </JFXButton>
          </buttons>
       </ButtonBar>
-      <ImageView fx:id="imageViewer" fitHeight="311.0" fitWidth="380.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.rowSpan="6">
+      <ImageView fx:id="imageViewer" fitHeight="204.0" fitWidth="399.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.rowSpan="4">
          <GridPane.margin>
-            <Insets left="20.0" />
+            <Insets left="10.0" />
          </GridPane.margin></ImageView>
       <ComboBox fx:id="auctionComboBox" prefWidth="150.0" styleClass="list-cell" GridPane.columnIndex="1" GridPane.rowIndex="9" />
       <JFXTextField editable="false" focusColor="#405aa800" styleClass="mainTextArea" text="Owner:" unFocusColor="#4d4d4d00" GridPane.rowIndex="1">
@@ -72,5 +73,10 @@
       <JFXTextField fx:id="categoryTextArea" focusColor="#42424200" styleClass="regularTextField" unFocusColor="#4d4d4d00" GridPane.columnIndex="1" GridPane.rowIndex="6" />
       <JFXTextField fx:id="statusTextArea" focusColor="#42424200" styleClass="regularTextField" unFocusColor="#4d4d4d00" GridPane.columnIndex="1" GridPane.rowIndex="7" />
       <JFXTextField fx:id="filePathTextArea" focusColor="#42424200" styleClass="regularTextField" unFocusColor="#4d4d4d00" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+      <ListView fx:id="listView" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="5" GridPane.rowSpan="4">
+         <GridPane.margin>
+            <Insets left="10.0" right="10.0" />
+         </GridPane.margin>
+      </ListView>
    </children>
 </GridPane>

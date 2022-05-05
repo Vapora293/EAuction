@@ -1,5 +1,7 @@
 package com.worwafi.users;
 
+import com.worwafi.auctions.Auction;
+import com.worwafi.others.AuctionObserver;
 import com.worwafi.others.AuctionedObject;
 import com.worwafi.others.GenericList;
 import com.worwafi.others.HelpMethods;
@@ -9,7 +11,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class BasicUser extends User {
+public class BasicUser extends User implements AuctionObserver {
     protected boolean limit;
     protected String password;
     protected String bio;
@@ -26,21 +28,6 @@ public class BasicUser extends User {
         moneyFile = new File("D:\\skola\\txt\\" + username + "Wallet.txt");
     }
 
-    void bid() {
-
-    }
-
-    void raise() {
-    }
-
-    void withdrawFromAuction() {
-    }
-    void whisper() {
-
-    }
-    void upgradeSubscription() {
-
-    }
     public void writeIntoCashAccount(double sum) {
         try {
             FileWriter writer = new FileWriter(moneyFile, true);
@@ -84,5 +71,10 @@ public class BasicUser extends User {
     @Override
     public String getAllData() {
         return username + " " + bio + "\n" + possession.getAllData() + "\n " + objectFile.toString() + " " + moneyFile.toString();
+    }
+
+    @Override
+    public void join(Auction auction) {
+        auction.addBidder(this);
     }
 }

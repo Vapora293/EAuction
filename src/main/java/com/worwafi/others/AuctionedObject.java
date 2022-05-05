@@ -72,4 +72,8 @@ public class AuctionedObject extends Starter {
     public void setStatus(ObjectStatus status) {
         this.status = status;
     }
+
+    public User getOwner() {
+        return owner;
+    }
 }

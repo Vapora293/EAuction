@@ -42,6 +42,8 @@ public class IntroController extends PatternController implements Initializable 
     private JFXButton walletButton;
     @FXML
     private JFXButton backButton;
+    @FXML
+    private JFXButton profileButton;
 
     private void setupWallet() {
         try {
@@ -98,7 +100,7 @@ public class IntroController extends PatternController implements Initializable 
             }
         });
         auctionButton.setOnAction(event -> {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/main_screen.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/listOfAuctions.fxml"));
             try {
                 Scene actual = new Scene(loader.load());
                 SingStage.getInstance().setScene(actual);

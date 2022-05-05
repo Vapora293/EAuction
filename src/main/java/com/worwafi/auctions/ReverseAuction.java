@@ -5,8 +5,8 @@ import com.worwafi.others.ObjectStatus;
 import com.worwafi.users.User;
 
 public class ReverseAuction extends Auction{
-    public ReverseAuction(AuctionedObject win) {
-        super(win);
+    public ReverseAuction(String id, AuctionedObject win) {
+        super(id, win);
     }
 
     //TODO priklad na polymorfizmus
@@ -37,6 +37,9 @@ public class ReverseAuction extends Auction{
     @Override
     public String getAllData() {
         return super.getAllData() + "\n Reverse Auction";
+    }
+    public String getNecessaryData() {
+        return "rv . " + id + " . " + win.getOwner() + " . " + win.getName();
     }
     @Override
     public String getName() {

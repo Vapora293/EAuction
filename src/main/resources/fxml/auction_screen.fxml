@@ -30,8 +30,8 @@
          <buttons>
             <JFXTextField fx:id="timeTextArea" editable="false" focusColor="#405aa800" prefWidth="200.0" styleClass="regularTextArea" unFocusColor="#4d4d4d00" />
             <JFXTextField fx:id="welcomeTextArea" editable="false" focusColor="#405aa800" styleClass="regularTextArea" unFocusColor="#4d4d4d00" />
-            <JFXButton fx:id="logOutBtn" styleClass="regularButton" text="Odhlásiť sa" />
-            <JFXButton fx:id="backButton" prefHeight="25.0" styleClass="regularButton" text="Späť" />
+            <JFXButton fx:id="logOutBtn" styleClass="regularButton" text="Log out" />
+            <JFXButton fx:id="backButton" prefHeight="25.0" styleClass="regularButton" text="Back" />
          </buttons>
          <GridPane.margin>
             <Insets right="20.0" />

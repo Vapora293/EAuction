@@ -1,38 +1,32 @@
 package com.worwafi.auctions;
 
 import com.worwafi.others.*;
-import com.worwafi.singleton.SingActualObject;
 import com.worwafi.singleton.SingAuction;
 import com.worwafi.singleton.SingUserInfo;
-import com.worwafi.users.BotUser;
 import com.worwafi.users.User;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 import java.util.Random;
-import java.util.Scanner;
 
-public abstract class Auction implements HelpMethods {
+public abstract class Auction extends Starter implements HelpMethods, RaisingStrategy {
     private static final DecimalFormat df = new DecimalFormat("0.00");
 
     protected AuctionStatusListener auctionStatusListener;
     protected String id;
     protected AuctionedObject win;
-    protected AuctionTimer timeInfo;
     protected GenericList<User> bidders;
     protected double actualPrice;
     protected User actualWinner;
     protected double currentRaise;
     protected boolean end;
 
-    public Auction(AuctionedObject win) {
-        id = getLocalId();
+    public Auction(String id, AuctionedObject win) {
+        this.id = id;
         this.win = win;
-        bidders = makeBidders();
-        actualPrice = SingActualObject.getInstance().getObject().getStartingPrice();
-        actualWinner = SingUserInfo.getInstance().getLoggedUser();
+        bidders = new GenericList<>();
+        SingUserInfo.getInstance().getUsersAvailable().notifyAllObservers(this);
+        actualPrice = win.getStartingPrice();
+        actualWinner = win.getOwner();
         currentRaise = 0.10;
         end = false;
     }
@@ -50,57 +44,47 @@ public abstract class Auction implements HelpMethods {
         }
         return false;
     }
-
-    private GenericList<User> makeBidders() {
-        Random rand = new Random();
-        GenericList<User> localBidders = new GenericList<>();
-        localBidders.getList().add(SingUserInfo.getInstance().getLoggedUser());
-        BotNames names = new BotNames();
-        for(int i = 1; i < rand.nextInt(50); i++) {
-            BotUser actual = new BotUser(names.getName());
-            actual.getCashAccount().setCredit(Math.round(win.getExpSelPrice() * (1 + rand.nextDouble())));
-            localBidders.getList().add(actual);
-        }
-        return localBidders;
+    public void addBidder(User user) {
+        bidders.getList().add(user);
     }
 
     public abstract int handleCycle(int cycle);
-    private String getLocalId() {
-        File auctionFile = new File("D:\\skola\\txt\\auctions.txt");
-        String[] help;
-        String lastID;
-        char letter = 0;
-        char number = 0;
-        try {
-            Scanner myReader = new Scanner(auctionFile);
-            boolean start = true;
-            while(myReader.hasNextLine()) {
-                String line = myReader.nextLine();
-                if(start) {
-                    help = line.split("-");
-                    lastID = help[0];
-                    letter = lastID.charAt(0);
-                    number = lastID.charAt(1);
-                    start = false;
-                }
-                if (line.contains("!")) {
-                    start = true;
-                }
-            }
-            if(number == '0') {
-                number = '1';
-            }
-            if(number == '9') {
-                number = '0';
-                letter++;
-            }
-            number++;
-            return Character.toString(letter) + Character.toString(number);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
+//    private String getLocalId() {
+//        File auctionFile = new File("D:\\skola\\txt\\auctions.txt");
+//        String[] help;
+//        String lastID;
+//        char letter = 0;
+//        char number = 0;
+//        try {
+//            Scanner myReader = new Scanner(auctionFile);
+//            boolean start = true;
+//            while(myReader.hasNextLine()) {
+//                String line = myReader.nextLine();
+//                if(start) {
+//                    help = line.split("-");
+//                    lastID = help[0];
+//                    letter = lastID.charAt(0);
+//                    number = lastID.charAt(1);
+//                    start = false;
+//                }
+//                if (line.contains("!")) {
+//                    start = true;
+//                }
+//            }
+//            if(number == '0') {
+//                number = '1';
+//            }
+//            if(number == '9') {
+//                number = '0';
+//                letter++;
+//            }
+//            number++;
+//            return Character.toString(letter) + Character.toString(number);
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//        return null;
+//    }
     public String bid(User bidder, double price) {
         actualWinner = bidder;
         return null;
@@ -136,5 +120,13 @@ public abstract class Auction implements HelpMethods {
     @Override
     public String getName() {
         return id + " " + win.getName();
+    }
+    @Override
+    public String toString() {
+        return win.getName() + " by " + actualWinner.getUsername();
+    }
+
+    public AuctionedObject getWin() {
+        return win;
     }
 }

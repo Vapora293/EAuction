@@ -5,11 +5,13 @@ import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import com.worwafi.auctions.AuctionStatusListener;
 import com.worwafi.auctions.EnglishAuction;
+import com.worwafi.others.GenericList;
 import com.worwafi.singleton.SingActualObject;
 import com.worwafi.singleton.SingAuction;
 import com.worwafi.singleton.SingUserInfo;
 import com.worwafi.users.User;
 import javafx.animation.PauseTransition;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ButtonBar;
@@ -113,7 +115,7 @@ public class AuctionController extends PatternController implements Initializabl
         buttonSetting(recom2);
         setBid.setOnAction(event -> {
             double actual = Double.parseDouble(getBid.getText());
-            if(Double.compare(SingAuction.getInstance().getAuction().getActualPrice() + actual,
+            if (Double.compare(SingAuction.getInstance().getAuction().getActualPrice() + actual,
                     SingUserInfo.getInstance().getLoggedUser().getCashAccount().getCredit()) > 0) {
                 getBid.setText("Not enough money to bet");
                 return;
@@ -133,7 +135,7 @@ public class AuctionController extends PatternController implements Initializabl
         actualButton.setOnAction(event -> {
             String[] text = actualButton.getText().split(" ");
             double actual = Double.parseDouble(text[1]);
-            if(Double.compare(SingAuction.getInstance().getAuction().getActualPrice() + actual,
+            if (Double.compare(SingAuction.getInstance().getAuction().getActualPrice() + actual,
                     SingUserInfo.getInstance().getLoggedUser().getCashAccount().getCredit()) > 0) {
                 getBid.setText("Not enough money to bet");
                 return;
@@ -152,29 +154,56 @@ public class AuctionController extends PatternController implements Initializabl
 
     private void startAuction() {
         SingAuction.getInstance().getAuction().setAuctionStatusListener(this);
-        //TODO zmenit toto na thread
+        //TODO thread
         Timer timer = new Timer();
-        timer.scheduleAtFixedRate(new TimerTask() {
-            int local = 5;
+        AuctionTask task = new AuctionTask();
+        timer.scheduleAtFixedRate(task, 0, 1000);
+//        timer.scheduleAtFixedRate(new TimerTask() {
+//            int local = 5;
+//
+//            @Override
+//            public void run() {
+//                callingTextArea.setText(String.valueOf(local));
+//                local--;
+//                if (local < 0) {
+//                    timer.cancel();
+//                    callingTextArea.setText(auctionStartQuote());
+//                    lowNavBar.setDisable(false);
+//                    calling();
+//                }
+//            }
+//        }, 0, 1000);
+    }
 
-            @Override
-            public void run() {
-                callingTextArea.setText(String.valueOf(local));
-                local--;
-                if (local < 0) {
-                    timer.cancel();
-                    callingTextArea.setText(auctionStartQuote());
-                    lowNavBar.setDisable(false);
-                    calling();
-                }
+    //TODO vnorena trieda
+    class AuctionTask extends TimerTask {
+        private int local;
+
+        public AuctionTask() {
+            local = 5;
+        }
+
+        /**
+         * The action to be performed by this timer task.
+         */
+        @Override
+        public void run() {
+            callingTextArea.setText(String.valueOf(local));
+            local--;
+            if (local < 0) {
+                this.cancel();
+                callingTextArea.setText(auctionStartQuote());
+                lowNavBar.setDisable(false);
+                calling();
             }
-        }, 0, 1000);
+        }
     }
 
     private void calling() {
         pauseTransition = new PauseTransition(Duration.seconds(2));
         pauseTransition.play();
         pauseTransition.setOnFinished(event -> {
+            //TODO RTTI
             if (SingAuction.getInstance().getAuction() instanceof EnglishAuction) {
                 callingTextArea.setText("Calling for the " + (pauseTransition.getCycleCount()) + ". time");
             }
@@ -182,6 +211,7 @@ public class AuctionController extends PatternController implements Initializabl
             if (check == -1) {
                 callingTextArea.setText("Winner of " + SingActualObject.getInstance().getObject().getName() + " is "
                         + SingAuction.getInstance().getAuction().getActualWinner().getUsername() + "!");
+                informBid.setText("");
                 pauseTransition.pause();
                 lowNavBar.setDisable(true);
             } else {
@@ -247,7 +277,7 @@ public class AuctionController extends PatternController implements Initializabl
 
     @Override
     public void updateEnglishLayout() {
-        if(start)
+        if (start)
             informBid.setText(SingAuction.getInstance().getAuction().getActualWinner().getUsername() + " has raised to "
                     + SingAuction.getInstance().getAuction().getActualPrice());
         start = true;
@@ -265,7 +295,7 @@ public class AuctionController extends PatternController implements Initializabl
 
     @Override
     public void updateReverseLayout() {
-        if(start)
+        if (start)
             informBid.setText(SingAuction.getInstance().getAuction().getActualWinner().getUsername() +
                     " has accepted the price of " + SingAuction.getInstance().getAuction().getActualPrice());
         start = true;
