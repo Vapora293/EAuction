@@ -76,4 +76,38 @@ public class AuctionedObject extends Starter {
     public User getOwner() {
         return owner;
     }
+    public boolean compare(AuctionedObject second) {
+        if(!this.owner.getUsername().equals(second.owner.getUsername()) || !this.name.equals(second.name) ||
+        !this.bio.equals(second.bio) || (this.startingPrice != second.startingPrice) || (this.expSelPrice != second.expSelPrice) ||
+        !this.picture.toString().equals(second.picture.toString()) || !(this.category == second.category))
+            return false;
+        return true;
+    }
+    //TODO implementacia Memento design pattern
+    public Memento saveToMemento() {
+        return new Memento(this);
+    }
+
+    public void restoreFromMemento(Memento memento) {
+        owner = memento.getSavedAuctionedObject().owner;
+        name = memento.getSavedAuctionedObject().name;
+        bio = memento.getSavedAuctionedObject().bio;
+        startingPrice = memento.getSavedAuctionedObject().startingPrice;
+        expSelPrice = memento.getSavedAuctionedObject().expSelPrice;
+        picture = memento.getSavedAuctionedObject().picture;
+        category = memento.getSavedAuctionedObject().category;
+        status = memento.getSavedAuctionedObject().status;
+    }
+
+    public static class Memento {
+        private final AuctionedObject localVersion;
+
+        public Memento(AuctionedObject localVersion) {
+            this.localVersion = localVersion;
+        }
+
+        public AuctionedObject getSavedAuctionedObject() {
+            return localVersion;
+        }
+    }
 }

@@ -37,10 +37,19 @@ public class GenericList<T extends Starter> {
         }
         return data;
     }
-    //TODO implementacia observera
+
+    public Starter find(Starter local) {
+        for (Starter actual : list) {
+            if (((AuctionedObject) actual).compare((AuctionedObject) local))
+                return actual;
+        }
+        return null;
+    }
+
+    //TODO Observer design pattern
     public void notifyAllObservers(Auction auction) {
         for (Starter o : list) {
-            ((User)o).join(auction);
+            ((User) o).join(auction);
         }
     }
 }

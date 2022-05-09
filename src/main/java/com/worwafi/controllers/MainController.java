@@ -6,10 +6,7 @@ import com.jfoenix.controls.JFXTextField;
 import com.worwafi.auctions.Auction;
 import com.worwafi.auctions.EnglishAuction;
 import com.worwafi.auctions.ReverseAuction;
-import com.worwafi.others.GenericList;
-import com.worwafi.others.ObjectCategory;
-import com.worwafi.others.ObjectStatus;
-import com.worwafi.others.Serialize;
+import com.worwafi.others.*;
 import com.worwafi.singleton.SingActualObject;
 import com.worwafi.singleton.SingAuction;
 import com.worwafi.singleton.SingStage;
@@ -18,6 +15,7 @@ import com.worwafi.users.BasicUser;
 import com.worwafi.users.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -28,6 +26,8 @@ import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 
+import javax.swing.*;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Locale;
@@ -36,6 +36,7 @@ import java.util.ResourceBundle;
 
 public class MainController extends ObjectPatternController implements Initializable {
     Random rand = new Random();
+    Serialize serialize = new Serialize();
     @FXML
     private JFXTextArea actualBalance;
 
@@ -88,6 +89,10 @@ public class MainController extends ObjectPatternController implements Initializ
     private ComboBox<Text> auctionComboBox;
     @FXML
     private ListView<User> listView;
+    @FXML
+    private JFXButton saveChanges;
+    @FXML
+    private JFXButton revertChanges;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -97,17 +102,30 @@ public class MainController extends ObjectPatternController implements Initializ
         if (SingAuction.getInstance().isNewAuction()) {
             setEditable(false);
             getAucObject.setText("");
-        }
-        else {
+        } else {
+            listView.setVisible(false);
             setEditable(true);
             getAucObject.setOnAction(event -> {
-                if (SingActualObject.getInstance() != null && SingActualObject.getInstance().getObject().getStatus() == ObjectStatus.FORSALE) {
-                    checkCorrect();
+                try {
+                    GenericList<AuctionedObject> serialized = (GenericList<AuctionedObject>) serialize.readObject("warehouse");
+                    if(serialized.find(SingActualObject.getInstance().getObject()) == null) {
+                        AuctionedObject toDelete = SingActualObject.getInstance().getFirst().getSavedAuctionedObject();
+                        serialized.getList().remove(serialized.find(toDelete));
+                        serialized.getList().add(SingActualObject.getInstance().getObject());
+                        serialize.writeObject(serialized);
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+                if (SingActualObject.getInstance().getObject().getStatus() == ObjectStatus.FORSALE) {
+
                     Auction auction = null;
-                    if(auctionComboBox.getSelectionModel().getSelectedItem().getText().toString().equals("English Auction")) {
+                    if (auctionComboBox.getSelectionModel().getSelectedItem().getText().toString().equals("English Auction")) {
                         auction = new EnglishAuction(getId(), SingActualObject.getInstance().getObject());
                     }
-                    if(auctionComboBox.getSelectionModel().getSelectedItem().getText().toString().equals("Reverse Auction")) {
+                    if (auctionComboBox.getSelectionModel().getSelectedItem().getText().toString().equals("Reverse Auction")) {
                         auction = new ReverseAuction(getId(), SingActualObject.getInstance().getObject());
                     }
                     SingAuction.getInstance().setAuction(auction, true);
@@ -120,32 +138,46 @@ public class MainController extends ObjectPatternController implements Initializ
                     }
                 }
             });
+            saveChanges.setOnAction(event -> {
+                SingActualObject.getInstance().addToHistory(SingActualObject.getInstance().getObject());
+                SingActualObject.getInstance().setObject(new AuctionedObject(SingUserInfo.getInstance().getLoggedUser(),
+                        nameTextArea.getText(), bioTextArea.getText(), Double.parseDouble(startingPriceTextArea.getText().replaceAll(" €", "")),
+                        Double.parseDouble(expctPriceTextArea.getText().replaceAll(" €", "")), filePathTextArea.getText(),
+                        categoryTextArea.getText(), statusTextArea.getText().replaceAll("\\W", "")), true);
+                SingActualObject.getInstance().addToHistory(SingActualObject.getInstance().getObject());
+                setupObject();
+            });
+            revertChanges.setOnAction(event -> {
+                SingActualObject.getInstance().restoreFromHistory(SingActualObject.getInstance().getObject());
+                setupObject();
+            });
         }
     }
-    private String getId() {
-        return String.valueOf((char) (rand.nextInt(25) + 65) + rand.nextInt(10));
-    }
-
     @Override
     protected void setupObject() {
         super.setupObject();
-        ObservableList<Text> auctions = FXCollections.observableArrayList();
-        auctions.add(new Text("English Auction"));
-        auctions.add(new Text("Reverse Auction"));
-        auctionComboBox.setItems(auctions);
+        ObservableList<Text> auctionList = FXCollections.observableArrayList();
+        auctionList.add(new Text("English Auction"));
+        auctionList.add(new Text("Reverse Auction"));
+        auctionComboBox.setItems(auctionList);
+
     }
-    private void checkCorrect() {
-        if (!SingActualObject.getInstance().getObject().getName().equals(nameTextArea.getText()) ||
-                !SingActualObject.getInstance().getObject().getBio().equals(bioTextArea.getText()) ||
-                SingActualObject.getInstance().getObject().getStartingPrice() != Double.parseDouble(startingPriceTextArea.getText().replaceAll("\\D+", "")) ||
-                SingActualObject.getInstance().getObject().getExpSelPrice() != Double.parseDouble(expctPriceTextArea.getText().replaceAll("\\D+", "")) ||
-                SingActualObject.getInstance().getObject().getCategory() != ObjectCategory.valueOf(categoryTextArea.getText().toUpperCase(Locale.ROOT)) ||
-                SingActualObject.getInstance().getObject().getStatus() != ObjectStatus.valueOf(statusTextArea.getText().toUpperCase(Locale.ROOT))) {
-            correctObject();
+
+    private String getId() {
+        return String.valueOf((char) (rand.nextInt(25) + 65) + rand.nextInt(10));
+    }
+            private void checkCorrect () {
+                if (!SingActualObject.getInstance().getObject().getName().equals(nameTextArea.getText()) ||
+                        !SingActualObject.getInstance().getObject().getBio().equals(bioTextArea.getText()) ||
+                        SingActualObject.getInstance().getObject().getStartingPrice() != Double.parseDouble(startingPriceTextArea.getText().replaceAll("\\D+", "")) ||
+                        SingActualObject.getInstance().getObject().getExpSelPrice() != Double.parseDouble(expctPriceTextArea.getText().replaceAll("\\D+", "")) ||
+                        SingActualObject.getInstance().getObject().getCategory() != ObjectCategory.valueOf(categoryTextArea.getText().toUpperCase(Locale.ROOT)) ||
+                        SingActualObject.getInstance().getObject().getStatus() != ObjectStatus.valueOf(statusTextArea.getText().toUpperCase(Locale.ROOT))) {
+                    correctObject();
+                }
+            }
+
+            private void correctObject () {
+
+            }
         }
-    }
-
-    private void correctObject() {
-
-    }
-}

@@ -8,7 +8,7 @@ import com.worwafi.users.User;
 import java.text.DecimalFormat;
 import java.util.Random;
 
-public abstract class Auction extends Starter implements HelpMethods, RaisingStrategy {
+public abstract class Auction extends Starter implements HelpMethods {
     private static final DecimalFormat df = new DecimalFormat("0.00");
 
     protected AuctionStatusListener auctionStatusListener;

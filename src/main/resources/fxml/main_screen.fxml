@@ -40,6 +40,8 @@
       </ButtonBar>
       <ButtonBar buttonMinWidth="100.0" prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="9">
          <buttons>
+            <JFXButton fx:id="revertChanges" styleClass="regularButton" text="Revert changes" />
+            <JFXButton fx:id="saveChanges" styleClass="regularButton" text="Save object changes" />
             <JFXButton fx:id="getAucObject" styleClass="regularButton" text="Begin auction">
                <opaqueInsets>
                   <Insets />
@@ -47,7 +49,7 @@
             </JFXButton>
          </buttons>
       </ButtonBar>
-      <ImageView fx:id="imageViewer" fitHeight="204.0" fitWidth="399.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.rowSpan="4">
+      <ImageView fx:id="imageViewer" fitHeight="149.0" fitWidth="399.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.rowSpan="4">
          <GridPane.margin>
             <Insets left="10.0" />
          </GridPane.margin></ImageView>
@@ -73,7 +75,7 @@
       <JFXTextField fx:id="categoryTextArea" focusColor="#42424200" styleClass="regularTextField" unFocusColor="#4d4d4d00" GridPane.columnIndex="1" GridPane.rowIndex="6" />
       <JFXTextField fx:id="statusTextArea" focusColor="#42424200" styleClass="regularTextField" unFocusColor="#4d4d4d00" GridPane.columnIndex="1" GridPane.rowIndex="7" />
       <JFXTextField fx:id="filePathTextArea" focusColor="#42424200" styleClass="regularTextField" unFocusColor="#4d4d4d00" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-      <ListView fx:id="listView" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="5" GridPane.rowSpan="4">
+      <ListView fx:id="listView" prefHeight="58.0" prefWidth="399.0" GridPane.columnIndex="2" GridPane.rowIndex="5" GridPane.rowSpan="4">
          <GridPane.margin>
             <Insets left="10.0" right="10.0" />
          </GridPane.margin>
