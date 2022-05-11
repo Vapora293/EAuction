@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<GridPane fx:id="WarehouseGridPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="850.0" styleClass="regularGridPane" stylesheets="@basic.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.worwafi.controllers.AuctionListController">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+  </columnConstraints>
+  <rowConstraints>
+      <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <ButtonBar prefHeight="40.0" prefWidth="847.0" GridPane.columnSpan="2">
+         <buttons>
+            <JFXTextField fx:id="timeTextArea" editable="false" focusColor="#405aa800" styleClass="regularTextArea" unFocusColor="#4d4d4d00" />
+            <JFXTextField fx:id="welcomeTextArea" editable="false" focusColor="#405aa800" prefWidth="200.0" styleClass="regularTextArea" unFocusColor="#4d4d4d00" />
+            <JFXButton fx:id="logOutBtn" styleClass="regularButton" text="Log out" />
+            <JFXButton fx:id="backButton" styleClass="regularButton" text="Back" />
+         </buttons>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <GridPane.margin>
+            <Insets right="20.0" />
+         </GridPane.margin>
+      </ButtonBar>
+      <ListView fx:id="listObjects" prefHeight="200.0" prefWidth="200.0" styleClass="list-cell" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="2" />
+      <ButtonBar buttonMinWidth="100.0" prefHeight="40.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+        <buttons>
+            <JFXButton fx:id="getAucObject" styleClass="regularButton" text="Load auction" />
+        </buttons>
+         <GridPane.margin>
+            <Insets right="20.0" />
+         </GridPane.margin>
+      </ButtonBar>
+   </children>
+</GridPane>
