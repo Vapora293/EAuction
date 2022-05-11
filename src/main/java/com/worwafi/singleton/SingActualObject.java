@@ -1,6 +1,6 @@
 package com.worwafi.singleton;
 
-import com.worwafi.others.AuctionedObject;
+import com.worwafi.auctionedObject.AuctionedObject;
 
 import java.util.ArrayList;
 
@@ -38,6 +38,9 @@ public class SingActualObject {
 
     public AuctionedObject getObject() {
         return actual;
+    }
+    public void clear() {
+        single_instance = null;
     }
 
     public boolean getNeww() {

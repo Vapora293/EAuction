@@ -1,11 +1,10 @@
 package com.worwafi.auctions;
 
-import com.worwafi.others.AuctionedObject;
-import com.worwafi.others.ObjectStatus;
+import com.worwafi.auctionedObject.AuctionedObject;
 import com.worwafi.users.User;
 
 public class ReverseAuction extends Auction{
-    public ReverseAuction(String id, AuctionedObject win) {
+    ReverseAuction(String id, AuctionedObject win) {
         super(id, win);
     }
 
@@ -25,7 +24,6 @@ public class ReverseAuction extends Auction{
     @Override
     public String bid(User bidder, double price) {
         super.bid(bidder, price);
-        setEnd();
         return null;
     }
     //TODO priklad na polymorfizmus
@@ -36,10 +34,13 @@ public class ReverseAuction extends Auction{
     }
     @Override
     public String getAllData() {
-        return super.getAllData() + "\n Reverse Auction";
+        return "rv . " + id + " . " + win.getOwner().toString() + " . " + win.getName();
     }
     public String getNecessaryData() {
         return "rv . " + id + " . " + win.getOwner() + " . " + win.getName();
+    }
+    public String toString() {
+        return "Reverse auction: by " + win.getOwner() + " of " + win.getName();
     }
     @Override
     public String getName() {

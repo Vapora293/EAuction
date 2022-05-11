@@ -3,7 +3,6 @@ package com.worwafi.controllers;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import com.worwafi.auctions.Auction;
-import com.worwafi.others.AuctionedObject;
 import com.worwafi.others.GenericList;
 import com.worwafi.others.Serialize;
 import com.worwafi.singleton.SingActualObject;
@@ -17,7 +16,6 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.GridPane;
 
 import java.io.IOException;
-import java.io.Serializable;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -25,9 +23,6 @@ public class AuctionListController extends PatternController implements Initiali
     Serialize serialize = new Serialize();
     @FXML
     private GridPane WarehouseGridPane;
-
-    @FXML
-    private JFXButton addAucObject;
 
     @FXML
     private JFXButton backButton;
@@ -61,19 +56,8 @@ public class AuctionListController extends PatternController implements Initiali
         setupListView();
         getAucObject.setOnAction(event -> {
             int index = listObjects.getSelectionModel().getSelectedIndex();
-            SingAuction.getInstance().setAuction(listObjects.getItems().get(index), false);
-            SingActualObject.getInstance().setObject(SingAuction.getInstance().getAuction().getWin(), false);
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/main_screen.fxml"));
-            try {
-                Scene actual = new Scene(loader.load());
-                SingStage.getInstance().setScene(actual);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-        addAucObject.setOnAction(event -> {
-            int index = listObjects.getSelectionModel().getSelectedIndex();
             SingAuction.getInstance().setAuction(listObjects.getItems().get(index), true);
+            SingActualObject.getInstance().setObject(SingAuction.getInstance().getAuction().getWin(), false);
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/main_screen.fxml"));
             try {
                 Scene actual = new Scene(loader.load());

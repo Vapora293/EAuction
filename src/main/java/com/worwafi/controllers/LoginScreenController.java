@@ -49,7 +49,6 @@ public class LoginScreenController implements Initializable {
         GenericList<BasicUser> users = null;
         try {
             users = (GenericList<BasicUser>) serialize.readObject("users");
-            serialize.writeObject(users);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {

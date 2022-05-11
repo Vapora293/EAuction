@@ -1,12 +1,12 @@
 package com.worwafi.auctions;
 
 import com.worwafi.others.AuctionException;
-import com.worwafi.others.AuctionedObject;
+import com.worwafi.auctionedObject.AuctionedObject;
 import com.worwafi.users.User;
 
 
 public class EnglishAuction extends Auction {
-    public EnglishAuction(String id, AuctionedObject win) {
+    EnglishAuction(String id, AuctionedObject win) {
         super(id, win);
     }
     //TODO priklad na polymorfizmus
@@ -14,7 +14,7 @@ public class EnglishAuction extends Auction {
     public int handleCycle(int cycle) {
         if(cycle > 3) {
             setEnd();
-            return -1; //pribeh konci
+            return -1;
         }
         if(callBidders()) {
             return 1;
@@ -38,7 +38,7 @@ public class EnglishAuction extends Auction {
     }
     @Override
     public String getAllData() {
-        return super.getAllData() + "\n English Auction";
+        return "en . " + id + " . " + win.getOwner().toString() + " . " + win.getName();
     }
     public String getNecessaryData() {
         return "en . " + id + " . " + win.getOwner() + " . " + win.getName();
@@ -46,6 +46,10 @@ public class EnglishAuction extends Auction {
     @Override
     public String getName() {
         return super.getName() + " English Auction";
+    }
+    @Override
+    public String toString() {
+        return "English auction: by " + win.getOwner() + " of " + win.getName();
     }
 
     private void writeIntoLog(User bidder, double price) {

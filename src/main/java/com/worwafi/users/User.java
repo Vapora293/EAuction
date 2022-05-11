@@ -1,15 +1,8 @@
 package com.worwafi.users;
 
 import com.worwafi.auctions.Auction;
-import com.worwafi.others.AuctionedObject;
-import com.worwafi.others.HelpMethods;
 import com.worwafi.others.Starter;
 import com.worwafi.others.Wallet;
-
-import java.io.File;
-import java.io.FileWriter;
-import java.io.Serializable;
-import java.util.LinkedList;
 
 public abstract class User extends Starter {
     protected String username;
@@ -23,7 +16,10 @@ public abstract class User extends Starter {
     public String getUsername() {
         return username;
     }
-
+    @Override
+    public String toString() {
+        return getUsername();
+    }
     public Wallet getCashAccount() {
         return cashAccount;
     }

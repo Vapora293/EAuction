@@ -1,8 +1,8 @@
 package com.worwafi.others;
 
+import com.worwafi.auctionedObject.AuctionedObject;
 import com.worwafi.auctions.Auction;
-import com.worwafi.auctions.EnglishAuction;
-import com.worwafi.auctions.ReverseAuction;
+import com.worwafi.auctions.AuctionFactory;
 import com.worwafi.singleton.SingUserInfo;
 import com.worwafi.users.BasicUser;
 import com.worwafi.users.User;
@@ -13,6 +13,7 @@ import java.util.Scanner;
 
 //TODO serializacia + RTTI
 public class Serialize {
+    AuctionFactory auctionFactory = new AuctionFactory();
 
     public final boolean writeObject(GenericList<? extends Starter> o) throws IOException, ClassNotFoundException {
         if (o.getList().isEmpty())
@@ -73,6 +74,30 @@ public class Serialize {
         }
         return false;
     }
+    public final boolean writeObject(GenericList<? extends Starter> o, String user) throws IOException, ClassNotFoundException {
+        if (o.getList().isEmpty())
+            return false;
+        if (o.getList().get(0) instanceof AuctionedObject) {
+            try {
+                File userTxt = new File("D:\\skola\\txt\\" + user + "Objects.txt");
+                FileWriter fw = new FileWriter(userTxt);
+                for (int i = 0; i < o.getList().size(); i++) {
+                    AuctionedObject actual = (AuctionedObject) o.getList().get(i);
+                    if (i != 0) {
+                        fw.append("\n");
+                    }
+                    fw.append(actual.getName() + " . " + actual.getBio() + " . " + actual.getStartingPrice() + " . " +
+                            actual.getExpSelPrice() + " . " + actual.getPicture().getPath() + " . " +
+                            actual.getCategory().toString() + " . " + actual.getStatus().toString());
+                }
+                fw.close();
+            } catch (IOException e) {
+                return false;
+            }
+            return true;
+        }
+        return false;
+    }
 
     public final GenericList<? extends Starter> readObject(String thing) throws IOException, ClassNotFoundException {
         switch (Deseralization.valueOf(thing.toUpperCase(Locale.ROOT))) {
@@ -119,7 +144,7 @@ public class Serialize {
                             GenericList<AuctionedObject> objectsOfTheUser = readObject("warehouse", lineSplit[2]);
                             for (AuctionedObject object : objectsOfTheUser.getList()) {
                                 if (object.getName().equals(lineSplit[3])) {
-                                    auctions.getList().add(new EnglishAuction(lineSplit[1], object));
+                                    auctions.getList().add(auctionFactory.createAuction("English", lineSplit[1], object));
                                     break;
                                 }
                             }
@@ -128,7 +153,7 @@ public class Serialize {
                             GenericList<AuctionedObject> objectsOfTheUser = readObject("warehouse", lineSplit[2]);
                             for (AuctionedObject object : objectsOfTheUser.getList()) {
                                 if (object.getName().equals(lineSplit[3])) {
-                                    auctions.getList().add(new ReverseAuction(lineSplit[1], object));
+                                    auctions.getList().add(auctionFactory.createAuction("Reverse", lineSplit[1], object));
                                     break;
                                 }
                             }
@@ -143,30 +168,38 @@ public class Serialize {
         }
     }
 
-    private GenericList<AuctionedObject> readObject(String thing, String user) {
-        switch (Deseralization.valueOf(thing.toUpperCase(Locale.ROOT))) {
-            case WAREHOUSE:
-                try {
-                    File auctionedObjectFile = new File("D:\\skola\\txt\\" + user + "Objects.txt");
-                    Scanner myReaderware = new Scanner(auctionedObjectFile);
-                    GenericList<AuctionedObject> possesion = new GenericList<>();
-                    while (myReaderware.hasNextLine()) {
-                        String line = myReaderware.nextLine();
-                        if (line.equals(""))
-                            continue;
-                        String lineSplit[] = line.split(" . ");
-                        AuctionedObject actual = new AuctionedObject(SingUserInfo.getInstance().getLoggedUser(), lineSplit[0],
-                                lineSplit[1], Double.parseDouble(lineSplit[2]), Double.parseDouble(lineSplit[3]), lineSplit[4],
-                                lineSplit[5], lineSplit[6]);
-                        possesion.getList().add(actual);
+    public GenericList<AuctionedObject> readObject(String thing, String user) throws IOException, ClassNotFoundException {
+        if (Deseralization.valueOf(thing.toUpperCase(Locale.ROOT)) == Deseralization.WAREHOUSE) {
+            try {
+                File auctionedObjectFile = new File("D:\\skola\\txt\\" + user + "Objects.txt");
+                Scanner myReaderware = new Scanner(auctionedObjectFile);
+                GenericList<AuctionedObject> possesion = new GenericList<>();
+                GenericList<BasicUser> users = (GenericList<BasicUser>) readObject("users");
+                while (myReaderware.hasNextLine()) {
+                    String line = myReaderware.nextLine();
+                    if (line.equals(""))
+                        continue;
+                    String lineSplit[] = line.split(" . ");
+                    BasicUser owner = null;
+                    for(BasicUser actualOwner : users.getList()) {
+                        if(actualOwner.getUsername().equals(user)) {
+                            owner = actualOwner;
+                            break;
+                        }
                     }
-                    SingUserInfo.getInstance().getLoggedUser().setPossession(possesion);
-                    return possesion;
-                } catch (FileNotFoundException e) {
-                    return new GenericList<AuctionedObject>();
+                    AuctionedObject actual = new AuctionedObject(owner, lineSplit[0],
+                            lineSplit[1], Double.parseDouble(lineSplit[2]), Double.parseDouble(lineSplit[3]), lineSplit[4],
+                            lineSplit[5], lineSplit[6]);
+                    possesion.getList().add(actual);
                 }
-            default:
-                return null;
+                SingUserInfo.getInstance().getLoggedUser().setPossession(possesion);
+                return possesion;
+            } catch (FileNotFoundException e) {
+                return new GenericList<>();
+            } catch (IOException | ClassNotFoundException e) {
+                e.printStackTrace();
+            }
         }
+        return null;
     }
 }

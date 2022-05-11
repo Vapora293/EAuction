@@ -15,6 +15,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
@@ -49,7 +50,7 @@ public class AuctionController extends PatternController implements Initializabl
     private JFXButton backButton;
 
     @FXML
-    private VBox biddersBox;
+    private ListView<User> biddersBox;
 
     @FXML
     private JFXTextField getBid;
@@ -103,8 +104,9 @@ public class AuctionController extends PatternController implements Initializabl
         getBid.setVisible(false);
         recom1.setText("Accept the bid");
         recom1.setOnAction(event -> {
-            updateReverseLayout();
+            SingAuction.getInstance().getAuction().bid(SingUserInfo.getInstance().getLoggedUser(), Double.parseDouble(actualBid.getText()));
             SingAuction.getInstance().getAuction().setEnd();
+            updateReverseLayout();
             pauseTransition.pause();
         });
     }
@@ -268,10 +270,8 @@ public class AuctionController extends PatternController implements Initializabl
     }
 
     private void setupBidders() {
-        for (User actual : SingAuction.getInstance().getAuction().getBidders().getList()) {
-            biddersBox.getChildren().add(new Text(actual.getUsername()));
-        }
-        biddersBox.getStyleClass().add("regularBox");
+        biddersBox.setItems(SingAuction.getInstance().getAuction().getBidders().getList());
+        biddersBox.setEditable(false);
     }
 
 
@@ -299,7 +299,7 @@ public class AuctionController extends PatternController implements Initializabl
             informBid.setText(SingAuction.getInstance().getAuction().getActualWinner().getUsername() +
                     " has accepted the price of " + SingAuction.getInstance().getAuction().getActualPrice());
         start = true;
-        callingTextArea.setText("Winner of " + SingActualObject.getInstance().getObject().getName() + " is "
+        callingTextArea.setText("Winner of " + SingAuction.getInstance().getAuction().getWin().getName() + " is "
                 + SingAuction.getInstance().getAuction().getActualWinner().getUsername() + "!");
         actualBid.setText(df.format(SingAuction.getInstance().getAuction().getActualPrice()));
         actualBidder.setText(SingAuction.getInstance().getAuction().getActualWinner().getUsername());

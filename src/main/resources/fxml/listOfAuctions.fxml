@@ -39,7 +39,6 @@
       <ButtonBar buttonMinWidth="100.0" prefHeight="40.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3">
         <buttons>
             <JFXButton fx:id="getAucObject" styleClass="regularButton" text="Load auction" />
-            <JFXButton fx:id="addAucObject" styleClass="regularButton" text="Add auction" />
         </buttons>
          <GridPane.margin>
             <Insets right="20.0" />

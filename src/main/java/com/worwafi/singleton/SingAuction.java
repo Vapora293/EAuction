@@ -42,6 +42,12 @@ public class SingAuction {
     public boolean isNewAuction() {
         return newAuction;
     }
+    public void setNewAuction(boolean value) {
+        newAuction = value;
+    }
+    public void clear() {
+        single_instance = null;
+    }
 
     public Auction getAuction() {
         return actual;

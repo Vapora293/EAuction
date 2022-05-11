@@ -3,6 +3,8 @@ package com.worwafi.controllers;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
+import com.worwafi.singleton.SingActualObject;
+import com.worwafi.singleton.SingAuction;
 import com.worwafi.singleton.SingStage;
 import com.worwafi.singleton.SingUserInfo;
 import javafx.animation.Animation;
@@ -47,7 +49,10 @@ public class PatternController {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/login_screen.fxml"));
                 Scene actual = new Scene(loader.load());
                 SingStage.getInstance().setScene(actual);
+                SingUserInfo.getInstance().getUsersAvailable().getList().remove(SingUserInfo.getInstance().getLoggedUser());
                 SingUserInfo.getInstance().setLoggedUser(null);
+                SingAuction.getInstance().clear();
+                SingActualObject.getInstance().clear();
             } catch (IOException e) {
                 e.printStackTrace();
             }

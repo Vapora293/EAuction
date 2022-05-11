@@ -1,4 +1,4 @@
-package com.worwafi.others;
+package com.worwafi.auctionedObject;
 
 public enum ObjectCategory {
     JEWELLERY, ANTIQUE, PAINTING, SCULPTURE;

@@ -1,19 +1,20 @@
 package com.worwafi.controllers;
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
+import com.worwafi.auctionedObject.AuctionedObject;
+import com.worwafi.auctionedObject.ObjectCategory;
+import com.worwafi.auctionedObject.ObjectStatus;
+import com.worwafi.auctions.Auction;
 import com.worwafi.others.*;
 import com.worwafi.singleton.SingActualObject;
+import com.worwafi.singleton.SingAuction;
 import com.worwafi.singleton.SingStage;
 import com.worwafi.singleton.SingUserInfo;
-import com.worwafi.users.BasicUser;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.image.Image;
@@ -25,10 +26,7 @@ import javafx.stage.WindowEvent;
 
 import java.io.*;
 import java.net.URL;
-import java.util.Locale;
 import java.util.ResourceBundle;
-
-//TODO dorobit nech berie z comboBoxu namiesto pola
 
 public class ActualAuctionedObjectController extends ObjectPatternController implements Initializable {
     Serialize serialize = new Serialize();
@@ -94,26 +92,27 @@ public class ActualAuctionedObjectController extends ObjectPatternController imp
             if(SingActualObject.getInstance().getNeww()) {
                 try {
                     GenericList<AuctionedObject> auctionedObjects = (GenericList<AuctionedObject>) serialize.readObject("warehouse");
+                    if(!startingPriceTextArea.getText().replaceAll("€", "").matches("[0-9]+"))
+                        throw new IncorrectEntryException(startingPriceTextArea.getText(), filePathTextArea.textProperty());
+                    if(!expctPriceTextArea.getText().replaceAll("€", "").matches("[0-9]+"))
+                        throw new IncorrectEntryException(expctPriceTextArea.getText(), filePathTextArea.textProperty());
                     auctionedObjects.getList().add(new AuctionedObject(SingUserInfo.getInstance().getLoggedUser(), nameTextArea.getText(),
                             bioTextArea.getText(), Double.parseDouble(startingPriceTextArea.getText()), Double.parseDouble(expctPriceTextArea.getText()), filePathTextArea.getText(),
                             categoryComboBox.getValue().toString(),
                             statusTextArea.getText().toString()));
                     serialize.writeObject(auctionedObjects);
-                } catch (IOException e) {
+                    Stage stage = (Stage) ownerTxtArea.getScene().getWindow();
+                    stage.getOnCloseRequest().handle(new WindowEvent(ownerTxtArea.getScene().getWindow(), WindowEvent.WINDOW_CLOSE_REQUEST));
+                    stage.close();
+                } catch (IOException | IncorrectEntryException | ClassNotFoundException e) {
                     e.printStackTrace();
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
-                } catch (NumberFormatException e) {
-                    throw new IncorrectEntryException("Incorrect price - " + startingPriceTextArea.getText(), filePathTextArea.textProperty());
                 }
-                Stage stage = (Stage) ownerTxtArea.getScene().getWindow();
-                stage.getOnCloseRequest().handle(new WindowEvent(ownerTxtArea.getScene().getWindow(), WindowEvent.WINDOW_CLOSE_REQUEST));
-                stage.close();
             }
             else {
                 Stage stage = (Stage) ownerTxtArea.getScene().getWindow();
                 stage.getOnCloseRequest().handle(new WindowEvent(ownerTxtArea.getScene().getWindow(), WindowEvent.WINDOW_CLOSE_REQUEST));
                 stage.close();
+                SingAuction.getInstance().setNewAuction(false);
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/main_screen.fxml"));
                 try {
                     SingActualObject.getInstance().getObject().setStatus(ObjectStatus.FORSALE);
@@ -124,17 +123,12 @@ public class ActualAuctionedObjectController extends ObjectPatternController imp
                 }
             }
             });
-
     }
 
     private void newObjectSetup() {
         addButton.setText("Add object to the warehouse");
         filePathTextArea.setVisible(true);
         filePathTextArea.setEditable(true);
-//        for(Node actual : GridPaneAuctionedObject.getChildren()) {
-//            if(actual.getClass().getName().equals("JFXTextArea"))
-//                (JFXTextArea) actual.setEditable
-//        }
         ownerTxtArea.setText(SingUserInfo.getInstance().getLoggedUser().getUsername());
         nameTextArea.setEditable(true);
         startingPriceTextArea.setEditable(true);

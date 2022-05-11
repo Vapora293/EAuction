@@ -1,7 +1,7 @@
 package com.worwafi.others;
 
+import com.worwafi.auctionedObject.AuctionedObject;
 import com.worwafi.auctions.Auction;
-import com.worwafi.users.BotUser;
 import com.worwafi.users.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -49,7 +49,8 @@ public class GenericList<T extends Starter> {
     //TODO Observer design pattern
     public void notifyAllObservers(Auction auction) {
         for (Starter o : list) {
-            ((User) o).join(auction);
+            if(o != null)
+                ((User) o).join(auction);
         }
     }
 }

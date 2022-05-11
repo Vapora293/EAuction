@@ -1,4 +1,4 @@
-package com.worwafi.others;
+package com.worwafi.auctionedObject;
 
 public enum ObjectStatus {
     SOLD, FORSALE, STORED;

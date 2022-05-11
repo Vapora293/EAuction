@@ -2,10 +2,9 @@ package com.worwafi.users;
 
 import com.worwafi.auctions.Auction;
 import com.worwafi.others.AuctionObserver;
-import com.worwafi.others.AuctionedObject;
+import com.worwafi.auctionedObject.AuctionedObject;
 import com.worwafi.others.GenericList;
-import com.worwafi.others.HelpMethods;
-import javafx.collections.ObservableList;
+import com.worwafi.others.Serialize;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -18,7 +17,6 @@ public class BasicUser extends User implements AuctionObserver {
     protected GenericList<AuctionedObject> possession;
     protected File objectFile;
     protected File moneyFile;
-
     public BasicUser(String username, String password, String bio) {
         super(username);
         limit = false;
@@ -31,11 +29,19 @@ public class BasicUser extends User implements AuctionObserver {
     public void writeIntoCashAccount(double sum) {
         try {
             FileWriter writer = new FileWriter(moneyFile, true);
-            writer.append("\n+" + sum);
+            if(sum < 0)
+                writer.append("\n" + sum);
+            else
+                writer.append("\n+" + sum);
             writer.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    public boolean compare(BasicUser user) {
+        if (!user.getUsername().equals(username) || !user.getPassword().equals(password) || !user.getBio().equals(bio))
+            return false;
+        return true;
     }
     public void setPossession(GenericList<AuctionedObject> possession) {
         this.possession = possession;

@@ -1,11 +1,9 @@
-package com.worwafi.others;
+package com.worwafi.auctionedObject;
 
-import com.worwafi.singleton.SingActualObject;
+import com.worwafi.others.Starter;
 import com.worwafi.users.User;
 
 import java.io.File;
-import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Locale;
 
 public class AuctionedObject extends Starter {

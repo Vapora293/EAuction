@@ -39,6 +39,9 @@ public class SingUserInfo {
         }
         return localBidders;
     }
+    public void clear() {
+        single_instance = null;
+    }
 
     public BasicUser getLoggedUser() {
         return loggedUser;

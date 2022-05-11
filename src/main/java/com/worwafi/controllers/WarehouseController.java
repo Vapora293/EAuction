@@ -1,30 +1,22 @@
 package com.worwafi.controllers;
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
-import com.worwafi.others.AuctionedObject;
+import com.worwafi.auctionedObject.AuctionedObject;
 import com.worwafi.others.GenericList;
 import com.worwafi.others.Serialize;
 import com.worwafi.singleton.SingActualObject;
-import com.worwafi.singleton.SingUserInfo;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.Scanner;
 
 public class WarehouseController extends PatternController implements Initializable {
     Stage auctionedStage = new Stage();
