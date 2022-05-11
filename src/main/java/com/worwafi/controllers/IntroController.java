@@ -42,8 +42,6 @@ public class IntroController extends PatternController implements Initializable 
     private JFXButton walletButton;
     @FXML
     private JFXButton backButton;
-    @FXML
-    private JFXButton profileButton;
 
     private void setupWallet() {
         try {
