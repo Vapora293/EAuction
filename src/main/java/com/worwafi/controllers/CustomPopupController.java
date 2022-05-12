@@ -17,6 +17,10 @@ public class CustomPopupController {
         initialize();
     }
 
+    /**
+     * Custom popup made without fxml prerequisite. After setting up the view, it contains one button used for closing
+     * the window with close request
+     */
     private void initialize() {
         button.setOnAction(event -> {
             Stage stage = (Stage) button.getScene().getWindow();

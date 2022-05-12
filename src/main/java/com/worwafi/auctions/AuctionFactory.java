@@ -4,6 +4,14 @@ import com.worwafi.auctionedObject.AuctionedObject;
 
 public class AuctionFactory {
     //TODO Factory method design pattern
+
+    /**
+     * Factory method pattern implementation, used to create Auctions
+     * @param kindOfAuction desired kind of auction
+     * @param id id of the auction to be serialized
+     * @param win objects to be auctioned
+     * @return new desired auction
+     */
     public Auction createAuction(String kindOfAuction, String id, AuctionedObject win) {
         if (kindOfAuction == null || kindOfAuction.isEmpty())
             return null;

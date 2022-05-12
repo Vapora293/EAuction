@@ -2,6 +2,11 @@ package com.worwafi.auctionedObject;
 
 public enum ObjectCategory {
     JEWELLERY, ANTIQUE, PAINTING, SCULPTURE;
+
+    /**
+     * Enum toString override
+     * @return String param of enum
+     */
     @Override
     public String toString() {
         switch (this) {

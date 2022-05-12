@@ -43,7 +43,8 @@ public class AuctionListController extends PatternController implements Initiali
     private JFXTextField welcomeTextArea;
     /**
      * Called to initialize a controller after its root element has been
-     * completely processed.
+     * completely processed. Sets up upper and downer textAreas, the listview. After selecting the auction, it will take
+     * you to view used for editing the object
      *
      * @param location  The location used to resolve relative paths for the root object, or
      *                  {@code null} if the location is not known.
@@ -68,6 +69,9 @@ public class AuctionListController extends PatternController implements Initiali
         });
     }
 
+    /**
+     * Sets up listview
+     */
     private void setupListView() {
         listObjects.getItems().clear();
         try {

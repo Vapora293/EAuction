@@ -26,6 +26,12 @@ public abstract class Auction extends Starter implements HelpMethods {
     protected double currentRaise;
     protected boolean end;
 
+    /**
+     * Generates new auction
+     *
+     * @param id  id to be written into txt
+     * @param win object to be auctioned
+     */
     Auction(String id, AuctionedObject win) {
         this.id = id;
         this.win = win;
@@ -38,6 +44,11 @@ public abstract class Auction extends Starter implements HelpMethods {
         end = false;
     }
 
+    /**
+     * This calls all the bidders in the auction. Bots bid with 10% probability and random bet
+     *
+     * @return returns true or false, if the bots bidded or not
+     */
     protected boolean callBidders() {
         for (int i = 0; i < SingAuction.getInstance().getAuction().getBidders().getList().size(); i++) {
             //TODO RTTI
@@ -54,47 +65,25 @@ public abstract class Auction extends Starter implements HelpMethods {
         }
         return false;
     }
+
+    /**
+     * Adds bidder to the auction, used for Observer pattern
+     *
+     * @param user user to be added
+     */
     public void addBidder(User user) {
         bidders.getList().add(user);
     }
 
     public abstract int handleCycle(int cycle);
-//    private String getLocalId() {
-//        File auctionFile = new File("D:\\skola\\txt\\auctions.txt");
-//        String[] help;
-//        String lastID;
-//        char letter = 0;
-//        char number = 0;
-//        try {
-//            Scanner myReader = new Scanner(auctionFile);
-//            boolean start = true;
-//            while(myReader.hasNextLine()) {
-//                String line = myReader.nextLine();
-//                if(start) {
-//                    help = line.split("-");
-//                    lastID = help[0];
-//                    letter = lastID.charAt(0);
-//                    number = lastID.charAt(1);
-//                    start = false;
-//                }
-//                if (line.contains("!")) {
-//                    start = true;
-//                }
-//            }
-//            if(number == '0') {
-//                number = '1';
-//            }
-//            if(number == '9') {
-//                number = '0';
-//                letter++;
-//            }
-//            number++;
-//            return Character.toString(letter) + Character.toString(number);
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        }
-//        return null;
-//    }
+
+    /**
+     * Process of bidding in the auction
+     *
+     * @param bidder bidder to be winner at that time
+     * @param price  price to be betted
+     * @return used for Auction exception
+     */
     public String bid(User bidder, double price) {
         actualWinner = bidder;
         actualPrice = price;
@@ -103,12 +92,24 @@ public abstract class Auction extends Starter implements HelpMethods {
 
     public abstract void callAuction();
 
-    public boolean compare(Auction auction) {
-        if(!auction.win.compare(this.win) || !auction.formerOwner.compare(formerOwner))
+    /**
+     * Compares values of two auctions
+     *
+     * @param auction auctioned to be compared with
+     * @return boolean if they have the same data
+     */
+    @Override
+    public boolean compare(Starter auction) {
+        if (!((Auction) auction).win.compare(this.win) || !((Auction) auction).formerOwner.compare(formerOwner))
             return false;
         return true;
     }
 
+    /**
+     * When the auction ends, the objects gets to the warehouse of the winner and gets
+     * removed from the warehouse of the former owner. Winner pays for it. Auction
+     * gets removed from the serialized list of auctions
+     */
     public void setEnd() {
         win.setStatus(ObjectStatus.SOLD);
         if (actualWinner instanceof BasicUser) {
@@ -129,35 +130,27 @@ public abstract class Auction extends Starter implements HelpMethods {
             }
             ((BasicUser) actualWinner).writeIntoCashAccount(Double.parseDouble("-" + actualPrice));
         }
-            try {
-                GenericList<Auction> auctions = (GenericList<Auction>) serialize.readObject("auctions");
-                for(Auction actual : auctions.getList()) {
-                    if(actual.compare(this)) {
-                        auctions.getList().remove(actual);
-                        break;
-                    }
-                }
-                serialize.writeObject(auctions);
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
+        try {
+            GenericList<Auction> auctions = (GenericList<Auction>) serialize.readObject("auctions");
+            //TODO pouzivanie generickych metod
+            Auction toDelete = (Auction) auctions.find(this);
+            auctions.getList().remove(toDelete);
+            serialize.writeObject(auctions);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         try {
             GenericList<AuctionedObject> formerOwnerObjects = serialize.readObject("warehouse", formerOwner.getUsername());
-            for(AuctionedObject actual : formerOwnerObjects.getList()) {
-                if (actual.compare(win)) {
-                    formerOwnerObjects.getList().remove(actual);
-                    break;
-                }
-            }
+            AuctionedObject toDelete = (AuctionedObject) formerOwnerObjects.find(win);
+            formerOwnerObjects.getList().remove(toDelete);
             serialize.writeObject(formerOwnerObjects, formerOwner.getUsername());
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-
         end = true;
     }
 
@@ -181,12 +174,17 @@ public abstract class Auction extends Starter implements HelpMethods {
     public String getName() {
         return id + " " + win.getName();
     }
+
+    public AuctionedObject getWin() {
+        return win;
+    }
+
+    /**
+     * @return default method for listviews
+     */
     @Override
     public String toString() {
         return win.getName() + " by " + actualWinner.getUsername();
     }
 
-    public AuctionedObject getWin() {
-        return win;
-    }
 }

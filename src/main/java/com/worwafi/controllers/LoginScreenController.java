@@ -43,7 +43,11 @@ public class LoginScreenController implements Initializable {
     @FXML
     private JFXTextArea welcomeDialog;
 
-
+    /**
+     * At first it loads all the users serialized.
+     * @param location
+     * @param resources
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         GenericList<BasicUser> users = null;
@@ -57,6 +61,10 @@ public class LoginScreenController implements Initializable {
         buttonConfig(users);
     }
 
+    /**
+     * Sets up the buttons. Login is used for login, registration opens new fields to get the info about the user
+     * @param users list of users already registered
+     */
     private void buttonConfig(GenericList<BasicUser> users) {
         AtomicBoolean registrationClicked = new AtomicBoolean(false);
         buttonLogin.setOnAction(event -> {
@@ -107,6 +115,14 @@ public class LoginScreenController implements Initializable {
         });
     }
 
+    /**
+     * Compares the data from fields with users already registered. Loads the correct user into singleton
+     * @param usernameInput username
+     * @param passwordInput password
+     * @param users list of registered users
+     * @return the result
+     * @throws IOException
+     */
     private boolean compare(String usernameInput, String passwordInput, GenericList<BasicUser> users) throws IOException {
         for (int i = 0; i < users.getList().size(); i++) {
             if (users.getList().get(i).getUsername().equals(usernameInput) && users.getList().get(i).getPassword().equals(passwordInput)) {

@@ -82,7 +82,8 @@ public class AuctionController extends PatternController implements Initializabl
 
     /**
      * Called to initialize a controller after its root element has been
-     * completely processed.
+     * completely processed. Setups buttons in the upper and lower part, defines functions for different
+     * auction types to implement. Starts the auction.
      *
      * @param location  The location used to resolve relative paths for the root object, or
      *                  {@code null} if the location is not known.
@@ -97,6 +98,9 @@ public class AuctionController extends PatternController implements Initializabl
         SingAuction.getInstance().getAuction().callAuction();
     }
 
+    /**
+     * Changes the areas for reverse auction implementation
+     */
     @Override
     public void reverseButtonListeners() {
         recom2.setVisible(false);
@@ -111,6 +115,9 @@ public class AuctionController extends PatternController implements Initializabl
         });
     }
 
+    /**
+     * Changes the areas for english auction implementation
+     */
     @Override
     public void englishButtonListeners() {
         buttonSetting(recom1);
@@ -133,6 +140,11 @@ public class AuctionController extends PatternController implements Initializabl
         });
     }
 
+    /**
+     * buttons for setting, define the same function but with different values
+     *
+     * @param actualButton button to be set
+     */
     private void buttonSetting(JFXButton actualButton) {
         actualButton.setOnAction(event -> {
             String[] text = actualButton.getText().split(" ");
@@ -153,31 +165,19 @@ public class AuctionController extends PatternController implements Initializabl
         });
     }
 
-
+    /**
+     * Start of the auction
+     */
     private void startAuction() {
         SingAuction.getInstance().getAuction().setAuctionStatusListener(this);
         //TODO thread
         Timer timer = new Timer();
         AuctionTask task = new AuctionTask();
         timer.scheduleAtFixedRate(task, 0, 1000);
-//        timer.scheduleAtFixedRate(new TimerTask() {
-//            int local = 5;
-//
-//            @Override
-//            public void run() {
-//                callingTextArea.setText(String.valueOf(local));
-//                local--;
-//                if (local < 0) {
-//                    timer.cancel();
-//                    callingTextArea.setText(auctionStartQuote());
-//                    lowNavBar.setDisable(false);
-//                    calling();
-//                }
-//            }
-//        }, 0, 1000);
     }
 
     //TODO vnorena trieda
+
     class AuctionTask extends TimerTask {
         private int local;
 
@@ -186,7 +186,7 @@ public class AuctionController extends PatternController implements Initializabl
         }
 
         /**
-         * The action to be performed by this timer task.
+         * The action to be performed by this timer task. Timer decreases the value after one second
          */
         @Override
         public void run() {
@@ -201,8 +201,12 @@ public class AuctionController extends PatternController implements Initializabl
         }
     }
 
+    /**
+     * Function which performs the auction. Timer that eventually stops based on the input from the auctions and
+     * sets the winner into the areas and disables the buttons.
+     */
     private void calling() {
-        pauseTransition = new PauseTransition(Duration.seconds(2));
+        pauseTransition = new PauseTransition(Duration.seconds(1));
         pauseTransition.play();
         pauseTransition.setOnFinished(event -> {
             //TODO RTTI
@@ -221,43 +225,11 @@ public class AuctionController extends PatternController implements Initializabl
                 pauseTransition.playFromStart();
             }
         });
-
-//        Timer timer = new Timer();
-//        timer.scheduleAtFixedRate(new TimerTask() {
-//            int local = 3;
-//            @Override
-//            public void run() {
-//                calling.setText("Calling for the " + (4-local) + ". time");
-//                local--;
-//                if (callBidders()) {
-//                    timer.cancel();
-//                    calling();
-//                }
-//                if (local < 0) {
-//                    timer.cancel();
-//                    SingAuction.getInstance().getAuction().setEnd();
-//                    calling.setText("Winner of " + SingActualObject.getInstance().getObject().getName() + " is " + SingAuction.getInstance().getAuction().getActualWinner().getUsername() + "!");
-//                    SingAuction.getInstance().getAuction().setEnd();
-//                    SingActualObject.getInstance().getObject().setStatus(ObjectStatus.SOLD);
-//                }
-//            }
-//        }, 0, 3000);
     }
 
-//    private boolean callBidders() {
-//        for (int i = 1; i < SingAuction.getInstance().getAuction().getBidders().size(); i++) {
-//            Random rand = new Random();
-//            int check = rand.nextInt(100);
-//            double price = SingAuction.getInstance().getAuction().getActualPrice() * (1 + Double.parseDouble(df.format(rand.nextDouble())));
-//            if (check < 10 && SingAuction.getInstance().getAuction().getBidders().get(i).getCashAccount().getCredit() > price) {
-//                SingAuction.getInstance().getAuction().bid(SingAuction.getInstance().getAuction().getBidders().get(i), price);
-//                updateLayout();
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
-
+    /**
+     * setups areas of the view along with picture
+     */
     @Override
     public void setupAreas() {
         super.setupAreas();
@@ -269,12 +241,17 @@ public class AuctionController extends PatternController implements Initializabl
         actualBalance.setText(String.valueOf(SingUserInfo.getInstance().getLoggedUser().getCashAccount().getCredit()));
     }
 
+    /**
+     * Setups bidders into the listview
+     */
     private void setupBidders() {
         biddersBox.setItems(SingAuction.getInstance().getAuction().getBidders().getList());
         biddersBox.setEditable(false);
     }
 
-
+    /**
+     * Updates areas for English auction
+     */
     @Override
     public void updateEnglishLayout() {
         if (start)
@@ -287,12 +264,18 @@ public class AuctionController extends PatternController implements Initializabl
         recom2.setText("Bid +" + (SingAuction.getInstance().getAuction().getActualPrice() / 5));
     }
 
+    /**
+     * Updates the cycle during Reverse auction
+     */
     @Override
     public void decreasePrice() {
         informBid.setText("Price has been decreased to " + SingAuction.getInstance().getAuction().getActualPrice());
         actualBid.setText(df.format(SingAuction.getInstance().getAuction().getActualPrice()));
     }
 
+    /**
+     * Updates areas for Reverse auction
+     */
     @Override
     public void updateReverseLayout() {
         if (start)

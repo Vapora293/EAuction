@@ -2,6 +2,11 @@ package com.worwafi.others;
 
 public enum Deseralization {
     USERS, WAREHOUSE, WALLET, AUCTIONS;
+
+    /**
+     * Cases of deserialization
+     * @return deserialization value
+     */
     @Override
     public String toString() {
         switch (this) {

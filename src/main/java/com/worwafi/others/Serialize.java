@@ -15,6 +15,13 @@ import java.util.Scanner;
 public class Serialize {
     AuctionFactory auctionFactory = new AuctionFactory();
 
+    /**
+     * Method used to serialize the object into desired txt
+     * @param o Generic list to serialize
+     * @return whether the serialization has been completed successfully
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     public final boolean writeObject(GenericList<? extends Starter> o) throws IOException, ClassNotFoundException {
         if (o.getList().isEmpty())
             return false;
@@ -74,6 +81,15 @@ public class Serialize {
         }
         return false;
     }
+
+    /**
+     * Method used to serialize warehouse into the file of desired user
+     * @param o Generic list to serialize
+     * @param user file to be serialized into
+     * @return whether the serialization has been completed successfully
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     public final boolean writeObject(GenericList<? extends Starter> o, String user) throws IOException, ClassNotFoundException {
         if (o.getList().isEmpty())
             return false;
@@ -99,6 +115,13 @@ public class Serialize {
         return false;
     }
 
+    /**
+     * Gets the list of desired objects based on the String property in the param of the function
+     * @param thing deserialization will happen based on this param
+     * @return Generic List of desired objects
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     public final GenericList<? extends Starter> readObject(String thing) throws IOException, ClassNotFoundException {
         switch (Deseralization.valueOf(thing.toUpperCase(Locale.ROOT))) {
             case USERS:
@@ -168,6 +191,14 @@ public class Serialize {
         }
     }
 
+    /**
+     * Method used to deserialize warehouse from the file of desired user
+     * @param thing deserialization will happen based on this param
+     * @param user file to be serialized into
+     * @return Generic List of desired objects
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     public GenericList<AuctionedObject> readObject(String thing, String user) throws IOException, ClassNotFoundException {
         if (Deseralization.valueOf(thing.toUpperCase(Locale.ROOT)) == Deseralization.WAREHOUSE) {
             try {

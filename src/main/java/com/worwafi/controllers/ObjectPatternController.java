@@ -31,6 +31,9 @@ public class ObjectPatternController extends PatternController {
     @FXML
     ImageView imageViewer;
 
+    /**
+     * sets up AuctionedObject information to the fields
+     */
     protected void setupObject() {
         ownerTxtArea.setText(SingUserInfo.getInstance().getLoggedUser().getUsername());
         nameTextArea.setText(SingActualObject.getInstance().getObject().getName());
@@ -46,6 +49,7 @@ public class ObjectPatternController extends PatternController {
             e.printStackTrace();
         }
     }
+
     protected void setEditable(boolean actual) {
         ownerTxtArea.setEditable(actual);
         nameTextArea.setEditable(actual);

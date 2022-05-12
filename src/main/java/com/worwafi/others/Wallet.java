@@ -13,9 +13,11 @@ public class Wallet implements Serializable {
     public void raiseCredit(double credit) {
         this.credit += credit;
     }
+
     public void lowerCredit(double credit) {
         this.credit -= credit;
     }
+
     public double getCredit() {
         return credit;
     }

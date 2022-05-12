@@ -16,6 +16,17 @@ public class AuctionedObject extends Starter {
     private ObjectCategory category;
     private ObjectStatus status;
 
+    /**
+     *
+     * @param owner
+     * @param name
+     * @param bio description of the auctioned object
+     * @param startingPrice
+     * @param expSelPrice
+     * @param path to the picture
+     * @param objectCategory either Jewellery, Antique, Sculpture or Painting
+     * @param status either sold, stored or for sale
+     */
     public AuctionedObject(User owner, String name, String bio, double startingPrice, double expSelPrice, String path,
                            String objectCategory, String status) {
         this.owner = owner;
@@ -27,6 +38,11 @@ public class AuctionedObject extends Starter {
         this.category = ObjectCategory.valueOf(objectCategory.toUpperCase(Locale.ROOT));
         this.status = ObjectStatus.valueOf(status.toUpperCase(Locale.ROOT));
     }
+
+    /**
+     *
+     * @return default method for listviews
+     */
     @Override
     public String toString() {
         return name;
@@ -37,6 +53,10 @@ public class AuctionedObject extends Starter {
         return name;
     }
 
+    /**
+     *
+     * @return all data of the object
+     */
     @Override
     public String getAllData() {
         return owner.getName() + " " + name + " " + bio + " " + startingPrice + " " + expSelPrice + " " +
@@ -74,18 +94,34 @@ public class AuctionedObject extends Starter {
     public User getOwner() {
         return owner;
     }
-    public boolean compare(AuctionedObject second) {
-        if(!this.owner.getUsername().equals(second.owner.getUsername()) || !this.name.equals(second.name) ||
-        !this.bio.equals(second.bio) || (this.startingPrice != second.startingPrice) || (this.expSelPrice != second.expSelPrice) ||
-        !this.picture.toString().equals(second.picture.toString()) || !(this.category == second.category))
+
+    /**
+     * equivalent of .equals, but just for the parameters of the object, they do not have to be the same instance
+     * @param second object to compare
+     * @return boolean if they contain the same data
+     */
+    @Override
+    public boolean compare(Starter second) {
+        if(!this.owner.getUsername().equals(((AuctionedObject)second).owner.getUsername()) || !this.name.equals(((AuctionedObject)second).name) ||
+                !this.bio.equals(((AuctionedObject)second).bio) || (this.startingPrice != ((AuctionedObject)second).startingPrice) || (this.expSelPrice != ((AuctionedObject)second).expSelPrice) ||
+                !this.picture.toString().equals(((AuctionedObject)second).picture.toString()) || !(this.category == ((AuctionedObject)second).category))
             return false;
         return true;
     }
     //TODO implementacia Memento design pattern
+
+    /**
+     * Implementation of Memento design pattern
+     * @return new Memento
+     */
     public Memento saveToMemento() {
         return new Memento(this);
     }
 
+    /**
+     * restores data from the Memento
+     * @param memento Memento to restore from
+     */
     public void restoreFromMemento(Memento memento) {
         owner = memento.getSavedAuctionedObject().owner;
         name = memento.getSavedAuctionedObject().name;
@@ -100,6 +136,10 @@ public class AuctionedObject extends Starter {
     public static class Memento {
         private final AuctionedObject localVersion;
 
+        /**
+         * Memento saves the object at some point in history
+         * @param localVersion
+         */
         public Memento(AuctionedObject localVersion) {
             this.localVersion = localVersion;
         }

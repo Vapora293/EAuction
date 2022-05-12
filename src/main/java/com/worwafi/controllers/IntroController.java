@@ -43,6 +43,9 @@ public class IntroController extends PatternController implements Initializable 
     @FXML
     private JFXButton backButton;
 
+    /**
+     * Sets up the balance of the user
+     */
     private void setupWallet() {
         try {
             File userTxt = new File("D:\\skola\\txt\\" + SingUserInfo.getInstance().getLoggedUser().getUsername() + "Wallet.txt");
@@ -76,7 +79,8 @@ public class IntroController extends PatternController implements Initializable 
 
     /**
      * Called to initialize a controller after its root element has been
-     * completely processed.
+     * completely processed. After setting up upper and downer areas and wallet, it contains additional buttons
+     * for moving to other views. Functions as a menu
      *
      * @param location  The location used to resolve relative paths for the root object, or
      *                  {@code null} if the location is not known.
@@ -116,6 +120,10 @@ public class IntroController extends PatternController implements Initializable 
             }
         });
     }
+
+    /**
+     * Returns random quote to the area
+     */
     @Override
     public void setupAreas() {
         super.setupAreas();

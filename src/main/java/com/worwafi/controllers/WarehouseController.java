@@ -41,7 +41,8 @@ public class WarehouseController extends PatternController implements Initializa
 
     /**
      * Called to initialize a controller after its root element has been
-     * completely processed.
+     * completely processed. After setting up pattern, two buttons - one for loading, second
+     * for adding new object are being initialized.
      *
      * @param location  The location used to resolve relative paths for the root object, or
      *                  {@code null} if the location is not known.
@@ -81,6 +82,9 @@ public class WarehouseController extends PatternController implements Initializa
         });
     }
 
+    /**
+     * sets up Auctioned Objects listview
+     */
     private void setupListView() {
         listObjects.getItems().clear();
         try {
@@ -92,26 +96,4 @@ public class WarehouseController extends PatternController implements Initializa
             e.printStackTrace();
         }
     }
-
-//    private ObservableList<AuctionedObject> setupAuctionedObjects() {
-//        try {
-//            File auctionedObjectFile = new File(String.valueOf(SingUserInfo.getInstance().getLoggedUser().getObjectFile()));
-//            Scanner myReader = new Scanner(auctionedObjectFile);
-//            ObservableList<AuctionedObject> possesion = FXCollections.observableArrayList();
-//            while (myReader.hasNextLine()) {
-//                String line = myReader.nextLine();
-//                if(line.equals(""))
-//                    continue;
-//                String lineSplit[] = line.split(" . ");
-//                AuctionedObject actual = new AuctionedObject(SingUserInfo.getInstance().getLoggedUser(), lineSplit[0],
-//                        lineSplit[1], Double.parseDouble(lineSplit[2]), Double.parseDouble(lineSplit[3]), lineSplit[4],
-//                        lineSplit[5], lineSplit[6]);
-//                possesion.add(actual);
-//            }
-//            SingUserInfo.getInstance().getLoggedUser().setPossession(possesion);
-//            return possesion;
-//        } catch (FileNotFoundException e) {
-//            return FXCollections.observableArrayList();
-//        }
-//    }
 }

@@ -34,7 +34,6 @@
       <JFXTextArea fx:id="walletConsole" editable="false" focusColor="#405aa800" styleClass="mainTextArea" unFocusColor="#4d4d4d00" GridPane.columnSpan="2" GridPane.rowIndex="1" />
       <ButtonBar buttonMinWidth="200.0" prefHeight="30.0" prefWidth="800.0" GridPane.rowIndex="2">
          <buttons>
-            <JFXButton fx:id="upgradeAccount" minWidth="150.0" prefHeight="25.0" prefWidth="180.0" styleClass="regularButton" text="Upgrade your account" />
             <JFXButton fx:id="raiseMoney" styleClass="regularButton" text="Raise account" />
             <JFXTextField fx:id="actualBalance" focusColor="#405aa800" minWidth="250.0" prefHeight="25.0" prefWidth="250.0" styleClass="regularTextField" unFocusColor="#4d4d4d00" />
          </buttons>

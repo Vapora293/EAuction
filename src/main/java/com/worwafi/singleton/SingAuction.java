@@ -13,20 +13,11 @@ import java.util.Scanner;
 public class SingAuction {
     private static SingAuction single_instance = null;
 
-    private GenericList<Auction> allAuctions;
     private Auction actual;
     private boolean newAuction;
 
+
     private SingAuction() {
-        Serialize serialize = new Serialize();
-        try {
-            allAuctions = new GenericList<>();
-            allAuctions = (GenericList<Auction>) serialize.readObject("auctions");
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
     }
 
     public static SingAuction getInstance() {
@@ -39,12 +30,15 @@ public class SingAuction {
         this.actual = actual;
         this.newAuction = newAuction;
     }
+
     public boolean isNewAuction() {
         return newAuction;
     }
+
     public void setNewAuction(boolean value) {
         newAuction = value;
     }
+
     public void clear() {
         single_instance = null;
     }

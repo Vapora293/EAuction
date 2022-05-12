@@ -11,6 +11,12 @@ public class Main extends Application {
         launch(args);
     }
 
+    /**
+     * Starts the first stage. Moves it to Singleton as a scene changer
+     *
+     * @param primaryStage stage to cast to
+     * @throws Exception
+     */
     @Override
     public void start(Stage primaryStage) throws Exception {
         SingStage.setInstance(primaryStage);

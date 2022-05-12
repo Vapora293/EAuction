@@ -100,6 +100,11 @@ public class MainController extends ObjectPatternController implements Initializ
     @FXML
     private JFXTextField auctionType;
 
+    /**
+     * Sets up the pattern buttons and loads the auction information into the fields. Buttons are set here
+     * @param location
+     * @param resources
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setupAreas();
@@ -210,6 +215,9 @@ public class MainController extends ObjectPatternController implements Initializ
         }
     }
 
+    /**
+     * Sets up object info and combobox info of auctions
+     */
     @Override
     protected void setupObject() {
         super.setupObject();
@@ -224,10 +232,17 @@ public class MainController extends ObjectPatternController implements Initializ
         auctionComboBox.setItems(auctionList);
     }
 
+    /**
+     * random id
+     * @return id
+     */
     private String getId() {
         return String.valueOf((char) (rand.nextInt(25) + 65) + rand.nextInt(10));
     }
 
+    /**
+     * checks correctness of money values
+     */
     private void checkCorrect() {
         try {
         if(!startingPriceTextArea.getText().replaceAll("€", "").matches("(.*)regular(.*)"))
@@ -238,6 +253,11 @@ public class MainController extends ObjectPatternController implements Initializ
             e.printStackTrace();
         }
     }
+
+    /**
+     * After clicking on combobox, it loads the texts again
+     * @param mouseEvent
+     */
     @FXML
     public void handleMouseClick(MouseEvent mouseEvent) {
         setupAuctionComboBox();

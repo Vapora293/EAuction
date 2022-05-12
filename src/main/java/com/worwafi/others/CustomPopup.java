@@ -30,6 +30,9 @@ public class CustomPopup {
         return pane;
     }
 
+    /**
+     * Sets up view of a custom view
+     */
     public void setupView() {
         pane = new AnchorPane();
         pane.setPrefWidth(300);

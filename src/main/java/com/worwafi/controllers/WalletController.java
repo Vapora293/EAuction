@@ -1,4 +1,5 @@
 package com.worwafi.controllers;
+
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
@@ -27,9 +28,6 @@ public class WalletController extends PatternController implements Initializable
     private JFXButton backButton;
 
     @FXML
-    private JFXButton getAucObject;
-
-    @FXML
     private JFXButton logOutBtn;
 
     @FXML
@@ -46,6 +44,9 @@ public class WalletController extends PatternController implements Initializable
     @FXML
     private JFXTextField actualBalance;
 
+    /**
+     * sets up wallet info with all transactions up to now into textarea
+     */
     private void setupWallet() {
         try {
             File userTxt = new File("D:\\skola\\txt\\" + SingUserInfo.getInstance().getLoggedUser().getUsername() + "Wallet.txt");
@@ -54,11 +55,11 @@ public class WalletController extends PatternController implements Initializable
             double check = 0;
             while (myReader.hasNextLine()) {
                 String line = myReader.nextLine();
-                if(isPlus(line)) {
+                if (isPlus(line)) {
                     walletConsole.appendText("Balance has been raised by " + line + "\n");
                     check += Double.parseDouble(line);
                 }
-                if(isMinus(line)) {
+                if (isMinus(line)) {
                     walletConsole.appendText("Balance has been decreased by " + line + "\n");
                     check += Double.parseDouble(line);
                 }
@@ -71,20 +72,22 @@ public class WalletController extends PatternController implements Initializable
             actualBalance.setText("Current balance is 0 :(");
         }
     }
+
     boolean isPlus(String line) {
-        if(line.contains("+"))
+        if (line.contains("+"))
             return true;
         return false;
     }
+
     boolean isMinus(String line) {
-        if(line.contains("-"))
+        if (line.contains("-"))
             return true;
         return false;
     }
 
     /**
      * Called to initialize a controller after its root element has been
-     * completely processed.
+     * completely processed. Sets up pattern buttons and areas along with buttons for raising money
      *
      * @param location  The location used to resolve relative paths for the root object, or
      *                  {@code null} if the location is not known.
@@ -109,8 +112,5 @@ public class WalletController extends PatternController implements Initializable
             setupWallet();
             System.out.println(SingUserInfo.getInstance().getLoggedUser().getCashAccount().getCredit());
         });
-    }
-
-    private void updateBalance() {
     }
 }

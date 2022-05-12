@@ -14,12 +14,16 @@ public class SingUserInfo {
     private BasicUser loggedUser;
     private GenericList<User> usersAvailable;
 
+    /**
+     * Accesses the bots
+     */
     private SingUserInfo() {
         usersAvailable = new GenericList<>();
         usersAvailable = makeBidders();
     }
+
     public static SingUserInfo getInstance() {
-        if(single_instance == null)
+        if (single_instance == null)
             single_instance = new SingUserInfo();
         return single_instance;
     }
@@ -28,19 +32,22 @@ public class SingUserInfo {
         this.loggedUser = loggedUser;
         usersAvailable.getList().add(loggedUser);
     }
+
+    /**
+     * Makes the list of bots based on random number
+     *
+     * @return the bot list
+     */
     private GenericList<User> makeBidders() {
         Random rand = new Random();
         GenericList<User> localBidders = new GenericList<>();
         BotNames names = new BotNames();
-        for(int i = 1; i < rand.nextInt(50)+50; i++) {
+        for (int i = 1; i < rand.nextInt(50) + 50; i++) {
             BotUser actual = new BotUser(names.getName());
             actual.getCashAccount().setCredit(rand.nextInt(10000));
             localBidders.getList().add(actual);
         }
         return localBidders;
-    }
-    public void clear() {
-        single_instance = null;
     }
 
     public BasicUser getLoggedUser() {

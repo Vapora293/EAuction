@@ -15,6 +15,9 @@ public class SingActualObject {
         history = new ArrayList<>();
     }
 
+    /**
+     * @return returns the instance of this Singleton
+     */
     public static SingActualObject getInstance() {
         if (single_instance == null)
             single_instance = new SingActualObject();
@@ -25,9 +28,16 @@ public class SingActualObject {
         this.actual = actual;
         this.neww = neww;
     }
+
     public void addToHistory(AuctionedObject object) {
         history.add(object.saveToMemento());
     }
+
+    /**
+     * restores first instance of the object
+     *
+     * @param object object to restore information into
+     */
     public void restoreFromHistory(AuctionedObject object) {
         object.restoreFromMemento(history.get(0));
     }
@@ -39,6 +49,7 @@ public class SingActualObject {
     public AuctionedObject getObject() {
         return actual;
     }
+
     public void clear() {
         single_instance = null;
     }

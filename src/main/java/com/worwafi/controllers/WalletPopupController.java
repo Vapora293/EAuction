@@ -28,9 +28,11 @@ public class WalletPopupController implements Initializable {
     private JFXTextField secondTF;
 
     Stage popupStage;
+
     /**
      * Called to initialize a controller after its root element has been
-     * completely processed.
+     * completely processed. sets up buttons for raising the account and if the names in the fields do not match with
+     * the username, the warning is thrown.
      *
      * @param location  The location used to resolve relative paths for the root object, or
      *                  {@code null} if the location is not known.
@@ -43,17 +45,12 @@ public class WalletPopupController implements Initializable {
             Stage stage = (Stage) localButton.getScene().getWindow();
             stage.getOnCloseRequest().handle(new WindowEvent(localButton.getScene().getWindow(), WindowEvent.WINDOW_CLOSE_REQUEST));
             stage.close();
-            if(!SingUserInfo.getInstance().getLoggedUser().getUsername().equals(secondTF.getText())) {
+            if (!SingUserInfo.getInstance().getLoggedUser().getUsername().equals(secondTF.getText())) {
                 popupStage.setTitle("Warning");
                 CustomPopup alert = new CustomPopup("Are you sure it is you you want to raise account?", "yes");
                 Scene popupScene = new Scene(alert.asParent(), 300, 100);
                 popupStage.setScene(popupScene);
                 popupStage.show();
-//
-//                Alert alert = new Alert(Alert.AlertType.WARNING);
-//                alert.setTitle("Warning");
-//                alert.setContentText("Are you sure it is you you want to raise account?");
-//                alert.show();
             }
         });
         popupStage.setOnCloseRequest(event -> {

@@ -29,6 +29,9 @@ public class PatternController {
     @FXML
     private JFXButton backButton;
 
+    /**
+     * Sets the upper part of the view with buttons visible on every view
+     */
     protected void setupAreas() {
         welcomeTextArea.setText("Logged as: " + SingUserInfo.getInstance().getLoggedUser().getUsername());
         Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
@@ -43,6 +46,10 @@ public class PatternController {
         clock.setCycleCount(Animation.INDEFINITE);
         clock.play();
     }
+
+    /**
+     * sets up two buttons for logging out and back button
+     */
     protected void setupNavBarButtons() {
         logOutBtn.setOnAction(event -> {
             try {

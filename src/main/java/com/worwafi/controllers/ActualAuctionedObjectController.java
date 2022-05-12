@@ -61,7 +61,8 @@ public class ActualAuctionedObjectController extends ObjectPatternController imp
 
     /**
      * Called to initialize a controller after its root element has been
-     * completely processed.
+     * completely processed. If there is new object, textfields can be modified and then object saved. If it already
+     * exists, no modifications can be provided in this view
      *
      * @param location  The location used to resolve relative paths for the root object, or
      *                  {@code null} if the location is not known.
@@ -76,6 +77,10 @@ public class ActualAuctionedObjectController extends ObjectPatternController imp
         buttonSetup();
     }
 
+    /**
+     * setup of all buttons. Search - setups the image. Add - if everything kosher, it will be added to the warehouse
+     * of current user and the window closes
+     */
     private void buttonSetup() {
         searchForFile.setOnAction(event -> {
             File file = fileChooser.showOpenDialog(new Stage());

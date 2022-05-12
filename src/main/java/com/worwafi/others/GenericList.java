@@ -2,6 +2,7 @@ package com.worwafi.others;
 
 import com.worwafi.auctionedObject.AuctionedObject;
 import com.worwafi.auctions.Auction;
+import com.worwafi.users.BotUser;
 import com.worwafi.users.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,6 +11,9 @@ import javafx.collections.ObservableList;
 public class GenericList<T extends Starter> {
     private ObservableList<T> list;
 
+    /**
+     * creates new observable list in the generic method
+     */
     public GenericList() {
         list = FXCollections.observableArrayList();
     }
@@ -38,19 +42,29 @@ public class GenericList<T extends Starter> {
         return data;
     }
 
+    /**
+     * function for finding objects with same parameters in the observable List
+     * @param local object to find
+     * @return object found; null
+     */
     public Starter find(Starter local) {
         for (Starter actual : list) {
-            if (((AuctionedObject) actual).compare((AuctionedObject) local))
+            if (actual.compare(local))
                 return actual;
         }
         return null;
     }
 
     //TODO Observer design pattern
+
+    /**
+     * Method for notifying bots available to join the auction
+     * @param auction auction to join to
+     */
     public void notifyAllObservers(Auction auction) {
         for (Starter o : list) {
             if(o != null)
-                ((User) o).join(auction);
+                ((BotUser) o).join(auction);
         }
     }
 }
