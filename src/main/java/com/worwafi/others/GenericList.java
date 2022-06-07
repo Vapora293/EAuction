@@ -63,8 +63,9 @@ public class GenericList<T extends Starter> {
      */
     public void notifyAllObservers(Auction auction) {
         for (Starter o : list) {
-            if(o != null)
-                ((BotUser) o).join(auction);
+            if(o instanceof BotUser)
+                if(o != null)
+                    ((BotUser) o).join(auction);
         }
     }
 }
